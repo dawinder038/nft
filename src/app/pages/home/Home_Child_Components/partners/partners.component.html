@@ -1,0 +1,26 @@
+<section class="our-partner" *ngIf="!isLoggedIn">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="d-flex justify-content-between align-items-center flex-wrap mb-md-5 mb-4 pb-lg-2">
+            <h2 class="title me-md-4 me-2">Our Partners</h2>
+            <button class="btn btn-outline-secondary m-1" routerLink="/become-a-partner">
+              <img src="../../../assets/images/HomePage/become_a_partner.svg" class="me-2 " />
+              Become a Partner
+            </button>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <owl-carousel-o [options]="customOptions">
+            <ng-container *ngFor="let slide of partnersList">
+              <ng-template carouselSlide [id]="slide.id">
+                <div class="part-box">
+                  <img [routerLink]="'/partners/' + slide._id" [src]="slide.profile_pic != null ? imgUrl + slide.profile_pic:'../../../assets/images/HomePage/placeholder.png'" />
+                </div>
+              </ng-template>
+            </ng-container>
+          </owl-carousel-o>
+        </div>
+      </div>
+    </div>
+  </section>

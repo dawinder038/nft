@@ -1,0 +1,24 @@
+.gray{
+    color: rgb(65, 65, 65);
+    font-weight: 600;
+}
+.content ul{
+ padding-left: 20px;
+ font-size: 20px;    
+}
+.content p{
+    font-size: 20px;
+    line-height: 1.7;
+}
+.content h4{
+    font-weight: 600;
+}
+.content span{
+    color:rgb(243, 56, 243);
+}
+
+@media(max-width:767px){
+    .content ul{
+        font-size: 13px;
+    }
+}

@@ -1,0 +1,97 @@
+<div class="modal fade common-modal" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button class="close-btn btn-icon" data-bs-toggle="modal" #buyNftCloseModalBtn data-bs-target="#buyModal">
+            <img src="../../../assets/images/pages/close.svg" />
+          </button>
+          <div class="row">
+            <div class="col-md-5">
+              <div class="preview-box visible-gradient">
+                <div class="preview">
+                  <ng-container *ngIf="!checkoutContent.media_type">
+                    <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+                  </ng-container>
+                  <ng-container *ngIf="checkoutContent.media_type">
+                    <ng-container *ngIf="checkoutContent.media_type=='image'">
+                      <img class="marketplace-img" [src]="checkoutContent.file?checkoutContent.file:''" alt="">
+                    </ng-container>
+                    <ng-container *ngIf="checkoutContent.media_type=='vedio'">
+                      <video width="320" height="240" controls>
+                        <source [src]="checkoutContent.file?checkoutContent.file:''" type="video/mp4">
+                      </video>
+                    </ng-container>
+                    <ng-container *ngIf="checkoutContent.media_type=='audio'">
+                      <audio controls>
+                        <source [src]="checkoutContent.file?checkoutContent.file:''" type="audio/ogg">
+                      </audio>
+                    </ng-container>
+                  </ng-container>
+                </div>
+                <div class="text-center preview-info">
+                  <p class="mb-0 text-break"><b>{{checkoutContent.name}}</b></p>
+                  <p class="mb-0 text-gray text-break">{{checkoutContent.owner_wallet_address?.slice(0,10) + '...' +
+                    checkoutContent.owner_wallet_address?.slice(-4)}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="common-modal-content ps-md-4 mt-md-0 mt-4">
+                <h3 class="fw-bold">Checkout</h3>
+                <p class="text-break">
+                  You are about to purchase a<br /><b>{{checkoutContent.name}} #3059</b><br />from
+                  <b>{{checkoutContent.owner_wallet_address?.slice(0,10) + '...' +
+                    checkoutContent.owner_wallet_address?.slice(-4)}}</b>
+                </p>
+                <div class="d-flex align-items-center justify-content-between mt-4">
+                  <p>Balance</p>
+                  <p><b>{{balance}} MATIC</b> / {{(balance*bnbValue).toFixed(4)}} USD</p>
+                </div>
+                <div class="d-flex align-items-center justify-content-between">
+                  <p>Service Fee 2.5%</p>
+                  <p><b>{{(checkoutContent.price*0.025).toFixed(4)}} MATIC</b> /
+                    {{((checkoutContent.price*0.025)*bnbValue).toFixed(4)}} USD</p>
+                </div>
+                <div class="d-flex align-items-center justify-content-between">
+                  <p>Item Price</p>
+                  <p><b>{{checkoutContent.price}} MATIC</b>/ {{(checkoutContent.price*bnbValue).toFixed(4)}} USD</p>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mt-4">
+                  <p>Total</p>
+                  <h5 *ngIf="checkoutContent.type==1">
+                    <img src="../../../assets/images/nft/polygon_matic.png"
+                      class="me-3  w-19" /><b>{{(+checkoutContent.price
+                      +(checkoutContent.price*0.025))?.toFixed(4)}} MATIC</b> / {{((+checkoutContent.price
+                    +(checkoutContent.price*0.025))*bnbValue).toFixed(4)}} USD
+                  </h5>
+                  <h5 *ngIf="checkoutContent.type==2">
+                    <img src="../../../assets/images/nft/polygon_matic.png"
+                      class="me-3  w-19" /><b>{{((+checkoutContent.price
+                      +(checkoutContent.price*0.025))*copiesToBuy)?.toFixed(4)}} MATIC</b> / {{(((+checkoutContent.price
+                    +(checkoutContent.price*0.025))*bnbValue)*copiesToBuy).toFixed(4)}} USD
+                  </h5>
+                </div>
+                <div class="" *ngIf="checkoutContent.type==2">
+                  <p>No of Copies</p>
+                  <input type="number" [(ngModel)]="copiesToBuy" min="0" [max]="checkoutContent?.available"
+                    class="form-control" (keypress)="numberOnlyLimited($event)">
+                </div>
+                <label class="radio-container fw-normal fs-12">
+                  <input type="radio" name="radio" checked />
+                  <span class="checkmark"></span>
+                  By checking this box, you agree to NFTwist's
+                  <b class="text-theme">Terms</b>.
+                </label>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <!-- <button type="button" [disabled]="!copiesToBuy" (click)="mintNft(checkoutContent)"
+                class="btn btn-primary fw-normal w-100 pay-now-btn">
+                Pay Now
+              </button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

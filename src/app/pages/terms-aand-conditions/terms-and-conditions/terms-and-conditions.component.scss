@@ -1,0 +1,55 @@
+.agreement{
+    color: gray;
+    font-weight: 600;
+    font-size: 20px;
+}
+.terms-condition h1{
+    font-weight:700;
+    background: -webkit-linear-gradient( #00ffdd, #2bcae4, #6383ee, #904bf5, #b123fa, #c50afe, #cc01ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+ul{
+    display: inline-block;
+    margin-left:0;
+    padding-left: 5px;
+    // list-style: none;
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+ul li{
+    padding-left: 10px;
+}
+
+::marker {
+    color:#cc01ff;
+    border-radius: 0 !important;
+    content: "\25AA";
+}
+.btn-not{
+    padding: 18px;
+}
+.btn-agree{
+    background: linear-gradient(to right, #cc01ff, #6383ee, #2bcae4,  #904bf5, #b123fa, #c50afe);
+    color: white;
+    padding: 18px;
+}
+.t-and-c{
+ font-size: 18px;
+ line-height: 1.8;
+}
+@media(max-width:767px){
+    ul{
+        font-size: 12px;
+    }
+    .btn-not{
+        padding:11px ;
+        font-size: 10px;
+    }
+    .btn-agree{
+        padding: 11px;
+        font-size: 10px;
+    }
+
+}

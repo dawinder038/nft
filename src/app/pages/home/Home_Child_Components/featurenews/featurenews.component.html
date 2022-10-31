@@ -1,0 +1,76 @@
+<section class="our-partner" *ngIf="featuredNews.length > 0">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="d-flex justify-content-between align-items-center mb-md-5 mb-4 pb-lg-2">
+            <h2 class="title">Featured News</h2>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="d-lg-block d-none">
+            <owl-carousel-o [options]="featuredNewsOptions">
+              <ng-container *ngFor="let slide of featuredNews">
+                <ng-template carouselSATBBf3U3jCnz8gqTNmfu6gCCnUzcCDF0652Dlide>
+                  <div class="row">
+                    <div class="col-md-6 {{slide.length<1?'col-md-12':null}}" [ngClass]="slide.length<1?'col-md-12':''">
+                      <div class="position-relative hot-project largeImage">
+                        <img
+                          [src]="slide[0]?.thumbnail?imgUrl+slide[0]?.thumbnail:'../../../assets/images/HomePage/placeholder.png'" />
+  
+                        <div class="blog-text text-center w-100">
+  
+                          <p class="sss">{{slide[0]?.description}}</p>
+                          <div>
+                            <button class="btn btn-primary mt-4" (click)="openLink(slide[0]?.hyperlink)">View</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 pe-4" *ngIf="slide.length>1">
+                      <div class="row pb-3 featured-news-small-box-row">
+                        <ng-container *ngFor="let news of slide.slice(1,slide.length)">
+                          <div class="col-md-6 my-2 pb-1 featured-news-small-box">
+                            <div class="hot-project position-relative">
+                              <img
+                                [src]="news.thumbnail?imgUrl+news?.thumbnail:'../../../assets/images/HomePage/placeholder.png'"
+                                class="img-fluid" />
+                              <div class="blog-text text-center w-100">
+                                <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                  ut
+                                  labore et dolore magna aliqua.</p> -->
+                                <p>{{news.description}}</p>
+                                <div>
+                                  <button class="btn btn-primary mt-4 view-btn"
+                                    (click)="openLink(news.hyperlink)">View</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </ng-container>
+            </owl-carousel-o>
+          </div>
+          <owl-carousel-o [options]="newsCustomOptions" class="d-lg-none">
+            <ng-container *ngFor="let news of featuredNews[0]">
+              <ng-template carouselSlide>
+                <div class="partner-box position-relative">
+                  <img [src]="news.thumbnail?imgUrl+news?.thumbnail:'../../../assets/images/HomePage/placeholder.png'" />
+  
+                  <div class="blog-text text-center">
+                    <p>{{news.description}}</p>
+                    <div>
+                      <button class="btn btn-primary mt-4 view-btn" (click)="openLink(news.hyperlink)">View</button>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ng-container>
+          </owl-carousel-o>
+        </div>
+      </div>
+    </div>
+  </section>

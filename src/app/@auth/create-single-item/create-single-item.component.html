@@ -1,0 +1,459 @@
+<div class="auth-page two-way-factor">
+  <div class="create-items-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Create Single Item <br />On Binance Smart Chain</h2>
+          <p class="text-center">
+            <span>Step 1: Select Type <span class="mx-2">•••••••••</span></span> <span>Step 2: Select Blockchain<span class="mx-2">•••••••••</span></span><b>Step 3: Upload NFT</b>
+          </p>
+        </div>
+      </div>
+
+      <ng-container *ngIf="isCreatingNft">
+        <div class="loader">
+          <div class="spinner-border text-dark" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </ng-container>
+      <div class="row">
+        <div class="col-md-12">
+          <form [formGroup]="nftCreateForm" (submit)="submitForm()">
+            <div class="create-item-content">
+              <div class="row">
+                <div class="col-xl-8">
+                  <div class="mb-md-5 mb-4">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap">
+                      <h4 class="mb-0 fw-bold">Upload File</h4>
+                      <p class="mb-0">PNG, GIF, WEBP, MP4 or MP3. Max 100mb.</p>
+                    </div>
+                    <div class="my-2 mt-4">
+                      <ngx-dropzone #uploadNftFileElement (change)="upload($event)" class="dropzon-height" accept="image/x-png, image/gif, image/jpeg, video/mp4, video/x-m4v, video/*">
+                        <ngx-dropzone-label>
+                          <p class="text-gray">Drag and drop or</p>
+                          <button type="button" class="btn btn-outline-primary fs-14">Choose File</button>
+                        </ngx-dropzone-label>
+                      </ngx-dropzone>
+                    </div>
+                  </div>
+                  <div class="mb-md-5 mb-4 mxw-525">
+                    <h4 class="fw-bold">Setup Your NFT</h4>
+                    <div class="setup-box">
+                      <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="fw-bold mb-0">Put on marketplace</h6>
+                        <label class="switch">
+                          <input formControlName="putOnMarketplace" type="checkbox" checked />
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+                      <p class="text-gray">
+                        Enter price to allow users instantly purchase your NFT
+                      </p>
+                      <div class="d-flex align-items-center binance-dropdown  flex-column flex-sm-row">
+                        <input type="number" formControlName="price" [min]="0" class="form-control me-2 text-center" value="10" />
+                        <div class="dropdown mt-sm-0 mt-2 flex-grow-1 w-100">
+                          <button class="bnb-btn btn-outline-secondary w-100" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">MATIC
+                            <img src="../../../assets/images/nft/polygon_matic.png" class="b-img" />
+                          </button>
+                        </div>
+                      </div>
+                      <small style="color: red; display: block" *ngIf="nftCreateForm.controls['price'].value == '0'">Price should be above zero</small>
+                      <ng-container *ngIf="isSubmitted && f['price'].errors?.['required']">
+
+                        <span class="text-danger position-relative">
+                          Please Enter Amount</span>
+
+                      </ng-container>
+                      <div class="d-flex align-items-center justify-content-between mt-4 pt-2">
+                        <p class="text-gray mb-0">Commission Fee <span class="ms-1">{{commissionFee}}%</span></p>
+                        <p class="mb-0">
+                          <b>{{((nftCreateForm.value.price*commissionFee)/100).toFixed(6)}} MATIC </b>
+                          <span class="text-gray">/
+                            {{(((nftCreateForm.value.price*commissionFee)/100)*bnbValue).toFixed(4)}} USD </span>
+                        </p>
+                      </div>
+                      <div class="d-flex align-items-center justify-content-between mt-2">
+                        <p class="text-gray mb-0">You will receive</p>
+                        <p class="mb-0">
+                          <b>{{nftCreateForm.value.price-((nftCreateForm.value.price*commissionFee)/100)}} MATIC </b>
+                          <span class="text-gray">/
+                            {{((nftCreateForm.value.price-((nftCreateForm.value.price*commissionFee)/100))*bnbValue).toFixed(4)}}
+                            USD </span>
+                        </p>
+                      </div>
+                      <p class="text-gray mt-3 mb-0">
+                        <img src="../../../assets/images/pages/info_grey.svg" class="me-2" />
+                        The mint is free since it is a lazy mint.
+                      </p>
+
+                    </div>
+                    <div class="setup-box">
+                      <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="fw-bold mb-0">
+                          Unlock Extra Content Once Purchased
+                        </h6>
+                        <label class="switch">
+                          <input formControlName="isExtaContent" type="checkbox" checked />
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+                      <div [ngClass]="f['isExtaContent'].value?'':'d-none'">
+                        <p class="text-gray">
+                          Content will be unlocked after successful transaction
+                          (Optional)
+                        </p>
+                        <div class="visible-gradient s-box">
+                          <input class="mb-0 fw-semi-bold text-dark" formControlName="extraContent"
+                            placeholder="Digital Key, Redeemable Code or Link To A File...">
+
+                        </div>
+                        <p class="text-gray mt-3 mb-0">
+                          <img src="../../../assets/images/pages/info_grey.svg" class="me-2" />
+                          Markdown is supported
+                        </p>
+                      </div>
+                    </div>
+                    <div class="setup-box">
+                      <div class="mb-4">
+                        <h6 class="fw-bold mb-0">NFT Information</h6>
+                      </div>
+                      <div class=" mb-3">
+                        <div class="visible-gradient s-box">
+                          <div class="d-flex align-items-center">
+                            <p class="mb-0 fw-semi-bold me-2">Name</p>
+                            <input type="text" formControlName="name" placeholder="e.g. “Digital Painting NFT”" />
+                          </div>
+                        </div>
+                        <ng-container *ngIf="isSubmitted && f['name'].errors?.['required']">
+                          <div>
+                            <span class="text-danger position-relative">
+                              Please Enter Name</span>
+                          </div>
+                        </ng-container>
+                      </div>
+                      <div class="visible-gradient s-box mb-3">
+                        <div class="">
+                          <p class="mb-0 fw-semi-bold mb-2">
+                            Description
+                            <span class="text-gray fw-normal">(Optional)</span>
+                          </p>
+                          <textarea formControlName="description" type="textarea"
+                            placeholder="e.g. “This NFT was created using my skills in Adobe illustrator, and Photoshop combined.” "></textarea>
+                        </div>
+                      </div>
+                      <div class=" mb-3">
+                        <div class="form-group">
+                          <select class="form-select" formControlName="collection">
+                            <option value="" disabled selected>collection</option>
+                            <option *ngFor="let project of availableCollectionList" [value]="project._id">
+                              {{project.name}}
+                            </option>
+                          </select>
+                          <div class="text-danger">
+                          </div>
+                          <ng-container *ngIf="isSubmitted && f['collection']?.errors?.['required']">
+                            <span class="text-danger  position-relative">
+                              Please Select collection</span>
+                          </ng-container>
+                        </div>
+                      </div>
+
+                      <div class="text-center pt-3">
+                        <button type="button" class="btn btn-icon fw-semi-bold" data-bs-toggle="modal"
+                          data-bs-target="#collectionModal">
+                          <img src="../../../assets/images/pages/add_more.svg" class="me-3" />New Collection
+                        </button>
+                      </div>
+                    </div>
+                    <div class="setup-box">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <h6 class="mb-0 fw-semi-bold me-4">Royalties</h6>
+                        <div class="w-50">
+                          <div class="royality-input">
+                            <input type="text" (keypress)="numberOnly($event)" class="input-gradient form-control"
+                              formControlName="royalties" value="10" />
+                            <span>%</span>
+                          </div>
+                          <ng-container *ngIf="isSubmitted && f['royalties'].errors?.['required']">
+                            <span class="text-danger position-relative">
+                              Please Enter Royalties</span>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <p class="text-gray mt-4 pt-2 mb-0">
+                        Every time your NFT gets sold, you shall receive a royalty
+                        from each sale, the maximum royalty you can assign is 20%,
+                        however, the recommended is between 7% to 10%, in order to
+                        make it more appealing to other buyers / sellers
+                      </p>
+                    </div>
+
+                    <div class="setup-box">
+                      <div class="d-flex align-items-center justify-content-between mb-2">
+                        <h6 class="mb-0 fw-semi-bold me-4">
+                          Properties
+                          <span class="text-gray fw-normal">(Optional)</span>
+                        </h6>
+                        <p class="text-gray mb-0">
+                          e.g. “Title: Eyes” and “Value: Brown”
+                        </p>
+                      </div>
+                      <div formArrayName="properties">
+                        <ng-container *ngFor="let arrayItem of propertyFormArray?.controls; let i=index">
+                          <div class="d-flex align-items-center my-4" [formGroupName]="i">
+                            <input type="text" formControlName="key" class="gradient-input-box form-control"
+                              placeholder="Title" />
+                            <span class="mx-2">:</span>
+                            <input type="text" formControlName="value" class="gradient-input-box form-control"
+                              placeholder="Value" />
+                          </div>
+                        </ng-container>
+                      </div>
+                      <div class="text-center">
+                        <button type="button" class="btn btn-icon fw-normal fs-14" (click)="addPropertyField()">
+                          <img src="../../../assets/images/pages/add_more.svg" class="me-3" />Add More Fields
+                        </button>
+                      </div>
+                    </div>
+                    <div class="setup-box">
+                      <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="fw-bold mb-0">
+                          Auction time window? <span class="text-gray fw-normal ms-2">(Optional)</span>
+                        </h6>
+                        <label class="switch">
+                          <input formControlName="is_auction_window" type="checkbox" checked />
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+                      <div [ngClass]="f['is_auction_window'].value?'':'d-none'">
+                        <div class="visible-gradient s-box">
+                          <input class="mb-0 fw-semi-bold text-center" formControlName="auction_time"
+                            placeholder="Up To 96 Hours">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="setup-box">
+                      <div class="mb-4">
+                        <h6 class="fw-bold mb-0">
+                          Alternative Text
+                          <span class="text-gray ms-2 fw-normal">(Optional)</span>
+                        </h6>
+                      </div>
+
+                      <div class="visible-gradient s-box mb-3">
+                        <div class="">
+                          <p class="mb-0 fw-semi-bold mb-2">
+                            Image Description
+                            <textarea type="textarea" formControlName="alternativeText"
+                              placeholder="Detailed description for this image..."></textarea>
+                          </p>
+                        </div>
+                      </div>
+                      <p class="text-gray mt-3 mb-0">
+                        <img src="../../../assets/images/pages/info_grey.svg" class="me-2" />
+                        Text that will be used in VoiceOver for people with
+                        disabilities
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-4">
+                  <div class="mb-md-5 mb-4 mb-xl-0">
+                    <h4 class="mb-4 fw-bold">Preview</h4>
+                    <div class="preview-box visible-gradient">
+                      <div class="preview">
+                        <ng-container *ngIf="mediaType">
+                          <ng-container *ngIf="mediaType=='image'">
+                            <img class="uploadImage" [src]="fileData?fileData:sanitize(localUrl)" alt="">
+                          </ng-container>
+                          <ng-container *ngIf="mediaType=='vedio'">
+                            <video width="320" height="240" controls class="uploadImage">
+                              <source [src]="fileData?fileData:sanitize(localUrl)" type="video/mp4">
+                            </video>
+                          </ng-container>
+                          <ng-container *ngIf="mediaType=='audio'">
+                            <audio controls class="uploadImage">
+                              <source [src]="fileData?fileData:sanitize(localUrl)" type="audio/ogg">
+                            </audio>
+                          </ng-container>
+                        </ng-container>
+                      </div>
+                      <div class="text-center preview-info">
+                        <ng-container *ngIf="!f?.['name']?.['value']">
+                          <p class="mb-0 text-break"><b>Your NFT Name</b></p>
+                        </ng-container>
+                        <ng-container *ngIf="f?.['name']?.['value']">
+                          <p class="mb-0 text-break"><b>{{f?.['name']?.['value']}}</b></p>
+                        </ng-container>
+
+                        <p class="mb-0 text-gray text-break">{{walletAddress?.slice(0,7)+'...'
+                          +walletAddress?.slice(-4)}}</p>
+                      </div>
+                    </div>
+                    <div class="visible-gradient py-4 mt-4">
+                      <ng-container *ngIf="!(f?.['isExtaContent']?.['value'] &&f?.['extraContent']?.['value']) ">
+                        <p class="mb-0 fw-bold text-center text-break">Unlockable Content</p>
+                      </ng-container>
+                      <ng-container *ngIf="(f?.['isExtaContent']?.['value'] &&f?.['extraContent']?.['value']) ">
+                        <p class="mb-0 fw-bold text-center text-break">{{f?.['extraContent']?.['value']}}</p>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-9">
+                  <p>
+                    <b>Please take your time to review all the details and confirm
+                      everything is correct. Creating items become irreversible
+                      once the minting process starts.</b>
+                  </p>
+                </div>
+                <div class="col-md-8">
+                  <div class="d-flex justify-content-between mb-4 me-md-4">
+                    <label for="" class="fw-normal fs-14">Enable Minting?</label>
+                    <label class="switch">
+                      <input (change)="changeLazy($event)" [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="isLazyMinting" [disabled]="isLoading" type="checkbox" />
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row align-items-center">
+                <div class="col-xl-8">
+                  <label class="radio-container fw-normal fs-14 my-0">
+                    <input type="checkbox" formControlName="is_acknowledged" />
+                    <span class="checkmark"></span>
+                    I acknowledge that the above data is correct.
+                  </label>
+                </div>
+                <div class="col-xl-4">
+                  <div class="mt-3 mt-xl-0 text-center">
+                    <button class="btn btn-primary fs-14 large" type="submit" [disabled]="isLoading || nftCreateForm.controls['price'].value == '0'">Create
+                      Item</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade common-modal" id="collectionModal" tabindex="-1" aria-labelledby="collectionModalLabel"
+  aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered create-modal">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button class="close-btn btn-icon" data-bs-toggle="modal" #collectionModal data-bs-target="#collectionModal">
+          <img src="../../../assets/images/pages/close.svg" />
+        </button>
+        <ng-container *ngIf="isCollectionCreating">
+          <div class="loader">
+            <div class="spinner-border text-dark" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </ng-container>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="common-modal-content">
+              <h4 class="fw-bold mb-4 pb-2">Create Collection</h4>
+
+              <div class="my-3">
+                <ngx-dropzone (change)="uploadCollectionImage($event)">
+                  <ngx-dropzone-label>Drag and drop your file in this box to Bulk Upload
+                    <p class="text-gray">Drag and drop or</p>
+                    <button type="button" class="btn btn-outline-primary fs-14">
+                      Choose File
+                    </button>
+                  </ngx-dropzone-label>
+                  <ngx-dropzone-image-preview [file]="f" *ngFor="let f of collectionImagefiles" [removable]="true" (removed)="collectionImagefiles=[];collectionImg=''" class="col-images">
+                  </ngx-dropzone-image-preview>
+                </ngx-dropzone>
+              </div>
+
+              <div class="form-group">
+                <label class="mb-1 fw-semi-bold">Collection Name <span
+                    class="text-gray fw-normal">(required)</span></label>
+                <input type="text" [(ngModel)]="collectionName" placeholder="Collection name" class="form-control" />
+                <p class="text-gray mt-1">Token name can not be changed in future</p>
+              </div>
+              <div class="form-group">
+                <label class="mb-1 fw-semi-bold">Symbol <span class="text-gray fw-normal">(required)</span></label>
+                <input type="text" [(ngModel)]="collectionSybol" placeholder="Token symbol" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label class="mb-1 fw-semi-bold">Description <span class="text-gray fw-normal">(optional)</span></label>
+                <textarea type="text" [(ngModel)]="collectionDescription"
+                  placeholder="Spread some word about your token collection"
+                  class="form-control col-textarea"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="mb-1 fw-semi-bold">Short URL</label>
+                <div class="position-relative">
+                  <span class="base-url-text">nftwist.io/</span>
+                  <input type="text" [(ngModel)]="collectionShortUrl" placeholder=" Short URL"
+                    class="form-control url-input" />
+                </div>
+                <p class="text-gray mt-1">Will be used as public URL</p>
+              </div>
+              <div class="form-group mt-3">
+                <button class="btn btn-primary w-100 small" [disabled]="isCollectionImgUploading"
+                  (click)="createCollection(collectionModal)">Create</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <ng-template #gasFeeModal>
+  <div class="modal-content">
+    <div class="modal-body">
+      <div class="text-end pe-3 mb-2">
+        <button class="close-btn btn-icon" (click)="hideModal()">
+          <img src="../../../assets/images/pages/close.svg" />
+        </button>
+      </div>
+      <div class="row">
+        <div class="col-10 mx-auto">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="common-modal-content text-center my-3 ">
+                <h4 class="fw-bold mb-4 pb-3">Review Gas Fee</h4>
+                <div class="row mt-3 mb-5 pb-5">
+                  <div class="col-6 text-start">
+                    <span>GAS FEE</span>
+                  </div>
+                  <div class="col-6 text-end d-flex">
+                    <span><img src="../../../../assets/images/nft/polygon_matic.png" class="me-2" alt="bnb"></span>
+                    <div class="text-center">
+                      <div>
+                        <span>{{gasFee.toFixed(5)}} MATIC</span>
+                      </div>
+                      <div>
+                        <span>{{(gasFee*bnbValue).toFixed(5)}} USD</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mt-3 text-center">
+                  <button class="btn btn-primary small w-100 small ms-3" [disabled]="isCreatingNft">Confirm</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template> -->

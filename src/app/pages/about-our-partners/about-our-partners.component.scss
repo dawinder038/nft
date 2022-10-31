@@ -1,0 +1,124 @@
+.our-story-text {
+    max-width: 450px;
+    margin: 0 auto;
+}
+.mission-box {
+    padding: 50px 50px;
+    @media (max-width: 991px) {
+        padding: 30px 0 0;
+    }
+    @media (max-width: 767px) {
+        padding-top: 0;
+    }
+}
+h3.title {
+    @media (max-width: 991px) {
+        font-size: 22px;
+    }
+    @media (max-width: 767px) {
+        font-size: 18px;
+    }
+    @media (max-width: 575px) {
+        font-size: 16px;
+    }
+}
+.a-content {
+    max-width: 450px;
+}
+.nftabout-image {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    bottom: 0;
+    right: 0;
+    background: url(../../../assets/images/pages/nf-about.png);
+    background-size: cover;
+    border-radius: 0 20px 20px 0;
+    width: calc(100% - 25px);
+    height: 100%;
+    display: block;
+    transform: translateY(-50%);
+}
+.our-mission-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: url(../../../assets/images/pages/our-mission.png);
+    background-size: cover;
+    border-radius: 0 20px 20px 0;
+    // width: calc(100% - 25px);
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.our-vision-image {
+    position: absolute;
+    left: initial;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: url(../../../assets/images/pages/our-vision.png);
+    background-size: cover;
+    border-radius: 20px 0 0 20px;
+    width: calc(100% - 25px);
+    height: 100%;
+    display: block;
+}
+.our-mission-row {
+    height: 404px;
+}
+// .nftabout-content{
+//     padding: 60px 0;
+// }
+.nft-value-content {
+    margin-top: 60px;
+    @media (max-width: 991px) {
+        margin-top: 50px;
+    }
+    @media (max-width: 767px) {
+        margin-top: 40px;
+    }
+    @media (max-width: 575px) {
+        margin-top: 30px;
+    }
+    p {
+        max-width: 260px;
+        margin: 20px auto;
+        @media (max-width: 767px) {
+            margin-top: 10px;
+        }
+    }
+    img {
+        max-height: 300px;
+    }
+}
+.nft-values-wrapper {
+    padding: 90px 0 100px;
+    @media (max-width: 991px) {
+        padding: 60px 0 50px;
+    }
+    @media (max-width: 767px) {
+        padding: 40px 0 30px;
+    }
+    @media (max-width: 575px) {
+        padding: 30px 0 20px;
+    }
+    h5 {
+        @media (max-width: 991px) {
+            font-size: 18px;
+        }
+    }
+}
+.mission-img {
+    @media (max-width: 767px) {
+        border-radius: 20px;
+        margin-bottom: 20px;
+    }
+}
+.nftwist-secton {
+    @media (min-width: 992px) {
+        padding: 100px 0;
+    }
+}

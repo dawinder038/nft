@@ -1,0 +1,35 @@
+.section-bg {
+    background: linear-gradient(to right, rgb(255, 218, 255), rgba(184, 243, 250, 0.949));
+}
+
+.blog-img {
+    min-height: 400px;
+    object-fit: cover;
+}
+
+.gray {
+    color: rgb(87, 87, 87);
+}
+
+.span-1 {
+    background: rgba(0, 7, 112, 0.8);
+    border-radius: 5px;
+}
+
+.card-img {
+    min-height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.card {
+    transform: scale(1);
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+.card:hover {
+
+    transform: translateY(-10px);
+}

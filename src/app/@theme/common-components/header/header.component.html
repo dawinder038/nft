@@ -1,0 +1,155 @@
+<header>
+  <div class="container">
+    <div class="header-content d-flex justify-content-between align-items-center">
+      <a [routerLink]="['/home']">
+        <img src="assets/images/HomePage/logo_header.svg" class="logo" />
+        <img src="assets/images/nft/logo-black.png" class="logo-black" />
+      </a>
+      <div class="d-flex align-items-center flex-grow-1 px-xl-4 px-sm-3 px-2 ms-4">
+        <div class="search-input position-relative w-100 mx-lg-0 mx-1">
+          <input type="search" class="border-gradient" [(ngModel)]="searchText" (keydown)="search($event)"
+            placeholder="{{'header.placeholder.search' | translate}}" />
+          <img src="assets/images/HomePage/search.svg" class="search" />
+
+          <div class="e-search-wrapper w-lg-50 w-100" *ngIf="searchText">
+            <nav class="comment-wrapper-n">
+              <div class="nav nav-tabs flex-nowrap" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-user-tab" data-bs-toggle="tab" data-bs-target="#nav-user"
+                  type="button" role="tab" aria-controls="nav-user" aria-selected="true">
+                  Partners
+                </button>
+                <button class="nav-link" id="nav-nft-tab" data-bs-toggle="tab" data-bs-target="#nav-nft" type="button"
+                  role="tab" aria-controls="nav-nft" aria-selected="false">
+                  NFT
+                </button>
+              </div>
+            </nav>
+            <div class="tab-content my-2" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-user" role="tabpanel" aria-labelledby="nav-user-tab">
+                <ng-container *ngFor="let partner of searchList.partners">
+                  <div class="d-flex align-items-center px-5 py-2 s-list">
+                    <img src="../../../../assets/images/pages/user.png" class="user me-3" />
+                    <div>
+                      <h6 class="fw-semi-bold mb-1">{{partner.first_name + partner.last_name}}</h6>
+                      <p class="mb-0 fs-12">
+                        <span>{{partner.following_count}} Following</span>
+                        <span class="mx-2">•</span>
+                        <span>{{partner.follower_count}} Followers</span>
+                      </p>
+                    </div>
+
+                  </div>
+                </ng-container>
+
+                <ng-container *ngIf="!searchList?.partners?.length">
+                  <div class="d-flex align-items-center px-5 py-2 s-list">
+                    <p class="mx-auto my-5">No partner Found</p>
+
+                  </div>
+                </ng-container>
+              </div>
+              <div class="tab-pane fade" id="nav-nft" role="tabpanel" aria-labelledby="nav-nft-tab">
+                <div class="d-flex align-items-center px-5 py-2 s-list">
+                  <img src="../../../../assets/images/pages/user.png" class="user me-3" />
+                  <div>
+                    <h6 class="fw-semi-bold mb-1">user</h6>
+                    <p class="mb-0 fs-12">
+                      <span>12 Matic</span>
+                    </p>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex align-items-center">
+        <button class="btn-icon d-lg-none" (click)="isShow=true">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="header-navbar" [ngClass]="isShow?'visible':''">
+          <div class="backdrop" (click)="isShow=false"></div>
+          <ul class="navbar d-flex list-unstyled mb-0 ">
+
+            <button class="btn-icon btn-cross d-lg-none" (click)="isShow=false"><i class="fal fa-times"></i></button>
+            <li class="nav-item">
+              <a class="nav-link position-relative" [routerLink]="['/marketplace']" routerLinkActive="active"><span>{{'header.Marketplace' | translate}}</span>
+                <span class="small-text">(Coming Soon...)</span>
+              </a>
+            </li>
+
+            <li class="nav-item" *ngIf="!isLogedIn">
+              <a class="nav-link"><span>{{'header.Get_Started' | translate}}</span></a>
+            </li>
+            <li class="nav-item" *ngIf="!isLogedIn">
+              <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active"><span>{{'header.Login_Sign_Up' |
+                  translate}}</span></a>
+            </li>
+
+            <!-- after login code -->
+            <ng-container *ngIf="isLogedIn">
+              <li class="nav-item">
+                <a *ngIf="userType==1" class="nav-link" [routerLink]="['/choose-blockchain']" routerLinkActive="active"><span>Create</span></a>
+                <a *ngIf="userType==2" class="nav-link" (click)="openGiftCustomer()"><span>Create</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="[userType==1?'/my-profile':'/profile']" routerLinkActive="active"><span>My Profile</span></a>
+              </li>
+            </ng-container>
+          </ul>
+        </div>
+        <ul class="d-flex list-unstyled mb-0 navbar-header" *ngIf="isLogedIn">
+          <li class="nav-item ms-sm-3 ms-2">
+            <div class="d-flex align-items-center">
+              <div class="dropdown wallet-dropdown">
+                <button class="btn btn-icon" type="button" (click)="walletClick()" id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  <img [src]="userDetail.profile_pic?baseImgUrl+userDetail.profile_pic:'../../../assets/images/pages/profile_placeholder.png'" class="user cursor-pointer" />
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                  <h4 class="mb-md-4 mb-sm-3"><span class="gradient-text">My Wallet</span></h4>
+                  <p class="text-gray mb-1">Wallet ID:</p>
+                  <h6 class="fw-bold">
+                    <img (click)="copy()" src="../../../assets/images/pages/copy.svg" class="me-2 cursor-pointer" />{{accountNumber?.slice(0,7)+'...' +accountNumber?.slice(-4)}}
+                  </h6>
+                  <div class="wallet-credits" *ngIf="!refreshLoader">
+                    <p>Total Balance:</p>
+                    <h3 class="fw-bold mb-1 d-flex align-items-center justify-content-center"><img src="../../../../assets/images/nft/polygon_matic.png" class="me-2" *ngIf="balance" />{{(balance)}}
+                      MATIC</h3>
+                    <h3 class="fw-normal">{{(balance *bnbValue).toFixed(4)}} USD</h3>
+                    <p (click)="refreshFunds($event)" class="cursor-pointer">
+                      <img src="../../../assets/images/pages/refresh.svg" class="me-2" />
+                      Refresh Credits
+
+                    </p>
+                    <h3>{{userDetail?.nft_count}} NFts</h3>
+                  </div>
+                  <div class="d-flex justify-content-center mb-3" *ngIf="refreshLoader">
+                    <div class="spinner-border " role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <button class="btn btn-outline-primary small mt-sm-3 mt-2 open-wallet" routerLink="/my-wallet">
+                      <img src="../../../assets/images/pages/more_options.svg" class="me-3" />
+                      <span class="gradient-text">Open Wallet</span>
+                    </button>
+                  </div>
+                  <div class="text-center">
+                    <button class="btn-icon mt-md-4 mt-sm-3 mt-2" (click)="logOut()">
+                      <span class="gradient-text">Logout</span>
+                    </button>
+                  </div>
+
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</header>

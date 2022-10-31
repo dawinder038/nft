@@ -1,0 +1,668 @@
+<div class="user-profile-wrapper">
+  <div class="profile-banner">
+    <img
+      [src]="partnerDetail?.cover_image?baseImgUrl+partnerDetail?.cover_image:'../../../assets/images/nft/john_doe_cover.png'"
+      class="w-100 image" />
+  </div>
+
+  <div class="profile-content text-center">
+    <div class="container">
+      <div class="user-profile">
+        <img
+          [src]="partnerDetail?.profile_pic?baseImgUrl+partnerDetail?.profile_pic:'../../../assets/images/nft/profile_placeholder.png'" />
+      </div>
+      <h3 class="fw-bold mb-md-4 mb-3">
+        {{partnerDetail?.first_name}} {{partnerDetail?.last_name}}
+        <span class="ms-2"><img src="../../../assets/images/pages/check_tick.svg" /></span>
+      </h3>
+      <div class="d-flex align-items-center justify-content-center mb-2">
+        <h6 class="mb-0 fw-bold">@{{partnerDetail?.user_name}}</h6>
+        <div class="d-flex align-items-center ms-4">
+          <p class="mb-0">Acc. ID</p>
+          <h6 class="mb-0 fw-bold mx-2">{{partnerDetail?.wallet_address.slice(0,7)+'...'
+            +partnerDetail?.wallet_address.slice(-4)}}</h6>
+          <button class="btn-icon" (click)="copy(partnerDetail?.wallet_address)">
+            <img src="../../../assets/images/pages/copy.svg" />
+          </button>
+        </div>
+      </div>
+      <p class="fw-semi-bold mb-sm-4 mb-3">
+        {{partnerDetail?.bio}}
+      </p>
+      <div class="row profile-detail mx-0 partners-col">
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">Follows</p>
+            <h6 class="mb-0 fw-bold">{{partnerDetail?.follower_count}}</h6>
+          </div>
+        </div>
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">Following</p>
+            <h6 class="mb-0 fw-bold">{{partnerDetail?.following_count}}</h6>
+          </div>
+        </div>
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">NFTs</p>
+            <h6 class="mb-0 fw-bold">{{partnerDetail?.nft_count}}</h6>
+          </div>
+        </div>
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">Collections</p>
+            <h6 class="mb-0 fw-bold">{{partnerDetail?.collection_count}}</h6>
+          </div>
+        </div>
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">Owners</p>
+            <h6 class="mb-0 fw-bold">{{partnerDetail?.owner_count}}</h6>
+          </div>
+        </div>
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">Memberships</p>
+            <h6 class="mb-0 fw-bold">{{partnerDetail?.memership_count}}</h6>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex flex-wrap justify-content-center pb-sm-5 pb-4 profile-btns">
+
+
+        <div class="btn-group dropup share-dropdown">
+          <button class="btn m-2 fs-14 pxe-4 share-btn" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="../../../assets/images/pages/share.svg" class="me-3" />Share
+          </button>
+
+          <ul class="dropdown-menu">
+            <li>
+              <button class="dropdown-item" (click)="shareBYCopy(partnerDetail?._id)">
+                <img src="../../../assets/images/pages/copy_black.png" class="me-2" />Copy URL
+              </button>
+            </li>
+            <li><a class="dropdown-item" (click)="sharefacebookUrl(partnerDetail?._id)">Facebook</a></li>
+            <li><a class="dropdown-item" (click)="shareinstaUrl(partnerDetail?._id)">Instagram</a></li>
+            <li><a class="dropdown-item" (click)="sharemailUrl(partnerDetail?._id)">E-mail</a></li>
+          </ul>
+        </div>
+
+        <button class="btn  m-sm-2 m-1 px-4 fs-14 pxe-4"
+          [ngClass]="partnerDetail?.is_follow?'btn-black':'btn-outline-primary'"
+          (click)="partnerDetail.is_follow=!partnerDetail.is_follow; changeFollow()">
+          <span class="gradient-text" *ngIf="partnerDetail?.is_follow">
+            <img src="../../../assets/images/nft/white-tick.png" class="me-3" />Following
+          </span>
+          <span class="gradient-text" *ngIf="!partnerDetail?.is_follow">
+            Follow
+          </span>
+        </button>
+        <ng-container *ngIf="partnerDetail?.personal_link">
+          <button class="btn btn-outline-primary m-sm-2 m-1 px-5 fw-normal position-relative fs-14">
+            <img src="../../../assets/images/pages/web_link.svg" class="web-link" />
+            <span class="ps-sm-3">{{partnerDetail?.personal_link}}</span>
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <section class="profile-page-view">
+    <div class="container">
+      <ul class="nav nav-pills mb-5 common-tabs  justify-content-center" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"
+            type="button" role="tab" aria-controls="pills-home" aria-selected="true">
+            <span>Items</span>
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
+            type="button" role="tab" aria-controls="pills-profile" aria-selected="false">
+            <span>Activity</span>
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact"
+            type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
+            <span>Stats</span>
+          </button>
+        </li>
+      </ul>
+      <div class="tab-content common-tabs-content pt-2" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+          <div class="marketplace  pb-md-3 pb-0">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="d-flex align-items-center mb-4 pb-lg-3 flex-wrap">
+                    <h2 class="title me-md-4 me-2">Items</h2>
+                    <div>
+                      <button class="btn btn-outline-secondary me-md-4 me-2 my-1">
+                        <img src="../../../assets/images/HomePage/category.svg" class="me-2" />
+                        Category
+                      </button>
+                      <button class="btn btn-outline-secondary me-md-4 me-2 my-1">
+                        <img src="../../../assets/images/HomePage/collection.svg" class="me-2" />
+                        Collection
+                      </button>
+                      <button class="btn btn-outline-secondary me-md-4 me-2 my-1">
+                        <img src="../../../assets/images/HomePage/price_range.svg" class="me-2" />
+                        Price Range
+                      </button>
+                      <button class="btn btn-outline-secondary me-md-4 me-2 my-1">
+                        <img src="../../../assets/images/HomePage/sort.svg" class="me-2" />
+                        Sort
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xl-3 mb-4 pb-lg-3">
+                  <div class="marketplace-box">
+                    <div class="position-relative">
+                      <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+                      <div class="likes-count">
+                        <span class="me-2 fw-semi-bold">66</span><img
+                          src="../../../assets/images/HomePage/favorite_outline.svg" />
+                      </div>
+                    </div>
+                    <div class="marketplace-content">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="text-gray mb-0">Collection Name</p>
+                        <!-- <button class="btn-icon">
+                        <img src="../../../assets/images/HomePage/three_dots.svg" />
+                      </button> -->
+                        <div class="dropdown marketplace-dropdown">
+                          <button class="btn btn-icon" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <img src="../../../assets/images/HomePage/three_dots.svg" />
+                          </button>
+                          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu2">
+                            <li>
+                              <button class="dropdown-item" type="button">
+                                Report
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <p class="fw-bold text-nft-name">
+                        NFT Name Goes Here Even If It's Long #0001
+                      </p>
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="mb-0 fw-semi-bold">
+                          <img src="../../../assets/images/nft/polygon_matic.png" class="me-2  w-19" />0.22 MATIC
+                        </p>
+                        <button class="btn-icon fs-14 fw-bold">
+                          <span class="gradient-text">
+                            Buy Now
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3 mb-4 pb-lg-3">
+                  <div class="marketplace-box">
+                    <div class="position-relative">
+                      <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+                      <div class="likes-count">
+                        <span class="me-2 fw-semi-bold">66</span><img
+                          src="../../../assets/images/HomePage/favorite_outline.svg" />
+                      </div>
+                    </div>
+                    <div class="marketplace-content">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="text-gray mb-0">Collection Name</p>
+                        <div class="dropdown marketplace-dropdown">
+                          <button class="btn btn-icon" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <img src="../../../assets/images/HomePage/three_dots.svg" />
+                          </button>
+                          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu2">
+                            <li>
+                              <button class="dropdown-item" type="button">
+                                Report
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <p class="fw-bold text-nft-name">
+                        NFT Name Goes Here Even If It's Long #0001
+                      </p>
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="mb-0 fw-semi-bold">
+                          <!-- <img src="../../../assets/images/HomePage/binance.png" class="me-2" />0.22 MATIC -->
+                          <img src="../../../assets/images/nft/polygon_matic.png" class="me-2  w-19  w-19" />0.22 MATIC
+                        </p>
+                        <button class="btn-icon fs-14 fw-bold">
+                          <span class="gradient-text">
+                            Buy Now
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-md-12">
+                  <button class="btn btn-outline-secondary w-100 py-3">
+                    Load More
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+          <div class="activity-wrapper my-0 ">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="d-flex align-items-center">
+                      <h2 class="title">Activity</h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="nft-activity-wrapper first-view">
+                    <div class="nft-activity">
+                      <div class="nft-image">
+                        <img src="../../../assets/images/pages/activity_one.png" class="img-fluid" />
+                      </div>
+                      <div class="nft-activity-content flex-grow-1 ps-md-0">
+                        <div class="d-flex flex-wrap align-items-center h-100 flex-sm-row flex-column">
+                          <div class="act-user-img me-sm-2">
+                            <img src="../../../assets/images/pages/user.png" class="img-fluid" />
+                          </div>
+                          <div class="d-flex justify-content-between flex-wrap flex-grow-1">
+                            <p class="mb-0 fs-12"><b>JohnDoe</b> liked Neovichx NFT</p>
+                            <p class="mb-0 fs-12">5 minutes ago</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="nft-activity-wrapper second-view">
+                    <div class="nft-activity">
+                      <div class="nft-image">
+                        <img src="../../../assets/images/pages/activity_two.png" class="img-fluid" />
+                      </div>
+                      <div class="nft-activity-content flex-grow-1 ps-md-0">
+                        <div class="d-flex h-100 flex-sm-row flex-column">
+                          <div class="act-user-img me-sm-2 ">
+                            <img src="../../../assets/images/pages/user.png" class="img-fluid" />
+                          </div>
+                          <div>
+                            <div class="d-flex justify-content-between flex-wrap flex-grow-1">
+                              <p class="mb-0 fs-12"><b>JohnDoe</b> liked Neovichx NFT</p>
+                              <p class="mb-0 fs-12">5 minutes ago</p>
+                            </div>
+                            <p class="mt-sm-4 mt-2 mb-0 fs-12 activity-comment">Lorem ipsum dolor sit amet, consectetur
+                              adipiscing
+                              elit,
+                              sed do eiusmod
+                              tempor incididunt
+                              ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                              ullamco
+                              laboris nisi ut aliquip ex ea commodo consequat. </p>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="nft-activity-wrapper third-view">
+                    <div>
+                      <div class="nft-image">
+                        <img src="../../../assets/images/pages/activity_three.png" class="img-fluid" />
+                      </div>
+                      <div class="nft-activity-content">
+                        <div class="d-flex h-100 flex-sm-row flex-column">
+                          <div class="act-user-img me-sm-4 ">
+                            <img src="../../../assets/images/pages/user.png" class="img-fluid" />
+                          </div>
+                          <div class="d-flex justify-content-between flex-wrap flex-grow-1">
+                            <p class="mb-0 fs-12"><b>JohnDoe</b> liked Neovichx NFT</p>
+                            <p class="mb-0 fs-12">5 minutes ago</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+          stats
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="modal fade common-modal" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button class="close-btn btn-icon" data-bs-toggle="modal" data-bs-target="#buyModal">
+          <img src="../../../assets/images/pages/close.svg" />
+        </button>
+        <div class="row">
+          <div class="col-md-5">
+            <div class="preview-box visible-gradient">
+              <div class="preview">
+                <img src="../../../assets/images/pages/open_nft.png" />
+              </div>
+              <div class="text-center preview-info">
+                <p class="mb-0 text-break"><b>MutantApeYachtClub #3059</b></p>
+                <p class="mb-0 text-gray text-break">0x0f359e883...b2c2</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7">
+            <div class="common-modal-content ps-md-4 mt-md-0 mt-4">
+              <h3 class="fw-bold">Checkout</h3>
+              <p>
+                You are about to purchase a<br /><b>MutantApeYachtClub #3059</b><br />from <b>0x0f359e883...b2c2</b>
+              </p>
+              <div class="d-flex align-items-center justify-content-between mt-4">
+                <p>Balance</p>
+                <p><b>132 MATIC</b> / 476,278 USD</p>
+              </div>
+              <div class="d-flex align-items-center justify-content-between">
+                <p>Service Fee 2.5%</p>
+                <p><b>0.25 MATIC</b> / 64,414.71 USD</p>
+              </div>
+              <div class="d-flex align-items-center justify-content-between">
+                <p>Item Price</p>
+                <p><b>66 MATIC</b>/ 257,616 USD</p>
+              </div>
+              <div class="d-flex align-items-center justify-content-between mt-4">
+                <p>Total</p>
+                <h5>
+                  <img src="../../../assets/images/nft/polygon_matic.png" class="me-3  w-19" /><b>82.5 MATIC</b> /
+                  322,074 USD
+                </h5>
+              </div>
+              <label class="radio-container fw-normal fs-12">
+                <input type="radio" name="radio" checked />
+                <span class="checkmark"></span>
+                By checking this box, you agree to NFTwist's
+                <b class="text-theme">Terms</b>.
+              </label>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <button type="button" class="btn btn-primary fw-normal w-100 pay-now-btn">
+              Pay Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade common-modal" id="claimModal" tabindex="-1" aria-labelledby="claimModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button class="close-btn btn-icon" data-bs-toggle="modal" data-bs-target="#claimModal">
+          <img src="../../../assets/images/pages/close.svg" />
+        </button>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="common-modal-content ps-md-4">
+              <h3 class="fw-bold">
+                Claim / Report :
+                <span class="gradient-text ms-2">@neovichx</span>
+              </h3>
+              <p class="mt-4">
+                If you think this account violates our community guidelines,
+                please do not hesitate to let us know.
+              </p>
+              <div class="row mt-4 pt-2">
+                <div class="col-md-6">
+                  <div>
+                    <label class="radio-container fs-14 text-black fw-semi-bold mt-2">
+                      <input type="radio" name="radio" checked />
+                      <span class="checkmark"></span>
+                      I Own This Account
+                    </label>
+                  </div>
+                  <div>
+                    <label class="radio-container fs-14 text-black fw-semi-bold mt-2">
+                      <input type="radio" name="radio" />
+                      <span class="checkmark"></span>
+                      Adult Content
+                    </label>
+                  </div>
+                  <div>
+                    <label class="radio-container fs-14 text-black fw-semi-bold mt-2">
+                      <input type="radio" name="radio" />
+                      <span class="checkmark"></span>
+                      Promotes Violence
+                    </label>
+                  </div>
+                  <div>
+                    <label class="radio-container text-black fw-semi-bold fs-14 mt-2">
+                      <input type="radio" name="radio" />
+                      <span class="checkmark"></span>
+                      Hate Speech and Discrimination
+                    </label>
+                  </div>
+                  <div>
+                    <label class="radio-container text-black fw-semi-bold fs-14 mt-2">
+                      <input type="radio" name="radio" />
+                      <span class="checkmark"></span>
+                      Promotes Extremism and Terrorism
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="claim-warning">
+                    <textarea placeholder="Please elaborate further before submitting your Claim/Report"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <p class="text-gray mt-4">
+                By submitting this Claim/Report, you acknowledge that the above
+                information is correct.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <button type="button" class="btn btn-primary fw-normal w-100 mt-2">
+              Submit Claim/Report
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade common-modal send-nft-modal" id="sendNftModal" tabindex="-1" aria-labelledby="sendNftModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button class="close-btn btn-icon" data-bs-toggle="modal" data-bs-target="#sendNftModal">
+          <img src="../../../assets/images/pages/close.svg" />
+        </button>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="">
+              <div class="d-flex align-items-center justify-content-between flex-wrap">
+                <h3 class="fw-bold">
+                  Send NFT to
+                  <span class="gradient-text ms-2">@neovichx</span>
+                </h3>
+                <div class="d-flex align-items-center">
+                  <p class="mb-0 me-3">Acc. ID</p>
+                  <div class="account-id">
+                    <h6 class="mb-0 fw-bold text-black accId">1x1cs...6sa1</h6>
+                    <button class="btn-icon fs-14 mx-3">
+                      <img src="../../../assets/images/pages/copy_black.png" class="me-1" />Copy
+                    </button>
+                    <button class="btn-icon fs-14 mx-2 disable">
+                      <img src="../../../assets/images/pages/paste.png" class="me-1" />Paste
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-4 pt-2 mb-0">
+                Select the NFT(s) you wanted send from your collections to
+                <b>Neovichx</b> as a gift! We’ll let them know you care...
+              </p>
+            </div>
+            <div *ngIf="isLoaded" class="send-nft">
+              <owl-carousel-o [options]="customOptions">
+                <ng-template carouselSlide>
+                  <div class="marketplace-box">
+                    <div class="position-relative">
+                      <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+                      <div class="likes-count">
+                        <span class="me-2 fw-semi-bold">66</span><img
+                          src="../../../assets/images/HomePage/favorite_outline.svg" />
+                      </div>
+                    </div>
+                    <div class="marketplace-content">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="text-gray mb-0">Collection Name</p>
+                      </div>
+                      <p class="fw-bold text-nft-name">
+                        NFT Name Goes Here Even If It's Long #0001
+                      </p>
+                      <label class="radio-container fs-12 fw-normal my-0">
+                        <input type="radio" name="radio" checked />
+                        <span class="checkmark"></span>
+                        <span class="select-text">Select</span>
+                      </label>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template carouselSlide>
+                  <div class="marketplace-box">
+                    <div class="position-relative">
+                      <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+                      <div class="likes-count">
+                        <span class="me-2 fw-semi-bold">66</span><img
+                          src="../../../assets/images/HomePage/favorite_outline.svg" />
+                      </div>
+                    </div>
+                    <div class="marketplace-content">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="text-gray mb-0">Collection Name</p>
+                      </div>
+                      <p class="fw-bold text-nft-name">
+                        NFT Name Goes Here Even If It's Long #0001
+                      </p>
+                      <label class="radio-container fs-12 fw-normal my-0">
+                        <input type="radio" name="radio" checked />
+                        <span class="checkmark"></span>
+                        <span class="select-text">Select</span>
+                      </label>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template carouselSlide>
+                  <div class="marketplace-box">
+                    <div class="position-relative">
+                      <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+                      <div class="likes-count">
+                        <span class="me-2 fw-semi-bold">66</span><img
+                          src="../../../assets/images/HomePage/favorite_outline.svg" />
+                      </div>
+                    </div>
+                    <div class="marketplace-content">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="text-gray mb-0">Collection Name</p>
+                      </div>
+                      <p class="fw-bold text-nft-name">
+                        NFT Name Goes Here Even If It's Long #0001
+                      </p>
+                      <label class="radio-container fs-12 fw-normal my-0">
+                        <input type="radio" name="radio" checked />
+                        <span class="checkmark"></span>
+                        <span class="select-text">Select</span>
+                      </label>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template carouselSlide>
+                  <div class="marketplace-box">
+                    <div class="position-relative">
+                      <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+                      <div class="likes-count">
+                        <span class="me-2 fw-semi-bold">66</span><img
+                          src="../../../assets/images/HomePage/favorite_outline.svg" />
+                      </div>
+                    </div>
+                    <div class="marketplace-content">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="text-gray mb-0">Collection Name</p>
+                      </div>
+                      <p class="fw-bold text-nft-name">
+                        NFT Name Goes Here Even If It's Long #0001
+                      </p>
+                      <label class="radio-container fs-12 fw-normal my-0">
+                        <input type="radio" name="radio" checked />
+                        <span class="checkmark"></span>
+                        <span class="select-text">Select</span>
+                      </label>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template carouselSlide>
+                  <div class="marketplace-box">
+                    <div class="position-relative">
+                      <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+                      <div class="likes-count">
+                        <span class="me-2 fw-semi-bold">66</span><img
+                          src="../../../assets/images/HomePage/favorite_outline.svg" />
+                      </div>
+                    </div>
+                    <div class="marketplace-content">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="text-gray mb-0">Collection Name</p>
+                      </div>
+                      <p class="fw-bold text-nft-name">
+                        NFT Name Goes Here Even If It's Long #0001
+                      </p>
+                      <label class="radio-container fs-12 fw-normal my-0">
+                        <input type="radio" name="radio" checked />
+                        <span class="checkmark"></span>
+                        <span class="select-text">Select</span>
+                      </label>
+                    </div>
+                  </div>
+                </ng-template>
+              </owl-carousel-o>
+            </div>
+            <div class="d-flex align-items-center justify-content-center">
+              <label class="radio-container fs-12 fw-normal my-0">
+                <input type="radio" name="radio" checked />
+                <span class="checkmark"></span>
+                By checking this box, you confirm sending <b>@neovichx</b> the
+                selected NFT(s). <b>This action is irreversible.</b>
+              </label>
+              <button type="button" class="btn btn-primary fw-normal ms-5 large">
+                Send
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

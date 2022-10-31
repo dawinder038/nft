@@ -1,0 +1,255 @@
+<div class="auth-page two-way-factor">
+  <div class="user-profile-wrapper">
+    <div (mousedown)="mousedown()" (mouseup)="mouseup()" (mousemove)="mousemove($event)" class="profile-banner overlay"
+      [ngStyle]="{'background-image':newCoverImgUrl? 'url('+baseImgUrl+newCoverImgUrl +')' :profileDetail?.cover_image? ' url(' +baseImgUrl+profileDetail?.cover_image + ')':'url(../../../assets/images/nft/edit-profile-bg.png)','background-position-y':cover_image_y_axis+'%'}"
+      style=' background-position-x:0px ; background-position-y: center;background-repeat: no-repeat;background-size: cover;'
+      [ngClass]="isMouseDown?'cursor-grabbing':''">
+      <!-- loader -->
+
+      <div class="d-flex justify-content-center mb-3 edit-loader" *ngIf="isCoverLoading">
+        <div class="spinner-border " role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+
+      <!-- <img
+        [src]="localCoverImageUrl?sanitize(localCoverImageUrl):newCoverImgUrl?baseImgUrl+newCoverImgUrl:profileDetail?.cover_image?baseImgUrl+profileDetail?.cover_image:'../../../assets/images/nft/edit-profile-bg.png'"
+        class="w-100 image" /> -->
+      <button class="btn-icon move-btn">
+        <img src="../../../assets/images/pages/move.svg" class="me-2 w-15" />Move Up/Down To Adjust
+      </button>
+
+      <div class="container h-100 d-flex align-items-end justify-content-end z-index-2">
+        <button (click)="coverImg.click()" class="btn  btn-primary small z-index-2 mb-4 update-cover">
+          <img src="../../../assets/images/pages/edit_cover.svg" /><span class="ms-lg-3 ms-1">Update Cover</span>
+        </button>
+      </div>
+    </div>
+    <div class="profile-content text-center pb-lg-5 pb-sm-4 pb-3">
+      <div class="container position-relative">
+        <div class="user-profile gradient-profile d-flex justify-content-center align-items-center profile-pic">
+          <img [style]="profilePicStyle"
+            [src]="localProfileImageUrl?sanitize(localProfileImageUrl):newProfilePicUrl?baseImgUrl+newProfilePicUrl:profileDetail?.profile_pic?baseImgUrl+profileDetail?.profile_pic:'../../../assets/images/nft/profile_placeholder.png'" />
+          <div class="d-flex justify-content-center mb-3 edit-loader" *ngIf="isProfileLoading">
+            <div class="spinner-border " role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+        <input type="file" id="coverImg" class="d-none" (change)="uploadProfile($event,'coverImg')" #coverImg
+          accept="image/jpeg, image/png, image/gif,">
+        <div class="position-right size">
+          <div class="">
+            <div class="flex-grow-1">
+              <button (click)="profilePic.click()" class="btn btn-primary fs-14 px-sm-4 update-profile-btn ">
+                <img src="../../../assets/images/pages/edit_cover.svg" class="me-sm-3 me-2" />Update Profile Picture
+              </button>
+              <input type="file" id="profilePic" class="d-none " [(ngModel)]="profilePicData"
+                (change)="fileChangeEvent($event)" #profilePic accept="image/jpeg, image/png, image/gif,">
+            </div>
+          </div>
+        </div>
+        <form [formGroup]="editProfileForm" (submit)="submitProfileDetail()" class="mt-lg-5 mt-4">
+          <div class="profile-row">
+            <label>First Name</label>
+            <input type="text" (keypress)="keyPressAlphaNumeric($event)" formControlName="first_name"
+              placeholder="First Name" class="form-control fw-bold" />
+            <div class="status-box"></div>
+
+          </div>
+          <ng-container *ngIf="isFormSubmited &&f?.['first_name']?.errors?.['required']">
+            <div class="col-sm-12 name">
+              <span class="text-danger position-relative">Please Enter First Name</span>
+            </div>
+          </ng-container>
+          <div class="profile-row">
+            <label>Last Name</label>
+            <input type="text" (keypress)="keyPressAlphaNumeric($event)" formControlName="last_name"
+              placeholder="Last Name" class="form-control fw-bold" />
+            <div class="status-box"></div>
+          </div>
+          <ng-container *ngIf="isFormSubmited&& f?.['last_name']?.errors?.['required']">
+            <div class="col-sm-12 name">
+              <span class="text-danger position-relative">Please Enter Last Name</span>
+            </div>
+          </ng-container>
+          <div class="profile-row">
+            <label>Nickname</label>
+            <input type="text" formControlName="nick_name" placeholder="Nick Name" class="form-control fw-bold" />
+            <div class="status-box"></div>
+          </div>
+          <div class="profile-row">
+            <label>Username</label>
+            <div class="position-relative w-100">
+              <span class="symbol"><img src="../../../assets/images/nft/@.png" /></span>
+              <input type="text" placeholder="Username" formControlName="user_name" class="form-control fw-bold" />
+            </div>
+            <div class="status-box">
+              <button *ngIf="isUsernameAvailable" type="button" class="btn-icon">
+                <span class="gradient-text"><img src="../../../assets/images/nft/done.png"
+                    class="me-3" />Available</span>
+              </button>
+              <button *ngIf="!isUsernameAvailable" type="button" class="btn-icon">
+                <span class=" danger-color"><i class="fas fa-times me-3"></i>Not Available</span>
+              </button>
+            </div>
+          </div>
+          <ng-container *ngIf="isFormSubmited &&f?.['user_name']?.errors?.['required']">
+            <div class="col-sm-12 name">
+              <span class="text-danger position-relative">Please Enter User Name</span>
+            </div>
+          </ng-container>
+
+          <div class="profile-row ">
+            <label>Bio</label>
+            <textarea placeholder="Enter Bio here" type="text" username="bio" formControlName="bio"
+              class="form-control">
+           </textarea>
+            <div class="status-box">
+              <button type="button" class="btn-icon">
+                <span [ngClass]="f['bio']?.value?.length >bioMaxLength?'danger-color':'gradient-text'" class=""><img
+                    *ngIf="f['bio']?.value?.length <=bioMaxLength" src="../../../assets/images/nft/done.png"
+                    class="me-3" /> <i *ngIf="f['bio']?.value?.length >bioMaxLength"
+                    class="fas fa-times me-3"></i>{{f['bio']?.value?.length}} / {{bioMaxLength}}</span>
+              </button>
+            </div>
+          </div>
+          <div class="profile-row my-sm-4 py-sm-2">
+            <label>Personal Link</label>
+            <div class="position-relative w-100">
+              <span class="symbol"><img src="../../../assets/images/nft/blur_circular.png" /></span>
+              <input type="text" placeholder="Personal Link" (input)="checkUrl()" formControlName="personal_link"
+                class="form-control" [ngClass]="(f['personal_link'].value?.length && !isValidUrl)?'error':''"
+                value="" />
+            </div>
+            <div class="status-box">
+              <button type="button" class="btn-icon text-danger fw-semi-bold"
+                *ngIf="f['personal_link']?.value?.length && !isValidUrl">
+                <i class="fas fa-times me-3"></i>Broken Link
+              </button>
+            </div>
+          </div>
+          <div class="profile-row">
+            <label>New Password</label>
+            <div class="position-relative w-100">
+              <!-- <span class="symbol"><img src="../../../assets/images/nft/@.png" /></span> -->
+              <div class="position-relative">
+                <input type="{{newPasswordInputType}}" placeholder="Enter New Password" formControlName="new_password"
+                  class="form-control fw-bold" />
+                <div class="input-group-append">
+                  <span class="visible-password position-absolute" id="basic-addon1"
+                    *ngIf="newPasswordInputType == 'password'" (click)="newPasswordInputType = 'text'">
+                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                  </span>
+                  <span class="visible-password position-absolute" id="basic-addon2"
+                    *ngIf="newPasswordInputType == 'text'" (click)="newPasswordInputType = 'password'">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                  </span>
+                </div>
+              </div>
+              <ng-container
+                *ngIf="isFormSubmited&& this.editProfileForm.value.new_password.length && this.editProfileForm.value.new_password.length<8 ">
+                <div class="col-sm-12">
+                  <span class="text-danger position-relative">Password must be atleast 8 char long</span>
+                </div>
+              </ng-container>
+            </div>
+            <div class="status-box"></div>
+          </div>
+          <div class="profile-row">
+            <label>Confirm New Password</label>
+            <div class="position-relative w-100">
+              <!-- <span class="symbol"><img src="../../../assets/images/nft/@.png" /></span> -->
+              <div class="position-relative">
+                <input type="{{confirmPasswordInputType}}" placeholder="Enter Confirm Password"
+                  formControlName="confirm_password" class="form-control fw-bold" />
+                <div class="input-group-append">
+                  <span class="visible-password position-absolute" id="basic-addon1"
+                    *ngIf="confirmPasswordInputType == 'password'" (click)="confirmPasswordInputType = 'text'">
+                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                  </span>
+                  <span class="visible-password position-absolute" id="basic-addon2"
+                    *ngIf="confirmPasswordInputType == 'text'" (click)="confirmPasswordInputType = 'password'">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                  </span>
+                </div>
+              </div>
+              <ng-container
+                *ngIf="isFormSubmited&& this.editProfileForm.value.new_password.length && this.editProfileForm.value.new_password != this.editProfileForm.value.confirm_password ">
+                <div class="col-sm-12">
+                  <span class="text-danger position-relative">Confirm password should match with new password</span>
+                </div>
+              </ng-container>
+            </div>
+
+            <div class="status-box"></div>
+          </div>
+          <div class="pt-2 my-lg-5 my-4">
+            <button type="submit" [disabled]="isFormSubmitLoader" class="btn btn-primary position-relative">Update Profile
+              <!-- loader -->
+              <div class="d-flex justify-content-center mb-3 update-loader" *ngIf="isFormSubmitLoader">
+                <div class="spinner-border spinner-update " role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+            </button>
+            <button class="btn btn-outline-secondary px-5 ms-4"
+              routerLink="{{this.profileDetail.user_type==1?'/my-profile':'/profile'}}">Cancel</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <ng-template #editPhotoModal>
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="text-end pe-3 mb-2">
+          <button class="close-btn btn-icon" (click)="hideModal()">
+            <img src="../../../assets/images/pages/close.svg" />
+          </button>
+        </div>
+        <div class="row">
+
+          <div class="col-10 mx-auto">
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="common-modal-content text-center my-3 ">
+                  <h4 class="fw-bold mb-4 pb-3">Edit Photo</h4>
+                  <div class="row mt-3 mb-2">
+                    <div class="col-6 text-start">
+                      <span>Photo</span>
+                    </div>
+                    <div>
+                      <image-cropper [imageChangedEvent]="imageChangedEvent" [roundCropper]="true" format="png"
+                        (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded($event)"
+                        (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()" [transform]="transform"
+                        [hideResizeSquares]="true" [cropperMaxWidth]="400"></image-cropper>
+                    </div>
+                    <div class="mt-4 mb-2">
+
+                      <button (click)="zoomOut()" class="btn btn-outline-primary mx-2 px-4"><i
+                          class="fas fa-search-minus"></i></button>
+                      <button (click)="zoomIn()" class="btn btn-outline-primary mx-2 px-4"><i
+                          class="fas fa-search-plus"></i></button>
+                    </div>
+                  </div>
+                  <div class="form-group mt-3 text-center">
+                    <!-- <button class="btn btn-outline-primary small w-100 small me-3" [disabled]="isCreatingNft"
+                      (click)="hideModal()">Reject</button> -->
+                    <button class="btn btn-primary small w-100 small ms-3" (click)="uploadFormData()">Confirm</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </ng-template>
+
+
+</div>

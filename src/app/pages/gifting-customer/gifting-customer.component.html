@@ -1,0 +1,1476 @@
+<div class="user-profile-wrapper">
+  <div class="profile-banner"
+    [ngStyle]="{'background-image':localCoverImageUrl?'url('+sanitize(localCoverImageUrl) +')':profileDetail?.cover_image? ' url(' +baseImgUrl+profileDetail?.cover_image + ')':'url(../../../assets/images/nft/john_doe_cover.png)','background-position-y':profileDetail?.cover_image_y_axis?profileDetail?.cover_image_y_axis+'%':50+'%'}"
+    style='background-position-x:0px ; background-position-y: center;background-repeat: no-repeat;background-size: cover;'>
+    <!-- <div class="profile-banner">
+    <img
+      [src]="localCoverImageUrl?sanitize(localCoverImageUrl):profileDetail?.cover_image?baseImgUrl+profileDetail?.cover_image:'../../../assets/images/nft/john_doe_cover.png'"
+      class="w-100 image" /> -->
+    <!-- <div class="container h-100 d-flex align-items-end justify-content-end z-index-2">
+      <button (click)="coverImg.click()" class="btn btn-outline-white small update-cover z-index-2 mb-4">
+        <img src="../../../assets/images/pages/edit_cover.svg" /><span class="ms-lg-3 ms-1">Edit Cover</span>
+      </button>
+      <input type="file" id="coverImg" class="d-none" (change)="uploadProfile($event,'coverImg')" #coverImg
+        accept="image/jpeg, image/png, image/gif,">
+
+    </div> -->
+  </div>
+
+  <div class="profile-content text-center">
+    <div class="container position-relative">
+      <div class="user-profile overflow-hidden d-flex justify-content-center align-items-center gradient-profile">
+        <img [ngStyle]="{height:profileDetail.image_size +'%',width:profileDetail.image_size+'%'}"
+          [src]="localProfileImageUrl?sanitize(localProfileImageUrl):profileDetail?.profile_pic?baseImgUrl+profileDetail?.profile_pic:'../../../assets/images/pages/profile_placeholder.png'" />
+      </div>
+      <!-- <div class="user-profile gradient-profile">
+        <img
+          [src]="localProfileImageUrl?sanitize(localProfileImageUrl):profileDetail?.profile_pic?baseImgUrl+profileDetail?.profile_pic:'../../../assets/images/nft/profile.png'" />
+      </div>-->
+      <!-- <div class="position-right">
+        <button (click)="profilePic.click()" class="btn btn-outline-secondary">
+          <img src="../../../assets/images/pages/edit_profile.svg" class="me-2" />Edit Profile Picture
+        </button>
+        <input type="file" id="profilePic" class="d-none" (change)="uploadProfile($event,'profilePic')" #profilePic
+          accept="image/jpeg, image/png, image/gif,">
+
+      </div> -->
+      <h3 class="fw-bold  mb-lg-4 mb-3">
+        {{profileDetail?.first_name}} {{profileDetail?.last_name}}
+
+        <span class="ms-2"><img src="../../../assets/images/pages/check_tick.svg" /></span>
+      </h3>
+      <div class="d-flex align-items-center justify-content-center mb-3">
+        <h6 class="mb-0 fw-bold">@{{profileDetail?.user_name}}</h6>
+        <div class="d-flex align-items-center ms-4">
+          <p class="mb-0">Acc. ID</p>
+          <h6 class="mb-0 fw-bold mx-2">{{ profileDetail?.account_id !="0" ?profileDetail?.account_id :
+            profileDetail?.wallet_address.slice(0,7)+'...'
+            +profileDetail?.wallet_address.slice(-4)}}</h6>
+          <button class="btn-icon" (click)="copy(profileDetail?.wallet_address)">
+            <img src="../../../assets/images/pages/copy.svg" />
+          </button>
+        </div>
+      </div>
+      <p class="fw-semi-bold mb-sm-4 mb-3">
+        {{profileDetail?.bio}}
+      </p>
+      <div class="row profile-detail mx-0">
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">followers</p>
+            <h6 class="mb-0 fw-bold">{{profileDetail?.follower_count}}</h6>
+          </div>
+        </div>
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">Following</p>
+            <h6 class="mb-0 fw-bold">{{profileDetail?.following_count}}</h6>
+          </div>
+        </div>
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">NFTs</p>
+            <h6 class="mb-0 fw-bold">{{profileDetail?.nft_count}}</h6>
+          </div>
+        </div>
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">Collections</p>
+            <h6 class="mb-0 fw-bold">{{profileDetail?.collection_count}}</h6>
+          </div>
+        </div>
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">Owners</p>
+            <h6 class="mb-0 fw-bold">{{profileDetail?.owner_count}}</h6>
+          </div>
+        </div>
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">Memberships</p>
+            <h6 class="mb-0 fw-bold">{{profileDetail?.memership_count}}</h6>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex flex-wrap justify-content-center pb-sm-5 pb-4 profile-btns">
+        <button routerLink="/edit-profile" class="btn btn-outline-secondary m-sm-2 m-1 fs-14 pxe-4">
+          <img src="../../../assets/images/pages/create.png" class="me-3" />Edit
+          Profile
+        </button>
+
+        <div class="btn-group dropup share-dropdown">
+          <button class="btn m-2 fs-14 pxe-4 share-btn" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="../../../assets/images/pages/share.svg" class="me-3" />Share
+          </button>
+
+          <ul class="dropdown-menu">
+            <li>
+              <button class="dropdown-item" (click)="shareBYCopy(profileDetail?._id)">
+                <img src="../../../assets/images/pages/copy_black.png" class="me-2" />Copy URL
+              </button>
+            </li>
+            <li><a class="dropdown-item" (click)="sharefacebookUrl(profileDetail?._id)">Facebook</a></li>
+            <li><a class="dropdown-item" (click)="shareinstaUrl(profileDetail?._id)">Instagram</a></li>
+            <li><a class="dropdown-item" (click)="sharemailUrl(profileDetail?._id)">E-mail</a></li>
+          </ul>
+        </div>
+        <ng-container *ngIf="profileDetail?.personal_link">
+          <button (click)="openLink(profileDetail?.personal_link)"
+            class="btn btn-outline-primary m-sm-2 m-1 px-5 fw-normal position-relative fs-14">
+            <img src="../../../assets/images/pages/web_link.svg" class="web-link" />
+            <span class="ps-sm-3">{{profileDetail?.personal_link}}</span>
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <section class="profile-page-view">
+    <div class="container">
+      <ul class="nav nav-pills mb-5 common-tabs  justify-content-center" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button (click)="isCreateProject=false;isUploadedGiftNft=false;tabContentShow=1"
+            class="nav-link {{tabContentShow==1?'active':''}}" id="pills-home-tab" data-bs-toggle="pill"
+            data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+            attr.aria-selected="{{tabContentShow==1?'true':''}}">
+            <span>Items</span>
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button (click)="isCreateProject=false;isUploadedGiftNft=false;tabContentShow=2"
+            class="nav-link {{tabContentShow==2?'active':''}}" id="pills-collections-tab" data-bs-toggle="pill"
+            data-bs-target="#pills-collections" type="button" role="tab" aria-controls="pills-home"
+            attr.aria-selected="{{tabContentShow==2?'true':''}}">
+            <span>Collections</span>
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button (click)="isCreateProject=false;isUploadedGiftNft=false;tabContentShow=3"
+            class="nav-link  {{tabContentShow==3?'active':''}}" id="pills-profile-tab" data-bs-toggle="pill"
+            data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+            attr.aria-selected="{{tabContentShow==3?'true':''}}">
+            <span>Activity</span>
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button (click)="isCreateProject=false;isUploadedGiftNft=false;tabContentShow=4"
+            class="nav-link  {{tabContentShow==4?'active':''}}" id="pills-stats-tab" data-bs-toggle="pill"
+            data-bs-target="#pills-stats" type="button" role="tab" aria-controls="pills-stats"
+            attr.aria-selected="{{tabContentShow==4?'true':''}}">
+            <span>Stats</span>
+          </button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+          <button (click)="isCreateProject=false;isUploadedGiftNft=false;tabContentShow=5"
+            class="nav-link  {{tabContentShow==5?'active':''}}" id="pills-free-nft-tab" data-bs-toggle="pill"
+            data-bs-target="#pills-free-nft" type="button" role="tab" aria-controls="pills--free-nft"
+            attr.aria-selected="{{tabContentShow==5?'true':''}}" (click)="GiftCustSlider()">
+            <span>Your Free NFTs</span>
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button (click)="isCreateProject=false;isUploadedGiftNft=false;tabContentShow=6"
+            class="nav-link  {{tabContentShow==6?'active':''}}" id="pills-customer-tab" data-bs-toggle="pill"
+            data-bs-target="#pills-customer" type="button" role="tab" aria-controls="pills-customer"
+            attr.aria-selected="{{tabContentShow==6?'true':''}}" (click)="GiftCustomers();selectedNft=null">
+            <span>Gift Your Customers</span>
+          </button>
+        </li>
+      </ul>
+      <div class="tab-content common-tabs-content pt-2" id="pills-tabContent">
+        <div class="tab-pane fade {{tabContentShow==1?'active show':''}}" id="pills-home" role="tabpanel"
+          aria-labelledby="pills-home-tab">
+          <div class="marketplace pb-md-3 pb-0">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="d-flex align-items-center mb-4 pb-lg-3 flex-wrap">
+                    <h2 class="title me-4">Items</h2>
+                    <div>
+                      <button class="btn btn-outline-secondary me-md-4 me-2 my-1">
+                        <img src="../../../assets/images/HomePage/category.svg" class="me-2" />
+                        Category
+                      </button>
+                      <button class="btn btn-outline-secondary me-md-4 me-2 my-1">
+                        <img src="../../../assets/images/HomePage/collection.svg" class="me-2" />
+                        Collection
+                      </button>
+                      <button class="btn btn-outline-secondary me-md-4 me-2 my-1">
+                        <img src="../../../assets/images/HomePage/price_range.svg" class="me-2" />
+                        Price Range
+                      </button>
+                      <button class="btn btn-outline-secondary me-md-4 me-2 my-1">
+                        <img src="../../../assets/images/HomePage/sort.svg" class="me-2" />
+                        Sort
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xl-3 mb-4 pb-lg-3">
+                  <div class="marketplace-box position-relative">
+                    <div class="position-relative">
+                      <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+                      <div class="likes-count">
+                        <span class="me-2 fw-semi-bold">66</span><img
+                          src="../../../assets/images/HomePage/favorite_outline.svg" />
+                      </div>
+                    </div>
+                    <div class="marketplace-content">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="text-gray mb-0">Collection Name</p>
+                        <!-- <button class="btn-icon">
+                        <img src="../../../assets/images/HomePage/three_dots.svg" />
+                      </button> -->
+                        <div class="dropdown marketplace-dropdown">
+                          <button class="btn btn-icon" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <img src="../../../assets/images/HomePage/three_dots.svg" />
+                          </button>
+                          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu2">
+                            <li>
+                              <button class="dropdown-item" type="button">
+                                Report
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <p class="fw-bold text-nft-name">
+                        NFT Name Goes Here Even If It's Long #0001
+                      </p>
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="mb-0 fw-semi-bold">
+                          <img src="../../../assets/images/nft/polygon_matic.png" class="me-2 w-19" />0.22 MATIC
+                        </p>
+                        <button class="btn-icon fs-14 fw-bold">
+                          <span class="gradient-text">
+                            Buy Now
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="commig-soon"><span>Coming Soon...</span></div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3 mb-4 pb-lg-3">
+                  <div class="marketplace-box position-relative">
+                    <div class="position-relative">
+                      <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+                      <div class="likes-count">
+                        <span class="me-2 fw-semi-bold">66</span><img
+                          src="../../../assets/images/HomePage/favorite_outline.svg" />
+                      </div>
+                    </div>
+                    <div class="marketplace-content">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="text-gray mb-0">Collection Name</p>
+                        <div class="dropdown marketplace-dropdown">
+                          <button class="btn btn-icon" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <img src="../../../assets/images/HomePage/three_dots.svg" />
+                          </button>
+                          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu2">
+                            <li>
+                              <button class="dropdown-item" type="button">
+                                Report
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <p class="fw-bold text-nft-name">
+                        NFT Name Goes Here Even If It's Long #0001
+                      </p>
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="mb-0 fw-semi-bold">
+                          <img src="../../../assets/images/nft/polygon_matic.png" class="me-2 w-19" />0.22 MATIC
+                        </p>
+                        <button class="btn-icon fs-14 fw-bold">
+                          <span class="gradient-text">
+                            Buy Now
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="commig-soon"><span>Coming Soon...</span></div>
+                  </div>
+                </div>
+
+
+                <div class="col-md-12">
+                  <button class="btn btn-outline-secondary w-100 py-3">
+                    Load More
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade {{tabContentShow==2?'active show':''}}" id="pills-collections" role="tabpanel"
+          aria-labelledby="pills-collections-tab">
+          <h1 class="mt-2">Collections</h1>
+          <div class="row mt-4">
+            <div class="col-md-6 col-lg-4 col-xl-3 mb-4 pb-lg-3">
+              <div class="marketplace-box">
+                <div class="position-relative">
+                  <img src='../../../assets/images/collection1.jpg' class="marketplace-img" />
+                  <div class="likes-count">
+                    <span class="me-2 fw-semi-bold">2</span><img
+                      src='../../../assets/images/HomePage/favorite_outline.svg' />
+                  </div>
+                </div>
+                <div class="marketplace-content pb-3">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <p class="m-0 text-gray">collection name</p>
+                    <img src="	http://localhost:4200/assets/images/HomePage/three_dots.svg" alt="img">
+                  </div>
+                  <p class="fw-bold m-0 mt-2">My nft</p>
+                  <div class="mt-4 pb-2">
+                    <a href="#">
+                      <button class="btn btn-outline-secondary w-100">View more</button>
+                    </a>
+                  </div>
+                  <!-- <div class="d-flex align-items-center justify-content-between pt-5">
+                    <p class="fw-bold m-0"><img src="	http://localhost:4200/assets/images/nft/polygon_matic.png"
+                        alt="img"> 212 Matic</p>
+                    <button class="btn-icon"><span class="gradient-text">Buy Now</span></button>
+                    <button class="btn-icon"><span class="gradient-text">View nft</span></button>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+        </div>
+        <div class="tab-pane fade {{tabContentShow==3?'active show':''}}" id="pills-profile" role="tabpanel"
+          aria-labelledby="pills-profile-tab">
+          <div class="activity-wrapper my-0 ">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="d-flex align-items-center">
+                      <h2 class="title">Activity</h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="nft-activity-wrapper first-view position-relative ">
+                    <div class="nft-activity">
+                      <div class="nft-image">
+                        <img src="../../../assets/images/pages/activity_one.png" class="img-fluid" />
+                      </div>
+                      <div class="nft-activity-content flex-grow-1 ps-md-0">
+                        <div class="d-flex flex-wrap align-items-center h-100 flex-sm-row flex-column">
+                          <div class="act-user-img me-sm-2">
+                            <img src="../../../assets/images/pages/user.png" class="img-fluid" />
+                          </div>
+                          <div class="d-flex justify-content-between flex-wrap flex-grow-1">
+                            <p class="mb-0 fs-12"><b>JohnDoe</b> liked Neovichx NFT</p>
+                            <p class="mb-0 fs-12">5 minutes ago</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="commig-soon border-20"><span>Coming Soon...</span></div>
+                  </div>
+                  <div class="nft-activity-wrapper second-view position-relative">
+                    <div class="nft-activity">
+                      <div class="nft-image">
+                        <img src="../../../assets/images/pages/activity_two.png" class="img-fluid" />
+                      </div>
+                      <div class="nft-activity-content flex-grow-1 ps-md-0">
+                        <div class="d-flex h-100 flex-sm-row flex-column">
+                          <div class="act-user-img me-sm-2 ">
+                            <img src="../../../assets/images/pages/user.png" class="img-fluid" />
+                          </div>
+                          <div>
+                            <div class="d-flex justify-content-between flex-wrap flex-grow-1">
+                              <p class="mb-0 fs-12"><b>JohnDoe</b> liked Neovichx NFT</p>
+                              <p class="mb-0 fs-12">5 minutes ago</p>
+                            </div>
+                            <p class="mt-sm-4 mt-2 mb-0 fs-12 activity-comment">Lorem ipsum dolor sit amet, consectetur
+                              adipiscing
+                              elit,
+                              sed do eiusmod
+                              tempor incididunt
+                              ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                              ullamco
+                              laboris nisi ut aliquip ex ea commodo consequat. </p>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="commig-soon border-20"><span>Coming Soon...</span></div>
+                  </div>
+                  <div class="nft-activity-wrapper third-view position-relative">
+                    <div>
+                      <div class="nft-image">
+                        <img src="../../../assets/images/pages/activity_three.png" class="img-fluid" />
+                      </div>
+                      <div class="nft-activity-content">
+                        <div class="d-flex h-100 flex-sm-row flex-column">
+                          <div class="act-user-img me-sm-4 ">
+                            <img src="../../../assets/images/pages/user.png" class="img-fluid" />
+                          </div>
+                          <div class="d-flex justify-content-between flex-wrap flex-grow-1">
+                            <p class="mb-0 fs-12"><b>JohnDoe</b> liked Neovichx NFT</p>
+                            <p class="mb-0 fs-12">5 minutes ago</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="commig-soon border-20"><span>Coming Soon...</span></div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade {{tabContentShow==4?'active show':''}}" id="pills-stats" role="tabpanel"
+          aria-labelledby="pills-stats-tab">
+          <div class="activity-wrapper my-0">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="d-flex justify-content-between align-items-center mb-5 pb-lg-3">
+                    <div class="d-flex align-items-center flex-wrap">
+                      <h2 class="title">Statistics</h2>
+                      <div class="time-wrapper  flex-wrap">
+                        <span class="gradient-text d-flex me-4">
+                          <img src="../../../assets/images/pages/time.svg" class="me-3" />Since The Beginning Of
+                          Time</span>
+
+                        <div class="mx-md-3 mx-2 fw-bold">7 Days</div>
+                        <div class="mx-md-3 mx-2 fw-bold">30 Days</div>
+                        <div class="mx-md-3 mx-2 fw-bold">90 Days</div>
+                        <div class="mx-md-3 mx-2 fw-bold">1 Year</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="row profile-detail mx-0 text-center">
+                    <div class="col px-0">
+                      <div class="pd-col">
+                        <p class="mb-2">Highest Sale</p>
+                        <h6 class="mb-0 fw-bold">$3.2M</h6>
+                      </div>
+                    </div>
+                    <div class="col px-0">
+                      <div class="pd-col">
+                        <p class="mb-2">Floor Price</p>
+                        <h6 class="mb-0 fw-bold">$186.8K</h6>
+                      </div>
+                    </div>
+                    <div class="col px-0">
+                      <div class="pd-col">
+                        <p class="mb-2">Market Cap</p>
+                        <h6 class="mb-0 fw-bold">$2.4B</h6>
+                      </div>
+                    </div>
+                    <div class="col px-0">
+                      <div class="pd-col">
+                        <p class="mb-2">Items</p>
+                        <h6 class="mb-0 fw-bold">9.8K</h6>
+                      </div>
+                    </div>
+                    <div class="col px-0">
+                      <div class="pd-col">
+                        <p class="mb-2">Owners</p>
+                        <h6 class="mb-0 fw-bold">6.1K</h6>
+                      </div>
+                    </div>
+                    <div class="col px-0">
+                      <div class="pd-col">
+                        <p class="mb-2">Total Volume</p>
+                        <h6 class="mb-0 fw-bold">$1.1B</h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 mb-4">
+                  <div class="card statistcs-card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0 fw-bold">Current Average Price</h5>
+                        <p class="mb-0">Since The Beginning Of Time</p>
+                      </div>
+                      <h2 class="mt-3 fw-normal"><b>2 MATIC</b> / 1,074 USD</h2>
+                      <div class="chart-wrapper bar-chart">
+                        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels"
+                          [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend"
+                          [colors]="chartColors" [chartType]="barChartType">
+                        </canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="card statistcs-card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0 fw-bold">Market Cap</h5>
+                        <p class="mb-0">Since The Beginning Of Time</p>
+                      </div>
+                      <h2 class="mt-3 fw-normal">
+                        <b>82.5 MATIC</b> / 32,074 USD
+                      </h2>
+                      <div class="chart-wrapper">
+                        <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
+                          [options]="lineChartOptions" [plugins]="lineChartPlugins" [legend]="lineChartLegend"
+                          [colors]="lineChartColors" [chartType]="lineChartType">
+                        </canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div class="card statistcs-card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0 fw-bold">Transactions</h5>
+                        <p class="mb-0">Since The Beginning Of Time</p>
+                      </div>
+                      <h2 class="mt-3 fw-normal"><b>6,245</b></h2>
+                      <div class="chart-wrapper">
+                        <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
+                          [options]="lineChartOptions" [plugins]="lineChartPlugins" [legend]="lineChartLegend"
+                          [colors]="lineChartColors" [chartType]="lineChartType">
+                        </canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 mb-4">
+                  <div class="card statistcs-card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0 fw-bold">Owners</h5>
+                        <p class="mb-0">Since The Beginning Of Time</p>
+                      </div>
+                      <h2 class="mt-3 fw-normal">
+                        <b>6,245</b>
+                      </h2>
+                      <div class="chart-wrapper">
+                        <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
+                          [options]="lineChartOptions" [plugins]="lineChartPlugins" [legend]="lineChartLegend"
+                          [colors]="lineChartColors" [chartType]="lineChartType">
+                        </canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                  <div class="card statistcs-card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0 fw-bold">Buyers</h5>
+                        <p class="mb-0">Since The Beginning Of Time</p>
+                      </div>
+                      <h2 class="mt-3 fw-normal"><b>10,698</b></h2>
+                      <div class="chart-wrapper">
+                        <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
+                          [options]="lineChartOptions" [plugins]="lineChartPlugins" [legend]="lineChartLegend"
+                          [colors]="lineChartColors" [chartType]="lineChartType">
+                        </canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                  <div class="card statistcs-card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0 fw-bold">Sellers</h5>
+                        <p class="mb-0">Since The Beginning Of Time</p>
+                      </div>
+                      <h2 class="mt-3 fw-normal"><b>4,234</b></h2>
+                      <div class="chart-wrapper">
+                        <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
+                          [options]="lineChartOptions" [plugins]="lineChartPlugins" [legend]="lineChartLegend"
+                          [colors]="lineChartColors" [chartType]="lineChartType">
+                        </canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade {{tabContentShow==6?'active show':''}}" id="pills-customer" role="tabpanel"
+          aria-labelledby="pills-customer-tab">
+          <div class="customer-wrapper" [ngClass]="(isCreateProject || isUploadedGiftNft)?'d-none':''">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap">
+                    <div>
+                      <h2 class="title me-md-4 me-2">Gift Your Customers</h2>
+                      <p class="text-gray">Select the project you want this collection to be saved under, or create a
+                        new
+                        project.</p>
+                    </div>
+
+                    <!-- <a href="/create-project" class="btn btn-outline-secondary fs-14"><img
+                        src="../../../assets/images/pages/control_point.png" class="me-3" />Create New Project</a> -->
+                    <a (click)="isCreateProject=true" class="btn btn-outline-secondary fs-14 my-3"><img
+                        src="../../../assets/images/pages/control_point.png" class="me-3" />Create New Project</a>
+                  </div>
+
+                  <div class="d-flex justify-content-between align-items-center total-available">
+                    <p class="mb-0 fw-bold">Total Number Of NFTs Available For Gifting</p>
+                    <h2 class="mb-0 fw-bold ">{{totalAvailableNfts}}</h2>
+                  </div>
+                  <p class="fw-bold mb-4 pt-lg-3">Select From Existing Projects:</p>
+                  <owl-carousel-o [options]="customOptions" *ngIf="showGiftCustomers">
+                    <ng-container *ngFor="let project of availableProjectsList;let i=index">
+                      <ng-template carouselSlide>
+                        <div class="project-wrapper text-center active {{selectedNft==i?'selected':''}}"
+                          (click)="addNftToProject(project);selectedNft=i">
+                          <div class="project-img">
+                            <img [src]="project.image ? project.image:'../../../assets/images/HomePage/placeholder.png'"
+                              class="pImg" />
+                          </div>
+                          <div class="project-content pt-3" *ngIf="project.is_nft_added">
+                            <p class="mb-0"><b>{{project.name}}</b></p>
+                            <p class="mb-0">{{project.nft?.[0].available}}/{{project?.nft?.[0].no_of_copy}} Available
+                            </p>
+                          </div>
+                          <div class="project-content pt-3" *ngIf="!project.is_nft_added">
+                            <p class="mb-0 text-break"><b>{{project.name}}</b></p>
+                            <!-- <p class="mb-0">{{project.nft?.[0].available}}/{{project?.nft?.[0].no_of_copy}} Available</p> -->
+                            <p class="mb-0">Add Nft to Project</p>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </ng-container>
+                  </owl-carousel-o>
+                </div>
+              </div>
+              <div class="row text-center py-md-5 py-4">
+                <input type="file" (change)="uploadCsv($event)" class="d-none" #inputEmailCsv />
+
+                <div class="col-md-6">
+                  <p class="fw-bold pb-2">Bulk Upload</p>
+                  <!-- <label class="upload-file">
+                      <div>
+                        <p class="text-gray mb-1">Drag and drop your file in this box to Bulk Upload</p>
+                        <p class="text-gray mb-4"><b>CSV</b> and <b>TXT</b> files are accepted</p>
+                        <button (click)="inputEmailCsv.click()" class="btn btn-outline-black fs-14 px-5">
+                          Choose File
+                        </button>
+                      </div>
+                    </label> -->
+                  <ngx-dropzone (change)="uploadCsvOrTextFile($event)"
+                    class="mt-4 upload-file-height justify-content-center">
+                    <ngx-dropzone-label>Drag and drop your file in this box to Bulk Upload
+
+                      <p><b>CSV</b> and <b>TXT</b> files are accepted</p>
+                      <button type="button" class="btn btn-outline-black fs-14 px-5">
+                        Choose File
+                      </button>
+                    </ngx-dropzone-label>
+
+                    <!--
+                      <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                      </ngx-dropzone-preview> -->
+                  </ngx-dropzone>
+                </div>
+                <div class="col-md-6 mt-md-0 mt-4">
+                  <form action="" [formGroup]="singleTransferForm" (submit)="singleUploadEmail()">
+                    <p class="fw-bold">Single Upload</p>
+                    <div class="setup-box single-upload">
+                      <p class="mb-4 pb-2">Enter your customers’ e-mail addresses in the fields below</p>
+                      <div class="form-group">
+                        <input type="text" formControlName="email1" class="form-control" placeholder="E-mail Address" />
+                      </div>
+                      <div class="form-group">
+                        <input type="text" class="form-control" formControlName="email2" placeholder="E-mail Address" />
+                      </div>
+                      <div class="form-group">
+                        <input type="text" class="form-control" formControlName="email3" placeholder="E-mail Address" />
+                      </div>
+                      <div class="form-group">
+                        <input type="text" class="form-control" formControlName="email4" placeholder="E-mail Address" />
+                      </div>
+                      <div class="form-group">
+                        <input type="text" class="form-control" formControlName="email5" placeholder="E-mail Address" />
+                      </div>
+                    </div>
+
+                  </form>
+
+                </div>
+                <div class="col-md-12 mt-md-5 mt-3">
+                  <button type="button" class="btn btn-black w-100" (click)="singleUploadEmail()"
+                    [disabled]="isLoading">Upload</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <!-- </ng-container> -->
+          <ng-container *ngIf="isCreateProject">
+            <ng-container *ngTemplateOutlet="createNewProjectTemplate"></ng-container>
+          </ng-container>
+          <ng-container *ngIf="!isCreateProject && isUploadedGiftNft">
+            <div class="successfull-message text-center">
+              <img src="../../../assets/images/pages/successful.svg" class="img-fluid mb-5" />
+              <h5 class="fw-bold">Uploading was succesful!</h5>
+              <p>The gifting process will begin shortly.</p>
+              <button type="button" (click)="isUploadedGiftNft=false" class="btn btn-outline-secondary mt-4">Upload More
+                Files?</button>
+            </div>
+          </ng-container>
+
+
+        </div>
+        <div class="tab-pane fade {{tabContentShow==5?'active show':''}}" id="pills-free-nft" role="tabpanel" aria-labelledby="pills-free-nft-tab">
+          <div class="customer-wrapper free-nft " [ngClass]="isCreateProject?'d-none':''">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <h2 class="title mb-4">Upload Your NFTs</h2>
+                </div>
+                <div class="col-md-12">
+                  <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
+                    <div class="d-flex align-items-center  flex-wrap">
+                      <p class="fw-bold mb-0 me-5">Add To Existing Projects</p>
+                      <p class="text-gray mb-0">Select the project you want this collection to be saved under, or create
+                        a new project.</p>
+                    </div>
+                    <a (click)="isCreateProject=true" class="btn btn-outline-secondary fs-14 my-3"><img
+                        src="../../../assets/images/pages/control_point.png" class="me-3" />Create New Project</a>
+                  </div>
+                  <p class="fw-bold mb-4 pt-lg-3">Select From Existing Projects:</p>
+                  <owl-carousel-o [options]="custom2Options" *ngIf="isLoaded">
+                    <ng-container *ngFor="let project of availableProjectsList;let i=index">
+                      <ng-template carouselSlide>
+                        <div
+                          class="project-wrapper text-center active {{selectedCollection == project._id ? 'selected' : ''}} {{selectedNft == i ? 'selected' : ''}}"
+                          (click)="addNftToProject(project);selectedNft=i">
+                          <div class="project-img">
+                            <img [src]="project.image ? project.image:'../../../assets/images/HomePage/placeholder.png'"
+                              class="pImg" />
+                            <button class="p-upload-image">
+                              <img src="../../../assets/images/pages/edit_profile.svg" class="img-fluid" />
+                            </button>
+                          </div>
+                          <div class="project-content pt-3" *ngIf="project.is_nft_added">
+                            <p class="mb-0"><b>{{project.name}}</b></p>
+                            <p class="mb-0">{{project.nft?.[0].available}}/{{project?.nft?.[0].no_of_copy}} Available
+                            </p>
+                          </div>
+                          <div class="project-content pt-3" *ngIf="!project.is_nft_added">
+                            <p class="mb-0 text-break"><b>{{project.name}}</b></p>
+                            <p class="mb-0">Add Nft to Project</p>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </ng-container>
+                  </owl-carousel-o>
+                </div>
+              </div>
+              <ng-container *ngIf="isLoading">
+                <div class="loader">
+                  <div class="spinner-border text-dark" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+              </ng-container>
+              <form [formGroup]="nftCreateForm" (submit)="submitForm()" class="d-md-block d-none">
+                <div class="row pt-md-5 pt-4 bottom-space">
+                  <div class="col-md-12">
+                    <p class="text-gray mb-0">Drag and drop your file(s) in the box below</p>
+                    <ngx-dropzone (change)="upload($event)" class="mt-4 upload-file-height">
+                      <ngx-dropzone-label>
+                        <p>Drag and Drop Your NFTs Here</p>
+                        <button type="button" class="btn btn-outline-black fs-14 px-5">Choose File</button>
+                      </ngx-dropzone-label>
+                      <ng-container *ngIf="mediaType == 'image'">
+                        <ngx-dropzone-image-preview class="w-100" [file]="f" *ngFor="let f of nftUploadedFiles"
+                          [removable]="true" (removed)="nftUploadedFiles=[];fileData=''"></ngx-dropzone-image-preview>
+                      </ng-container>
+                      <ng-container *ngIf="mediaType == 'video'">
+                        <ngx-dropzone-video-preview [file]="f" *ngFor="let f of nftUploadedFiles" [removable]="true"
+                          (removed)="nftUploadedFiles=[];fileData=''"></ngx-dropzone-video-preview>
+                      </ng-container>
+                    </ngx-dropzone>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-md-12">
+                    <div class="d-flex align-items-center flex-wrap">
+                      <h3 class="fw-bold mb-0 me-4 title">Set Up Your NFT Information</h3>
+                      <p class="text-gray mb-0 ">Enter your NFTs settings and Metadata below.</p>
+                    </div>
+                  </div>
+                  <div class="col-md-6 pe-lg-4">
+                    <div class="setup-box">
+                      <div class="mb-4">
+                        <h6 class="fw-bold mb-0 ">NFT Information For All</h6>
+                      </div>
+                      <div class=" mb-3">
+                        <div class="s-box">
+                          <div class="d-flex align-items-center">
+                            <p class="mb-0 fw-semi-bold me-2">Name</p>
+                            <input type="text" formControlName="name" placeholder="e.g. “Digital Painting NFT”" />
+                          </div>
+                        </div>
+                        <p *ngIf="isSubmited && f?.['name']?.errors?.['required']"
+                          class="text-danger position-relative mt-2">Please Enter Name</p>
+                      </div>
+                      <div class="visible-gradient s-box mb-3">
+                        <div class="">
+                          <p class="mb-0 fw-semi-bold mb-2">
+                            Description
+                            <span class="text-gray fw-normal">(Optional)</span>
+                          </p>
+                          <textarea formControlName="description" type="textarea"
+                            placeholder="e.g. “This NFT was created using my skills in Adobe illustrator, and Photoshop combined.” "></textarea>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="acknowledge-msg">
+                      <p class="mt-md-5 mt-4 mb-md-3 mb-0">
+                        <b>Please take your time to review all the details and confirm everything is correct. Creating
+                          items become irreversible once the minting process starts.</b>
+                      </p>
+                      <label class="radio-container fw-normal fs-14">
+                        <input type="checkbox" formControlName="isAcknowledged" />
+                        <span class="checkmark"></span>
+                        I acknowledge that the above data is correct.
+                      </label>
+                    </div>
+                    <div class="col-md-12">
+                      <p *ngIf="isSubmited && (f?.['isAcknowledged']?.value==false) "
+                        class="position-relative text-danger">Please acknowledge that the above data is correct </p>
+                    </div>
+                  </div>
+                  <div class="col-md-6 ps-lg-4">
+                    <div class="setup-box">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <h6 class="mb-0 fw-semi-bold me-4">Copies Of Each</h6>
+                        <div>
+                          <input type="number" min="0" formControlName="multipleCopies" class="form-control text-center"
+                            value="" />
+                          <p *ngIf="isSubmited && f?.['multipleCopies']?.errors?.['required']" class="text-danger mt-2">
+                            Please Enter no.</p>
+                        </div>
+                      </div>
+                      <p class="text-gray mt-4 pt-2 mb-0">
+                        Set the preferred number of copies you are willing to sell of this NFT. (E.g. 10)
+                      </p>
+                    </div>
+                    <div class="setup-box">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <h6 class="mb-0 fw-semi-bold me-4">Royalties</h6>
+                        <div class="w-50">
+                          <div class="royality-input">
+                            <input type="text" (keypress)="numberOnly($event)" class="input-gradient form-control"
+                              formControlName="royalties" value="10" />
+                            <span>%</span>
+                          </div>
+                          <ng-container *ngIf="isSubmited && f['royalties'].errors?.['required']">
+                            <span class="text-danger position-relative">
+                              Please Enter Royalties</span>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <p class="text-gray mt-4 pt-2 mb-0">
+                        Every time your NFT gets sold, you shall receive a royalty
+                        from each sale, the maximum royalty you can assign is 20%,
+                        however, the recommended is between 7% to 10%, in order to
+                        make it more appealing to other buyers / sellers
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 mt-md-5 mt-4 mb-5">
+                    <button type="submit" class="btn btn-black w-100" [disabled]="isLoading">Upload NFTs</button>
+                  </div>
+                </div>
+              </form>
+              <form [formGroup]="nftCreateForm" (submit)="submitForm()" class="d-md-none">
+                <div class="row pt-md-5 pt-4 bottom-space">
+                  <div class="col-md-12">
+                    <p class="text-gray mb-0">Drag and drop your file(s) in the box below</p>
+                    <ngx-dropzone (change)="upload($event)" class="mt-4 upload-file-height">
+                      <ngx-dropzone-label>
+                        <p>Drag and Drop Your NFTs Here</p>
+                        <button type="button" class="btn btn-outline-black fs-14 px-5">
+                          Choose File
+                        </button>
+                      </ngx-dropzone-label>
+                      <ng-container *ngIf="mediaType == 'image'">
+                        <ngx-dropzone-image-preview class="w-100" [file]="f" *ngFor="let f of nftUploadedFiles"
+                          [removable]="true" (removed)="nftUploadedFiles=[];fileData=''"></ngx-dropzone-image-preview>
+                      </ng-container>
+                      <ng-container *ngIf="mediaType == 'video'">
+                        <ngx-dropzone-video-preview [file]="f" *ngFor="let f of nftUploadedFiles" [removable]="true"
+                          (removed)="nftUploadedFiles=[];fileData=''"></ngx-dropzone-video-preview>
+                      </ng-container>
+                    </ngx-dropzone>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-md-12">
+                    <div class="d-flex align-items-center flex-wrap">
+                      <h3 class="fw-bold mb-0 me-4 title">Set Up Your NFT Information</h3>
+                      <p class="text-gray mb-0 ">Enter your NFTs settings and Metadata below.</p>
+                    </div>
+                  </div>
+                  <div class="col-md-6 pe-lg-4">
+                    <div class="setup-box">
+                      <div class="mb-4">
+                        <h6 class="fw-bold mb-0 ">NFT Information For All</h6>
+                      </div>
+                      <div class=" mb-3">
+                        <div class="s-box">
+                          <div class="d-flex align-items-center">
+                            <p class="mb-0 fw-semi-bold me-2">Name</p>
+                            <input type="text" formControlName="name" placeholder="e.g. “Digital Painting NFT”" />
+                          </div>
+                        </div>
+                        <p *ngIf="isSubmited && f?.['name']?.errors?.['required']"
+                          class="text-danger position-relative mt-2">Please Enter Name</p>
+                      </div>
+
+                      <div class="visible-gradient s-box mb-3">
+                        <div class="">
+                          <p class="mb-0 fw-semi-bold mb-2">
+                            Description
+                            <span class="text-gray fw-normal">(Optional)</span>
+                          </p>
+                          <textarea formControlName="description" type="textarea"
+                            placeholder="e.g. “This NFT was created using my skills in Adobe illustrator, and Photoshop combined.” "></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 ps-lg-4">
+                    <div class="setup-box">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <h6 class="mb-0 fw-semi-bold me-4">Copies Of Each</h6>
+                        <div>
+                          <input type="number" min="0" formControlName="multipleCopies" class="form-control text-center"
+                            value="" />
+                          <p *ngIf="isSubmited && f?.['multipleCopies']?.errors?.['required']" class="text-danger mt-2">
+                            Please Enter no.</p>
+                        </div>
+                      </div>
+                      <p class="text-gray mt-4 pt-2 mb-0">
+                        Set the preferred number of copies you are willing to sell of this NFT. (E.g. 10)
+                      </p>
+                    </div>
+                    <div class="setup-box">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <h6 class="mb-0 fw-semi-bold me-4">Royalties</h6>
+                        <div class="w-50">
+                          <div class="royality-input">
+                            <input type="text" (keypress)="numberOnly($event)" class="form-control"
+                              formControlName="royalties" />
+                            <span>%</span>
+                          </div>
+                          <ng-container *ngIf="isSubmited && f['royalties'].errors?.['required']">
+                            <span class="text-danger position-relative">
+                              Please Enter Royalties</span>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <p class="text-gray mt-4 pt-2 mb-0">
+                        Every time your NFT gets sold, you shall receive a royalty
+                        from each sale, the maximum royalty you can assign is 20%,
+                        however, the recommended is between 7% to 10%, in order to
+                        make it more appealing to other buyers / sellers
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="acknowledge-msg">
+                      <p class="mt-md-5 mt-4 mb-md-3 mb-0">
+                        <b>Please take your time to review all the details and confirm
+                          everything is correct. Creating items become irreversible
+                          once the minting process starts.</b>
+                      </p>
+                      <label class="radio-container fw-normal fs-14">
+                        <input type="checkbox" formControlName="isAcknowledged" />
+                        <span class="checkmark"></span>
+                        I acknowledge that the above data is correct.
+                      </label>
+                    </div>
+                    <div class="col-md-12">
+                      <p *ngIf="isSubmited && (f?.['isAcknowledged']?.value==false) "
+                        class="position-relative text-danger">Please acknowledge that the above data is correct </p>
+                    </div>
+                  </div>
+                  <div class="col-md-12 mt-md-5 mt-4 mb-5">
+                    <button type="submit" class="btn btn-black w-100" [disabled]="isLoading">Upload NFTs</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <ng-container *ngIf="isCreateProject">
+            <ng-container *ngTemplateOutlet="createNewProjectTemplate"></ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="modal fade common-modal" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button class="close-btn btn-icon" data-bs-toggle="modal" data-bs-target="#buyModal">
+          <img src="../../../assets/images/pages/close.svg" />
+        </button>
+        <div class="row">
+          <div class="col-md-5">
+            <div class="preview-box visible-gradient">
+              <div class="preview">
+                <img src="../../../assets/images/pages/open_nft.png" />
+              </div>
+              <div class="text-center preview-info">
+                <p class="mb-0 text-break"><b>MutantApeYachtClub #3059</b></p>
+                <p class="mb-0 text-gray text-break">0x0f359e883...b2c2</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7">
+            <div class="common-modal-content ps-md-4 mt-md-0 mt-4">
+              <h3 class="fw-bold">Checkout</h3>
+              <p>
+                You are about to purchase a<br /><b>MutantApeYachtClub #3059</b><br />from <b>0x0f359e883...b2c2</b>
+              </p>
+              <div class="d-flex align-items-center justify-content-between mt-4">
+                <p>Balance</p>
+                <p><b>132 MATIC</b> / 476,278 USD</p>
+              </div>
+              <div class="d-flex align-items-center justify-content-between">
+                <p>Service Fee 2.5%</p>
+                <p><b>0.25 MATIC</b> / 64,414.71 USD</p>
+              </div>
+              <div class="d-flex align-items-center justify-content-between">
+                <p>Item Price</p>
+                <p><b>66 MATIC</b>/ 257,616 USD</p>
+              </div>
+              <div class="d-flex align-items-center justify-content-between mt-4">
+                <p>Total</p>
+                <h5>
+                  <img src="../../../assets/images/nft/polygon_matic.png" class="me-3 w-19" /><b>82.5 MATIC</b> /
+                  322,074 USD
+                </h5>
+              </div>
+              <label class="radio-container fw-normal fs-12">
+                <input type="radio" name="radio" checked />
+                <span class="checkmark"></span>
+                By checking this box, you agree to NFTwist's
+                <b class="text-theme">Terms</b>.
+              </label>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <button type="button" class="btn btn-primary fw-normal w-100 pay-now-btn">
+              Pay Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade common-modal" id="claimModal" tabindex="-1" aria-labelledby="claimModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button class="close-btn btn-icon" data-bs-toggle="modal" data-bs-target="#claimModal">
+          <img src="../../../assets/images/pages/close.svg" />
+        </button>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="common-modal-content ps-md-4">
+              <h3 class="fw-bold">
+                Claim / Report :
+                <span class="gradient-text ms-2">@neovichx</span>
+              </h3>
+              <p class="mt-4">
+                If you think this account violates our community guidelines,
+                please do not hesitate to let us know.
+              </p>
+              <div class="row mt-4 pt-2">
+                <div class="col-md-6">
+                  <div>
+                    <label class="radio-container fs-14 text-black fw-semi-bold mt-2">
+                      <input type="radio" name="radio" checked />
+                      <span class="checkmark"></span>
+                      I Own This Account
+                    </label>
+                  </div>
+                  <div>
+                    <label class="radio-container fs-14 text-black fw-semi-bold mt-2">
+                      <input type="radio" name="radio" />
+                      <span class="checkmark"></span>
+                      Adult Content
+                    </label>
+                  </div>
+                  <div>
+                    <label class="radio-container fs-14 text-black fw-semi-bold mt-2">
+                      <input type="radio" name="radio" />
+                      <span class="checkmark"></span>
+                      Promotes Violence
+                    </label>
+                  </div>
+                  <div>
+                    <label class="radio-container text-black fw-semi-bold fs-14 mt-2">
+                      <input type="radio" name="radio" />
+                      <span class="checkmark"></span>
+                      Hate Speech and Discrimination
+                    </label>
+                  </div>
+                  <div>
+                    <label class="radio-container text-black fw-semi-bold fs-14 mt-2">
+                      <input type="radio" name="radio" />
+                      <span class="checkmark"></span>
+                      Promotes Extremism and Terrorism
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="claim-warning">
+                    <textarea placeholder="Please elaborate further before submitting your Claim/Report"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <p class="text-gray mt-4">
+                By submitting this Claim/Report, you acknowledge that the above
+                information is correct.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <button type="button" class="btn btn-primary fw-normal w-100 mt-2">
+              Submit Claim/Report
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade common-modal send-nft-modal" id="sendNftModal" tabindex="-1" aria-labelledby="sendNftModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button class="close-btn btn-icon" data-bs-toggle="modal" data-bs-target="#sendNftModal">
+          <img src="../../../assets/images/pages/close.svg" />
+        </button>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="pl-60 pr-60">
+              <div class="d-flex align-items-center justify-content-between flex-wrap">
+                <h3 class="fw-bold">
+                  Send NFT to
+                  <span class="gradient-text ms-2">@neovichx</span>
+                </h3>
+                <div class="d-flex align-items-center flex-wrap">
+                  <p class="mb-0 me-3">Acc. ID</p>
+                  <div class="account-id">
+                    <h6 class="mb-0 fw-bold text-black accId">1x1cs...6sa1</h6>
+                    <button class="btn-icon fs-14 mx-3">
+                      <img src="../../../assets/images/pages/copy_black.png" class="me-1" />Copy
+                    </button>
+                    <button class="btn-icon fs-14 mx-2 disable">
+                      <img src="../../../assets/images/pages/paste.png" class="me-1" />Paste
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-md-4 mt-3 pt-lg-2 mb-0">
+                Select the NFT(s) you wanted send from your collections to
+                <b>Neovichx</b> as a gift! We’ll let them know you care...
+              </p>
+            </div>
+            <div *ngIf="isLoaded" class="send-nft">
+              <owl-carousel-o [options]="customOptions">
+                <ng-template carouselSlide>
+                  <div class="marketplace-box">
+                    <div class="position-relative">
+                      <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+                      <div class="likes-count">
+                        <span class="me-2 fw-semi-bold">66</span><img
+                          src="../../../assets/images/HomePage/favorite_outline.svg" />
+                      </div>
+                    </div>
+
+                    <div class="marketplace-content">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="text-gray mb-0">Collection Name</p>
+                      </div>
+                      <p class="fw-bold text-nft-name">
+                        NFT Name Goes Here Even If It's Long #0001
+                      </p>
+                      <label class="radio-container fs-12 fw-normal my-0">
+                        <input type="radio" name="radio" checked />
+                        <span class="checkmark"></span>
+                        <span class="select-text">Select</span>
+                      </label>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template carouselSlide>
+                  <div class="marketplace-box">
+                    <div class="position-relative">
+                      <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+                      <div class="likes-count">
+                        <span class="me-2 fw-semi-bold">66</span><img
+                          src="../../../assets/images/HomePage/favorite_outline.svg" />
+                      </div>
+                    </div>
+
+                    <div class="marketplace-content">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="text-gray mb-0">Collection Name</p>
+                      </div>
+                      <p class="fw-bold text-nft-name">
+                        NFT Name Goes Here Even If It's Long #0001
+                      </p>
+                      <label class="radio-container fs-12 fw-normal my-0">
+                        <input type="radio" name="radio" checked />
+                        <span class="checkmark"></span>
+                        <span class="select-text">Select</span>
+                      </label>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template carouselSlide>
+                  <div class="marketplace-box">
+                    <div class="position-relative">
+                      <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+                      <div class="likes-count">
+                        <span class="me-2 fw-semi-bold">66</span><img
+                          src="../../../assets/images/HomePage/favorite_outline.svg" />
+                      </div>
+                    </div>
+
+                    <div class="marketplace-content">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="text-gray mb-0">Collection Name</p>
+                      </div>
+                      <p class="fw-bold text-nft-name">
+                        NFT Name Goes Here Even If It's Long #0001
+                      </p>
+                      <label class="radio-container fs-12 fw-normal my-0">
+                        <input type="radio" name="radio" checked />
+                        <span class="checkmark"></span>
+                        <span class="select-text">Select</span>
+                      </label>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template carouselSlide>
+                  <div class="marketplace-box">
+                    <div class="position-relative">
+                      <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+                      <div class="likes-count">
+                        <span class="me-2 fw-semi-bold">66</span><img
+                          src="../../../assets/images/HomePage/favorite_outline.svg" />
+                      </div>
+                    </div>
+
+                    <div class="marketplace-content">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="text-gray mb-0">Collection Name</p>
+                      </div>
+                      <p class="fw-bold text-nft-name">
+                        NFT Name Goes Here Even If It's Long #0001
+                      </p>
+                      <label class="radio-container fs-12 fw-normal my-0">
+                        <input type="radio" name="radio" checked />
+                        <span class="checkmark"></span>
+                        <span class="select-text">Select</span>
+                      </label>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template carouselSlide>
+                  <div class="marketplace-box">
+                    <div class="position-relative">
+                      <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+                      <div class="likes-count">
+                        <span class="me-2 fw-semi-bold">66</span><img
+                          src="../../../assets/images/HomePage/favorite_outline.svg" />
+                      </div>
+                    </div>
+
+                    <div class="marketplace-content">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="text-gray mb-0">Collection Name</p>
+                      </div>
+                      <p class="fw-bold text-nft-name">
+                        NFT Name Goes Here Even If It's Long #0001
+                      </p>
+                      <label class="radio-container fs-12 fw-normal my-0">
+                        <input type="radio" name="radio" checked />
+                        <span class="checkmark"></span>
+                        <span class="select-text">Select</span>
+                      </label>
+                    </div>
+                  </div>
+                </ng-template>
+              </owl-carousel-o>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-center pl-60 pr-60">
+              <label class="radio-container fs-12 fw-normal my-0">
+                <input type="radio" name="radio" checked />
+                <span class="checkmark"></span>
+                By checking this box, you confirm sending <b>@neovichx</b> the
+                selected NFT(s). <b>This action is irreversible.</b>
+              </label>
+              <button type="button" class="btn btn-primary fw-normal ms-5 large">
+                Send
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #createNewProjectTemplate>
+  <ng-container *ngIf="isCollectionLoader">
+    <div class="loader">
+      <div class="spinner-border text-dark" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container>
+    <div class="cp-wrapper">
+      <div class="row">
+        <div class="col-sm-12">
+          <h2 class="title mb-5">Create New Project</h2>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-4">
+          <p class="fw-bold text-center">Upload Project Image</p>
+          <div class="mb-4">
+            <ngx-dropzone (change)="uploadProjectImage($event)" class="create-projct">
+              <ngx-dropzone-label>
+                <p class="text-gray">Drag and drop your image in this box</p>
+                <button type="button" class="btn btn-outline-black small fs-14">
+                  Choose File
+                </button>
+              </ngx-dropzone-label>
+              <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" [file]="f" *ngFor="let f of projectImage"
+                [removable]="true" (removed)="projectImage=[];projectImg=''">
+              </ngx-dropzone-image-preview>
+            </ngx-dropzone>
+          </div>
+          <div class="form-group auth-wrapper p-0">
+            <input type="text" [(ngModel)]="collectionName" class="form-control" placeholder="Collection Name" />
+          </div>
+          <div class="form-group auth-wrapper p-0">
+            <input type="text" [(ngModel)]="collectionDescription" class="form-control"
+              placeholder="Collection Description" />
+          </div>
+          <div class="form-group auth-wrapper p-0">
+            <input type="text" [(ngModel)]="collectionSymbol" class="form-control" placeholder="Collection Symbol" />
+          </div>
+          <div class="form-group auth-wrapper p-0">
+            <input type="text" [(ngModel)]="collectionShortUrl" class="form-control"
+              placeholder="Collection ShortUrl" />
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="mt-5 py-3">
+            <button class="btn btn-black w-100 fw-semi-bold" (click)="createProject()">Create Project</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>
+
+
+<!-- <ng-template #gasFeeModal>
+  <div class="modal-content">
+    <div class="modal-body">
+      <div class="text-end pe-3 mb-2">
+        <button class="close-btn btn-icon" (click)="hideModal()">
+          <img src="../../../assets/images/pages/close.svg" />
+        </button>
+      </div>
+      <div class="row">
+
+        <div class="col-10 mx-auto">
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="common-modal-content text-center my-3 ">
+                <h4 class="fw-bold mb-4 pb-3">Review Gas Fee</h4>
+                <div class="row mt-3 mb-5 pb-5">
+                  <div class="col-6 text-start">
+                    <span>GAS FEE</span>
+                  </div>
+                  <div class="col-6 text-end d-flex">
+                    <span><img src="../../../../assets/images/nft/polygon_matic.png" class="me-2" alt="bnb"></span>
+                    <div class="text-center">
+                      <div>
+                        <span>{{gasFee.toFixed(5)}} MATIC</span>
+                      </div>
+                      <div>
+                        <span>{{(gasFee*bnbValue).toFixed(5)}} USD</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="form-group mt-3 d-flex">
+                  <button class="btn btn-outline-primary small w-100 small me-3" [disabled]="isCreatingNft"
+                    (click)="hideModal()">Reject</button>
+                  <button class="btn btn-primary small w-100 small ms-3" [disabled]="isCreatingNft"
+                    (click)="CreateNft()">Confirm</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</ng-template> -->

@@ -1,0 +1,144 @@
+@import "./variables";
+@import "./common";
+@import "./overrides";
+@import "./style";
+@import "./responsive";
+@import "./arabic";
+@import "./arabicResponsive";
+@import "./partners";
+
+body {
+  font-family: Montserrat;
+  color: #0f0f0f;
+}
+p {
+  font-size: 14px;
+}
+.owl-carousel .owl-stage {
+  padding-left: 0 !important;
+}
+.creativity {
+  .owl-theme .owl-nav .owl-next {
+    @media (max-width: 575px) {
+      right: 10px;
+    }
+  }
+  .owl-theme .owl-nav .owl-prev {
+    @media (max-width: 575px) {
+      left: 10px;
+    }
+  }
+}
+.owl-theme .owl-nav .owl-next {
+  width: 55px;
+  height: 55px;
+  background: #ffffff !important;
+  border: 1px solid #c6c6c6;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 36px;
+  border-radius: 100%;
+  position: absolute;
+  top: 44%;
+  right: 10px;
+  transform: translateY(-50%);
+  @media (max-width: 575px) {
+    width: 40px;
+    height: 40px;
+    top: 50%;
+    right: -10px;
+  }
+  &::after {
+    content: "";
+    background: url(../images/HomePage/right_arrow_slider.svg);
+    background-size: 12px;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    top: 33%;
+    left: 43%;
+    @media (max-width: 575px) {
+      background-size: 9px;
+    }
+  }
+}
+.owl-theme .owl-nav .owl-prev {
+  width: 55px;
+  height: 55px;
+  background: #ffffff !important;
+  border: 1px solid #c6c6c6;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 36px;
+  border-radius: 100%;
+  position: absolute;
+  top: 44%;
+  left: 10px;
+  transform: translateY(-50%);
+  @media (max-width: 575px) {
+    width: 40px;
+    height: 40px;
+    top: 50%;
+    left: -10px;
+  }
+  &::after {
+    content: "";
+    background: url(../images/HomePage/left_arrow_slider.svg);
+    background-size: 12px;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    top: 32%;
+    left: 36%;
+    @media (max-width: 575px) {
+      background-size: 9px;
+    }
+  }
+}
+.text-danger {
+  font-size: 12px;
+  position: absolute;
+  line-height: 1.2;
+  padding-left: 18px;
+}
+h1 {
+  font-size: 3rem;
+  @media (max-width: 991px) {
+    font-size: 2.5rem;
+  }
+  @media (max-width: 767px) {
+    font-size: 2rem;
+  }
+  @media (max-width: 575px) {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 576px) {
+  .send-nft-modal .modal-dialog {
+    max-width: 1150px !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media (min-width: 576px) {
+  .common-modal .modal-dialog {
+    max-width: 827px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .common-modal.chnge-pass .modal-dialog {
+    max-width: 500px;
+  }
+}
+
+.text-trim-1 {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  // Addition lines for 2 line or multiline ellipsis
+  display: -webkit-box !important;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}

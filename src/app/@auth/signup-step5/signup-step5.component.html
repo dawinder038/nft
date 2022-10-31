@@ -1,0 +1,58 @@
+<div class="auth-page two-way-factor">
+  <div class="auth-wrapper justify-content-center">
+    <div class="signup-card card signup-4">
+
+      <div class="card-body">
+        <h3 class="fw-bold text-center mb-lg-5 mb-md-3  mb-2">Let's Set Up Your 2-Way Factor Authentication</h3>
+        <!-- <p class="text-center mb-lg-5 mb-4">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+          et dolore magna aliqua. Ut enim ad minim veniam.
+        </p> -->
+        <div class="row justify-content-center pt-4">
+          <div class="col-md-4">
+            <div class="text-center">
+              <h6 class="fw-bold mb-3">SMS Message</h6>
+              <div class="code-card">
+                <p class="mb-2">4-Digits Code</p>
+                <!-- <button class="btn btn-outline-primary code-btn px-4 w-100">123456</button> -->
+                <input type="text" class="form-control my-2 text-center" [(ngModel)]="otp" maxlength="4">
+                <button class="btn btn-primary px-4 w-100" (click)="sendCode()">Verify</button>
+                <p *ngIf="timer" class="mb-0 fs-12 mt-3">Code Sent. <span class="gradient-text">Resend in
+                    0:{{timer}}</span></p>
+                <button *ngIf="!timer" class="btn-icon mt-3 fs-12" (click)="resendOtp()"><span
+                    class="gradient-text">Resend
+                    OTP</span></button>
+
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-md-4">
+            <div class="text-center">
+              <h6 class="fw-bold mb-3">E-mail Message</h6>
+              <div class="code-card">
+                <p class="mb-2">6-Digits Code</p>
+                <button class="btn btn-outline-primary code-btn px-4 w-100">123456</button>
+                <button class="btn btn-primary px-4 w-100">Verify</button>
+                <p class="mb-0 fs-12 mt-3">Code Sent. <b>Resend in 0:58</b></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="text-center">
+              <h6 class="fw-bold mb-3">Google Authenticator</h6>
+              <div class="code-card">
+                <p class="mb-2">6-Digits Code</p>
+                <button class="btn btn-outline-primary code-btn px-4 w-100">123456</button>
+                <button class="btn btn-primary px-4 w-100">Verify</button>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+</div>

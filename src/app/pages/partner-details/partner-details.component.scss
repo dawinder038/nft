@@ -1,0 +1,61 @@
+.gettoknwtext {
+  max-width: 600px;
+  margin: 40px auto 20px;
+  @media (max-width: 767px) {
+    margin: 25px auto 15px;
+  }
+  @media (max-width: 575px) {
+    margin: 15px auto 10px;
+  }
+}
+.long-text {
+  max-width: 835px;
+  margin: 0px auto 50px;
+  @media (max-width: 767px) {
+    margin-bottom: 30px;
+  }
+  @media (max-width: 575px) {
+    margin-bottom: 20px;
+  }
+}
+.image-path {
+  transform: translate(0, -25%) !important;
+}
+owl-carousel-o {
+  align-content: center;
+}
+::ng-deep .owl-item {
+  text-align: center;
+}
+
+.partner-svg-wrapper {
+  padding: 100px 0 200px;
+  // padding: 60px 0 100px;
+  @media (max-width: 767px) {
+    // padding: 40px 0 70px;
+    padding: 60px 0 100px;
+  }
+  @media (max-width: 575px) {
+    padding: 30px 0 50px;
+  }
+  .container {
+    max-width: 900px;
+  }
+}
+
+.nft-details-box .nft-details-img {
+  width: 300px;
+  // width: 250px;
+  margin: 0 auto;
+  @media (max-width: 767px) {
+    width: 195px;
+  }
+}
+.p-title {
+  @media (max-width: 767px) {
+    font-size: 22px;
+  }
+  @media (max-width: 575px) {
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,97 @@
+<footer class="landing-footer">
+  <div class="container">
+    <div class="">
+      <!-- <div class="ps-xl-5 ms-xl-4"> -->
+      <div class="footer-top pb-2">
+        <div class="row">
+          <div class="col-md-4">
+            <!-- <div class="pst-4 footer-logo"> -->
+            <div class="footer-logo ms-lg-4">
+              <img src="assets/images/HomePage/logo_footer.svg" class="img-fluid" />
+            </div>
+            <div class="mb-4 mb-sm-5 mb-md-0">
+              <!-- <label class="mb-4 fw-bold pst-4">Get the latest NFTwist updates</label> -->
+              <label class="mb-4 fw-bold ms-lg-4">Get the latest NFTwist updates</label>
+              <div class="search-input position-relative w-100">
+                <input type="search" [(ngModel)]="email" class="border-gradient ps-4"
+                  placeholder="Your e-mail address" />
+              </div>
+
+              <button class="btn-icon mt-4 ms-lg-4">
+                <span class="gradient-text" (click)="subscribe()">Subscribe</span>
+              </button>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="ps-lg-5 ps-md-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <h6 class="fw-bold mb-4">Join The NFTwist community</h6>
+                  <div class="d-flex align-items-center flex-wrap">
+                    <div class="me-2">
+                      <a href="#" class="social-icon my-1 twitter">
+                        <img src="assets/images/HomePage/twitter.svg" />
+                      </a>
+                    </div>
+                    <div class="me-2">
+                      <a href="#" class="social-icon my-1 instagram">
+                        <img src="assets/images/HomePage/instagram.svg" />
+                      </a>
+                    </div>
+                    <div class="me-2">
+                      <a href="#" class="social-icon my-1 discord">
+                        <img src="assets/images/HomePage/discord.svg" />
+                      </a>
+                    </div>
+                    <div class="me-2">
+                      <a href="#" class="social-icon my-1 telegram">
+                        <img src="assets/images/HomePage/telegram.svg" />
+                      </a>
+                    </div>
+                    <div class="me-2">
+                      <a href="#" class="social-icon my-1 youtube">
+                        <img src="assets/images/HomePage/youtube.svg" />
+                      </a>
+                    </div>
+                    <div class="me-2">
+                      <a href="#" class="social-icon my-1 medium">
+                        <img src="assets/images/HomePage/medium.svg" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row footer-links">
+                <div class="col-sm-4">
+                  <ul class="pl-0 list-unstyled">
+                    <h6 class="fw-bold mb-sm-3">NFTwist</h6>
+                    <li><a style="cursor:pointer;" (click)="openPage()">Get Started</a></li>
+                    <li><a href="/marketplace">Marketplace</a></li>
+                    <li><a href="/become-a-partner">Become A Partner</a></li>
+                    <li><a href="/faq">FAQ</a></li>
+                    <li><a href="/help-center">Help Center</a></li>
+                  </ul>
+                </div>
+                <div class="col-sm-4">
+                  <ul class="pl-0 list-unstyled">
+                    <h6 class="fw-bold mb-sm-3">Community</h6>
+                    <li><a [routerLink]="['/about-us']" routerLinkActive="router-link-active" >About</a></li>
+                    <li><a [routerLink]="['/blog']" routerLinkActive="router-link-active" >Blog</a></li>
+                    <li><a [routerLink]="['/suggest-a-feature']" routerLinkActive="router-link-active" >Suggest A Feature</a></li>
+                    <li><a [routerLink]="['/privacy-and-policy']" routerLinkActive="router-link-active" >Privacy Policy</a></li>
+                    <li><a [routerLink]="['/terms-and-conditions']" routerLinkActive="router-link-active" >Terms</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <p class="ms-lg-4">© NFTwist. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

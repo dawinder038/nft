@@ -1,0 +1,58 @@
+<div class="auth-page two-way-factor justify-content-center">
+  <div class="container">
+    <div class="wallet-content">
+      <div class="row align-items-center">
+        <div class="col-xl-4 col-md-6">
+          <div>
+            <h3 class="mb-lg-5 mb-4 fw-bold">Crypto Wallet</h3>
+            <p class="mb-1">Your Wallet ID:</p>
+            <h5 class="fw-bold mb-lg-5 mb-md-4 mb-3">{{accountNumber?.slice(0,7)+'...' +accountNumber?.slice(-4)}} <img
+                (click)="copy()" src="../../../assets/images/pages/copy.svg" class="ms-2 cursor-pointer" />
+            </h5>
+            <p class="mb-2 text-gray">Total Balance:</p>
+            <h2 class="fw-bold mb-0">{{balance.toFixed(6)}} MATIC</h2>
+            <h2 class="fw-normal">{{(balance * bnbValue).toFixed(4)}} USD</h2>
+            <p class="mt-4 cursor-pointer" (click)="refreshFunds()"><img src="../../../assets/images/pages/refresh.svg"
+                class="me-3" />Refresh Funds</p>
+            <button class="btn btn-outline-secondary mt-lg-5 mt-md-4 mt-3 wm-100"><img
+                src="../../../assets/images/pages/signout.svg" class="me-3 " />Disconnect Wallet</button>
+
+          </div>
+
+        </div>
+        <div class="col-xl-4 d-xl-block d-none">
+          <div class="text-center">
+            <img
+              [src]="profileDetail?.cover_image?baseImgUrl+profileDetail?.cover_image:'../../../assets/images/pages/profile_placeholder.png'"
+              class="img-fluid wallet-profile" />
+
+          </div>
+        </div>
+        <div class="col-xl-4 pe-xl-0  col-md-6">
+          <div class="text-center ps-xl-5">
+
+            <!-- <button class="btn btn-outline-secondary fs-14 w-100 mt-md-4 mt-sm-3 mt-2 bnb-account-btn"><img
+                src="../../../assets/images/pages/transfer.svg" class="me-3" /><span class="ms-xl-5 ms-3">Transfer MATIC
+                Into
+                Account</span></button> -->
+            <button class="btn btn-outline-secondary fs-14 w-100 mt-md-4 mt-sm-3 mt-2 bnb-account-btn"
+              routerLink="/withdraw-crypto"><img src="../../../assets/images/pages/withdraw.svg"
+                class="me-xl-3 me-2" />Withdraw Crypto</button>
+            <button class="btn btn-outline-primary small fs-14 w-100 mt-md-4 mt-sm-3 mt-2 bnb-account-btn"
+              routerLink="/deposit-crypto">
+              <img src="../../../assets/images/HomePage/binance.png" class="me-3" />
+              <span class="gradient-text">Deposit Crypto</span>
+            </button>
+            <button class="btn btn-outline-primary small fs-14 w-100 mt-md-4 mt-sm-3 mt-2 bnb-account-btn">
+              <img src="../../../assets/images/nft/polygon_matic.png" class="me-3" />
+              <span class="gradient-text">Matic</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

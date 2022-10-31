@@ -1,0 +1,64 @@
+.deposit-col{
+  position: relative;
+  @media(max-width: 991px){
+    margin-bottom: 15px;
+  }
+  &:nth-child(even){
+    @media(min-width: 767px) and (max-width: 991px){
+      &:after{
+        display: none;
+      }
+    } 
+  }
+
+  &:not(:last-child){
+    &:after{
+      content: "";
+      border: 1px solid #B5B5B5;
+      width: 1px;
+      height: 100%;
+      position: absolute;
+      right: 0;
+      top: 0;
+      @media(max-width: 767px){
+        width: 60%;
+        height: 1px;
+        bottom: -5px;
+        top: inherit;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  }
+ 
+  .form-select{
+    padding: 0;
+    border: 0;
+    height: auto;
+    text-align: center;
+  }
+}
+.address-input{
+  padding-right: 90px;
+}
+
+.deposit-report{
+  background: #BBFFF7;
+  border-radius: 32px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  p{
+    margin-left: 115px;
+    @media(max-width: 1200px){
+      margin-left: 50px;
+    }
+    @media(max-width: 991px){
+      margin-left: 30px;
+    }
+  }
+  img{
+    position: absolute;
+  }
+}

@@ -1,0 +1,28 @@
+.document-dropdown {
+  width: 370px;
+}
+.upload-text {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  font-weight: 700;
+}
+.dropzon {
+  border-radius: 25px !important;
+  border: 1px dashed #c4c4c4;
+}
+.document-dropdown {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    background: url(../../../assets/images/nft/arrow-down.png);
+    width: 13px;
+    height: 10px;
+    top: 53%;
+    z-index: 11;
+    right: 20px;
+    transform: translateY(-50%);
+    background-repeat: no-repeat;
+  }
+}

@@ -1,0 +1,44 @@
+<div class="create-item-wrapper text-center">
+  <div class="container">
+    <div class="row create-items-row justify-content-center">
+      <div class="col-md-12">
+        <h2>Choose Blockchain</h2>
+        <p class="sub-text">
+          Choose Blockchain
+        </p>
+      </div>
+
+      <!-- loader -->
+      <div class="d-flex justify-content-center mb-3 spinner" *ngIf="isLoading">
+        <div class="spinner-border " role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      
+      <div class="col-sm-4 mb-3 mb-sm-0" *ngFor="let item of blockChains">
+        <div class="create-item-box">
+          <div class="gradient-item d-flex flex-column justify-content-between">
+            <div>
+              <img [src]="item.image != null ? baseImgUrl + item.image : '../../../assets/images/nft/placeholder.png'"
+                class="mb-4 pb-lg-2 blockchain-icon" />
+              <h4 class="fw-bold mb-lg-3 mb-2">{{item.name}}</h4>
+              <p class="pb-5">
+                {{item.description}}
+              </p>
+            </div>
+
+            <a routerLink="/create-item" class="btn btn-outline-secondary px-5 select-btn large fs-14">
+              Select
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="mb-0 text-center">
+      <b class="text-dark">Step 1: Select Blockchain</b>
+      <span class="text-gray"><span class="mx-2">•••••••••</span>Step 2: Select Type
+      </span>
+      <span class="text-gray"><span class="mx-2">•••••••••</span> Step 3: Upload NFT</span>
+    </p>
+  </div>
+</div>

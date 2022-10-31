@@ -1,0 +1,235 @@
+<section class="marketplace">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="d-flex align-items-center mb-md-5 mb-4 pb-lg-2 flex-wrap">
+            <h2 class="title me-md-4 me-2">Marketplace</h2>
+            <div class="d-flex flex-wrap">
+              <div class="dropdown common-dropdown">
+                <button class="btn btn-outline-secondary me-md-4 me-2 my-1" id="dropdownMenuButton1" [disabled]="true"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="../../../assets/images/HomePage/blockchain.svg" class="me-2" />
+                  Blockchain
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <label class="radio-container fw-semi-bold fs-14 my-0">
+                      <input type="checkbox" />
+                      <span class="checkmark"></span>
+                      BNB
+                    </label>
+                  </li>
+                  <li>
+                    <label class="radio-container fw-semi-bold fs-14 my-0">
+                      <input type="checkbox" />
+                      <span class="checkmark"></span>
+                      Polygon
+                    </label>
+                  </li>
+                  <li class="mt-4">
+                    <button class="btn btn-primary w-100">Apply</button>
+                  </li>
+                  <li>
+                    <button class="btn btn-black w-100">Clear</button>
+                  </li>
+                </ul>
+              </div>
+              <div class="dropdown common-dropdown cat-dropdown">
+                <button class="btn btn-outline-secondary me-md-4 me-2 my-1" id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="../../../assets/images/HomePage/category.svg" class="me-2" />
+                  Category
+                </button>
+                <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
+                  <div class="cat-list scrollable">
+                    <li *ngFor="let eachCategory of categories">
+                      <label class="radio-container fw-semi-bold fs-14 my-0">
+                        <input type="checkbox" />
+                        <span class="checkmark"></span>
+                        {{eachCategory.name}}
+                      </label>
+                    </li>
+                  </div>
+                </ul>
+              </div>
+              <div class="dropdown common-dropdown cat-dropdown">
+                <button class="btn btn-outline-secondary me-md-4 me-2 my-1" id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="../../../assets/images/HomePage/collection.svg" class="me-2" />Collection
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <div class="cat-list scrollable">
+                    <li *ngFor="let eachCollection of collections">
+                      <label class="radio-container fw-semi-bold fs-14 my-0 d-flex align-items-center" *ngIf="eachCollection.image?.includes('infura') == false">
+                        <input class="form-control" type="radio" name="collection" (change)="filterNFTsByCollection(eachCollection, $event)" />
+                        <span class="checkmark"></span>
+                        <img [src]="'https://nftwistblob.blob.core.windows.net/original/' + eachCollection.image" alt="collection_image" class=" cd-image me-2">
+                        {{eachCollection.name}}
+                      </label>
+                      <label class="radio-container fw-semi-bold fs-14 my-0 d-flex align-items-center" *ngIf="eachCollection.image?.includes('infura') == true">
+                        <input class="form-control" type="radio" name="collection" (change)="filterNFTsByCollection(eachCollection, $event)" />
+                        <span class="checkmark"></span>
+                        <img [src]="eachCollection.image" alt="collection_image" class=" cd-image me-2">
+                        {{eachCollection.name}}
+                      </label>
+                    </li>
+                  </div>
+                </ul>
+              </div>
+              <div class="dropdown common-dropdown price-dropdown">
+                <button class="btn btn-outline-secondary me-md-4 me-2 my-1" id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="../../../assets/images/HomePage/price_range.svg" class="me-2" />
+                  Price Range
+                </button>
+                <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
+                  <div class="cat-list scrollable">
+                    <li>
+                      <div class="position-relative">
+                        <select class="form-select shadow-none">
+                          <option>BNB</option>
+                          <option>Polygon</option>
+                        </select>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="row mx-0">
+                        <div class="col ps-0 pe-2">
+                          <input type="text" placeholder="From" class="form-control text-center"
+                            [(ngModel)]="startPrice" />
+                        </div>
+                        <div class="col pe-0 ps-2">
+                          <input type="text" placeholder="To" class="form-control text-center" [(ngModel)]="endPrice" />
+                        </div>
+                      </div>
+                    </li>
+                    <li class="mt-4">
+                      <button class="btn btn-primary w-100" (click)="filterNFTsByPrice()">Apply</button>
+                    </li>
+                    <li>
+                      <button class="btn btn-black w-100">Clear</button>
+                    </li>
+                  </div>
+                </ul>
+              </div>
+              <div class="dropdown common-dropdown cat-dropdown">
+                <button class="btn btn-outline-secondary me-md-4 me-2 my-1" id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="../../../assets/images/HomePage/sort.svg" class="me-2" />
+                  Sort
+                </button>
+                <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
+                  <div class="cat-list scrollable">
+                    <li *ngFor="let eachSort of priceSortsArray">
+                      <label class="radio-container fw-semi-bold fs-14 my-0">
+                        <input type="radio" name="sort" class="form-control" (change)="sortNFTsByRange(eachSort.value)" />
+                        <span class="checkmark"></span>
+                        {{eachSort.label}}
+                      </label>
+                    </li>
+                  </div>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- loader -->
+      <div *ngIf="isNFTsLoader" class="d-flex justify-content-center mb-3">
+        <div class="spinner-border " role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+  
+      <div class="row" *ngIf="!isNFTsLoader">
+        <ng-container *ngFor="let item of marketPlaceNfts">
+          <div class="col-md-6 col-lg-4 col-xl-3 mb-4 pb-lg-3">
+            <div class="marketplace-box" [class]="item?.type == 2 ? 'multiple' : '' ">
+              <div class="position-relative">
+                <ng-container *ngIf="item?.media_type">
+                  <ng-container *ngIf="item.media_type=='image'">
+                    <img class="marketplace-img" (click)="goNftDetailPage(item)"
+                      [src]="item?.file ? item?.file : '../../../assets/images/HomePage/nft_placeholder.png'" alt="">
+                  </ng-container>
+                  <ng-container *ngIf="item.media_type=='vedio'">
+                    <video width="320" height="240" controls class="marketplace-img" (click)="goNftDetailPage(item)">
+                      <source [src]="item.file?item.file:''" type="video/mp4">
+                    </video>
+                  </ng-container>
+                  <ng-container *ngIf="item.media_type=='audio'">
+                    <audio controls>
+                      <source [src]="item.file?item.file:''" type="audio/ogg">
+                    </audio>
+                  </ng-container>
+                </ng-container>
+                <div class="likes-count">
+                  <span class="me-2 fw-semi-bold">{{item.likes_count}}</span>
+                  <img
+                    (click)="likeUnlike(item._id,$event); item.likes_count = item.is_liked ? item.likes_count-1 : item.likes_count + 1; item.is_liked =! item.is_liked"
+                    [src]="item.is_liked ? '../../../assets/images/HomePage/favorite_fill.svg' : '../../../assets/images/HomePage/favorite_outline.svg'" />
+                </div>
+              </div>
+              <div class="marketplace-content">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <p class="text-gray mb-0">{{item?.collection_name ? item?.collection_name : 'Collection Name'}}</p>
+                  <div class="dropdown marketplace-dropdown">
+                    <button class="btn btn-icon" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      <img src="../../../assets/images/HomePage/three_dots.svg" />
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu2">
+                      <li>
+                        <button class="dropdown-item" type="button">Report</button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <p class="fw-bold text-nft-name">
+                  {{item?.name}}
+                </p>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <p class="mb-0 fw-semi-bold">
+                    <img src="../../../assets/images/nft/polygon_matic.png" class="me-2 w-19" />{{item?.price}} MATIC
+                  </p>
+                  <!-- <ng-container *ngIf="accountNumber != item.owner.owner_wallet_address && isLoggedIn">
+                    <button class="btn-icon" (click)="checkoutContent=item;buyNft(item)" data-bs-toggle="modal"
+                      data-bs-target="#buyModal">
+                      <span class="gradient-text">Buy Now</span>
+                    </button>
+                  </ng-container>
+                  <ng-container *ngIf="accountNumber!=item.owner_wallet_address && !isLoggedIn">
+                    <button class="btn-icon">
+                      <span class="gradient-text" (click)="goLoginPage()">Buy Now</span>
+                    </button>
+                  </ng-container> -->
+                  <ng-container>
+                    <button class="btn-icon cursor-pointer" [routerLink]="['/nft-details',item._id]">
+                      <span class="gradient-text">View NFT</span>
+                    </button>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="!marketPlaceNfts?.length">
+          <div class="col-md-12">
+            <div class="mp-coming-soon">
+              <span class="fw-bold">No Nft Available...</span>
+            </div>
+          </div>
+        </ng-container>
+  
+        <div class="col-md-12">
+          <button class="btn btn-outline-secondary w-100 py-3 d-flex justify-content-center align-items-center"
+            (click)="loadMoreNFts()">
+            <span>Load More</span>
+            <!-- <span class="spinner-border spn ms-2" role="status">
+              <span class="sr-only">Loading...</span>
+            </span> -->
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>

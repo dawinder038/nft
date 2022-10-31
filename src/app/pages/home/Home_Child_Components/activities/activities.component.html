@@ -1,0 +1,198 @@
+<ng-container *ngIf="isLoggedIn">
+    <section class="our-partner activity-wrapper">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="d-flex justify-content-between align-items-center flex-wrap mb-md-5 mb-4 pb-lg-2">
+                <div class="d-flex align-items-center flex-wrap">
+                  <h2 class="title me-md-4 me-2">Activity</h2>
+                </div>
+    
+                <button class="btn btn-outline-secondary" [routerLink]="['/activities']" routerLinkActive="router-link-active">
+                  <img src="../../../assets/images/pages/bell.svg" class="me-2"  />
+                  View All Activities
+                </button>
+              </div>
+            </div>
+    
+            <!-- loader -->
+    
+            <div class="d-flex justify-content-center mb-3" *ngIf="isAcitivityView">
+              <div class="spinner-border " role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+            <div class="text-center no-activity"*ngIf="activityLabel != ''">
+              <h4>{{activityLabel}}</h4>
+            </div>
+            <div class="col-md-12" *ngIf="!isAcitivityView">
+              <owl-carousel-o [options]="activityOptions">
+                <ng-template carouselSlide *ngFor="let eachActivity of activities">
+                  <div class="marketplace-box me-3 activities" *ngIf="eachActivity?.type == 'FOLLOW'">
+                    <div class="d-flex">
+                      <div>
+                        <img
+                          [src]="eachActivity?.image ? eachActivity?.image : '../../../assets/images/pages/activity_one.png'"
+                          class="activity-img" />
+                      </div>
+                      <div class="d-flex align-items-center act-content">
+                        <div class="activity-user">
+                          <img
+                            [src]="eachActivity?.activity_by_profile_pic ? 'https://nftwistblob.blob.core.windows.net/original/' + eachActivity?.activity_by_profile_pic : '../../../assets/images/pages/user.png'"
+                            class="img-fluid w-auto" />
+                        </div>
+                        <div class="ms-2">
+                          <p class="mb-0 text-gray fs-12">
+                            <b class="text-black">{{eachActivity?.activity_by_first_name}}
+                              {{eachActivity?.activity_by_last_name}}</b> follow you.
+                          </p>
+                          <p class="mb-0 text-gray fs-12">{{eachActivity?.created_at | date: 'dd/MM/YYYY'}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="marketplace-box me-3 activities" *ngIf="eachActivity?.type == 'NFT_LIKE'">
+                    <div class="d-flex">
+                      <div>
+                        <img
+                          [src]="eachActivity?.image ? eachActivity?.image : '../../../assets/images/pages/activity_one.png'"
+                          class="activity-img" />
+                      </div>
+                      <div class="d-flex align-items-center act-content">
+                        <div class="activity-user">
+                          <img
+                            [src]="eachActivity?.activity_by_profile_pic ? 'https://nftwistblob.blob.core.windows.net/original/' +  eachActivity?.activity_by_profile_pic : '../../../assets/images/pages/user.png'"
+                            class="img-fluid w-auto" />
+                        </div>
+                        <div class="ms-2">
+                          <p class="mb-0 text-gray fs-12">
+                            <b class="text-black">{{eachActivity?.activity_by_first_name}}
+                              {{eachActivity?.activity_by_last_name}}</b> liked your NFT.
+                          </p>
+                          <p class="mb-0 text-gray fs-12">{{eachActivity?.created_at | date: 'dd/MM/YYYY'}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="marketplace-box me-3 activities" *ngIf="eachActivity?.type == 'NFT_COMMENT'">
+                    <div class="d-flex">
+                      <div>
+                        <img
+                          [src]="eachActivity?.image ? eachActivity?.image : '../../../assets/images/pages/activity_one.png'"
+                          class="activity-img" />
+                      </div>
+                      <div class="d-flex align-items-center act-content">
+                        <div class="activity-user">
+                          <img
+                            [src]="eachActivity?.activity_by_profile_pic ? 'https://nftwistblob.blob.core.windows.net/original/' + eachActivity?.activity_by_profile_pic : '../../../assets/images/pages/user.png'"
+                            class="img-fluid w-auto" />
+                        </div>
+                        <div class="ms-2">
+                          <p class="mb-0 text-gray fs-12">
+                            <b class="text-black">{{eachActivity?.activity_by_first_name}}
+                              {{eachActivity?.activity_by_last_name}}</b> comment on your NFT.
+                          </p>
+                          <p class="mb-0 text-gray fs-12">{{eachActivity.created_at | date: 'dd/MM/YYYY'}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="marketplace-box me-3 activities" *ngIf="eachActivity.type == 'NFT_COMMENT_LIKE'">
+                    <div class="d-flex">
+                      <div>
+                        <img
+                          [src]="eachActivity?.image ? eachActivity?.image : '../../../assets/images/pages/activity_one.png'"
+                          class="activity-img" />
+                      </div>
+                      <div class="d-flex align-items-center act-content">
+                        <div class="activity-user">
+                          <img
+                            [src]="eachActivity?.activity_by_profile_pic ? 'https://nftwistblob.blob.core.windows.net/original/' +  eachActivity?.activity_by_profile_pic : '../../../assets/images/pages/user.png'"
+                            class="img-fluid w-auto" />
+                        </div>
+                        <div class="ms-2">
+                          <p class="mb-0 text-gray fs-12">
+                            <b class="text-black">{{eachActivity?.activity_by_first_name}}
+                              {{eachActivity?.activity_by_last_name}}</b> like comment of your NFT.
+                          </p>
+                          <p class="mb-0 text-gray fs-12">{{eachActivity?.created_at | date: 'dd/MM/YYYY'}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="marketplace-box me-3 activities" *ngIf="eachActivity.type == 'NFT_PURCHASED'">
+                    <div class="d-flex">
+                      <div>
+                        <img
+                          [src]="eachActivity?.image ? eachActivity?.image : '../../../assets/images/pages/activity_one.png'"
+                          class="activity-img" />
+                      </div>
+                      <div class="d-flex align-items-center act-content">
+                        <div class="activity-user">
+                          <img
+                            [src]="eachActivity?.activity_by_profile_pic ? 'https://nftwistblob.blob.core.windows.net/original/' + eachActivity?.activity_by_profile_pic : '../../../assets/images/pages/user.png'"
+                            class="img-fluid w-auto" />
+                        </div>
+                        <div class="ms-2">
+                          <p class="mb-0 text-gray fs-12">
+                            <b class="text-black">{{eachActivity?.activity_by_first_name}}
+                              {{eachActivity?.activity_by_last_name}}</b> purchased your NFT.
+                          </p>
+                          <p class="mb-0 text-gray fs-12">{{eachActivity?.created_at | date: 'dd/MM/YYYY'}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="marketplace-box me-3 activities" *ngIf="eachActivity.type == 'NFT_GIFT'">
+                    <div class="d-flex">
+                      <div>
+                        <img
+                          [src]="eachActivity?.image ? eachActivity?.image : '../../../assets/images/pages/activity_one.png'"
+                          class="activity-img" />
+                      </div>
+                      <div class="d-flex align-items-center act-content">
+                        <div class="activity-user">
+                          <img
+                            [src]="eachActivity?.activity_by_profile_pic ? 'https://nftwistblob.blob.core.windows.net/original/' + eachActivity?.activity_by_profile_pic : '../../../assets/images/pages/user.png'"
+                            class="img-fluid w-auto" />
+                        </div>
+                        <div class="ms-2">
+                          <p class="mb-0 text-gray fs-12">
+                            <b class="text-black">{{eachActivity?.activity_by_first_name}}
+                              {{eachActivity?.activity_by_last_name}}</b> gift NFT.
+                          </p>
+                          <p class="mb-0 text-gray fs-12">{{eachActivity?.created_at | date: 'dd/MM/YYYY'}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="marketplace-box me-3 activities" *ngIf="eachActivity.type == 'NFT_CREATED'">
+                    <div class="d-flex">
+                      <div>
+                        <img
+                          [src]="eachActivity?.image ? eachActivity?.image : '../../../assets/images/pages/activity_one.png'"
+                          class="activity-img" />
+                      </div>
+                      <div class="d-flex align-items-center act-content">
+                        <div class="activity-user">
+                          <img
+                            [src]="eachActivity?.activity_by_profile_pic ? 'https://nftwistblob.blob.core.windows.net/original/' + eachActivity?.activity_by_profile_pic : '../../../assets/images/pages/user.png'"
+                            class="img-fluid w-auto" />
+                        </div>
+                        <div class="ms-2">
+                          <p class="mb-0 text-gray fs-12">
+                            <b class="text-black">{{eachActivity?.activity_by_first_name}}
+                              {{eachActivity?.activity_by_last_name}}</b> created {{eachActivity.nft_name}} NFT.
+                          </p>
+                          <p class="mb-0 text-gray fs-12">{{eachActivity?.created_at | date: 'dd/MM/YYYY'}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </owl-carousel-o>
+            </div>
+          </div>
+        </div>
+      </section>
+</ng-container>

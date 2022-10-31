@@ -1,0 +1,199 @@
+<div class="auth-wrapper">
+  <div class="card signup-card">
+    <div class="row">
+      <div class="col-md-8 pe-md-0">
+        <div class="signup-content" *ngIf="!personalDetails">
+          <h3 class="fw-bold mb-4">{{'signUp.title1' | translate}}</h3>
+          <p class="fw-bold">
+            {{'signUp.desc1' | translate}}
+          </p>
+          <p class="text-gray mb-4">
+            {{'signUp.desc2' | translate}}
+          </p>
+          <p class="fw-bold mb-5">
+            {{'signUp.desc3' | translate}}
+          </p>
+          <form autocomplete="off" [formGroup]="signUpForm" (submit)="Next()">
+            <div class="form-group">
+              <input type="email" #emailInput placeholder="{{'signUp.placeholder.email_Address' | translate}}"
+                class="form-control" formControlName="email" />
+
+              <div *ngIf="submitted1 && signUpForm.controls?.['email']?.errors?.['required']" class="text-danger">
+                {{'signUp.errors.email' | translate}}
+              </div>
+              <div *ngIf="submitted1 && signUpForm.controls?.['email']?.errors?.['pattern']" class="text-danger">
+                {{'signUp.errors.validEmail' | translate}}
+              </div>
+              <div *ngIf="isEmailExist" class="text-danger">
+                {{'signUp.errors.emailExist' | translate}}
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="position-relative">
+                <input type="{{passwordInputType}}" placeholder="{{'signUp.placeholder.password' | translate}}"
+                  class="form-control" formControlName="password" />
+                <span class="visible-password position-absolute" id="basic-addon1"
+                  *ngIf="passwordInputType == 'password'" (click)="passwordInputType = 'text'">
+                  <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                </span>
+                <span class="visible-password position-absolute" id="basic-addon2" *ngIf="passwordInputType == 'text'"
+                  (click)="passwordInputType = 'password'">
+                  <i class="fa fa-eye" aria-hidden="true"></i>
+                </span>
+              </div>
+
+              <div *ngIf="submitted1 && signUpForm.controls?.['password']?.errors?.['required']" class="text-danger">
+                {{'signUp.errors.password' | translate}}
+              </div>
+              <div *ngIf="submitted1 && signUpForm.controls?.['password']?.errors?.['minlength']" class="">
+                <!-- <i class="fa fa-info-circle" aria-hidden="true"></i> -->
+                <span class="ps-1 me-1 text-danger"
+                  *ngIf="signUpForm.controls?.['password']?.errors?.['minlength']">Your password
+                  should be of atleast 8 digit long.</span>
+
+                <!-- <button class="btn-icon visible-password">
+                    <img src="../../../assets/images/LoginSignup/visibility_on.svg" />
+                  </button> -->
+              </div>
+              <div *ngIf="signUpForm.controls['password'].hasError('pattern')" class="text-danger">
+                {{'At least one lowercase, At least one uppercase, At least one numeric, and Minimum 8 characters' | translate}}
+               </div>
+            </div>
+            <div class="form-group">
+              <div class="position-relative">
+                <input type="{{confirmPasswordInputType}}"
+                  placeholder="{{'signUp.placeholder.retype_password' | translate}}" class="form-control"
+                  formControlName="confirm_password" autocomplete="off" />
+                <span class="visible-password position-absolute" id="basic-addon1"
+                  *ngIf="confirmPasswordInputType == 'password'" (click)="confirmPasswordInputType = 'text'">
+                  <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                </span>
+                <span class="visible-password position-absolute" id="basic-addon2"
+                  *ngIf="confirmPasswordInputType == 'text'" (click)="confirmPasswordInputType = 'password'">
+                  <i class="fa fa-eye" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div *ngIf="submitted1 && signUpForm.controls?.['confirm_password']?.errors?.['required']"
+                class="text-danger">
+                {{'signUp.errors.c_password' | translate}}
+              </div>
+              <div *ngIf="signUpForm.controls?.['confirm_password']?.errors?.['confirmedValidator']"
+                class="text-danger">
+                {{'signUp.errors.m_password' | translate}}
+              </div>
+              <!-- <button class="btn-icon visible-password">
+                    <img src="../../../assets/images/LoginSignup/visibility_on.svg" />
+                  </button> -->
+
+            </div>
+            <div class="form-group text-center mb-0 mt-4 pt-2 d-flex flex-wrap justify-content-between">
+              <button type="button" class="btn btn-outline-secondary large me-2" [routerLink]="['/login']">
+                {{'signUp.buttons.back' | translate}}
+              </button>
+              <button type="submit" class="btn btn-outline-primary large signup">
+                <span class="gradient-text">{{'signUp.buttons.next' | translate}}</span>
+              </button>
+            </div>
+          </form>
+        </div>
+        <!-- <div class="signup-content" *ngIf="personalDetails">
+          <h3 class="fw-bold mb-4">{{'signUp.title2' | translate}}</h3>
+
+          <p class="text-gray mb-4">{{'signUp.sub_title' | translate}}</p>
+          <form autocomplete="off" [formGroup]="signUpForm2">
+            <div class="form-group">
+              <input type="text" (keypress)="keyPressAlphaNumeric($event)"
+                placeholder="{{'signUp.placeholder.First_Name' | translate}}" class="form-control"
+                formControlName="first_name" />
+              <div *ngIf="submitted2 && signUpForm2.controls?.first_name?.errors?.required" class="text-danger">
+                {{'signUp.errors.name' | translate}}
+              </div>
+            </div>
+            <div
+              *ngIf="submitted2 && signUpForm2.controls?.first_name?.value && signUpForm2.controls?.first_name?.errors?.whitespace"
+              class="text-danger">
+              {{'signUp.errors.validName' | translate}}
+            </div>
+
+            <div class="form-group">
+              <input type="text" (keypress)="keyPressAlphaNumeric($event)"
+                placeholder="{{'signUp.placeholder.Last_Name' | translate}}" class="form-control"
+                formControlName="last_name" />
+              <div *ngIf="signUpForm2.controls?.last_name?.value && signUpForm2.controls?.last_name?.errors?.whitespace"
+                class="text-danger">
+                {{'signUp.errors.validName' | translate}}
+              </div>
+            </div>
+
+            <div class="form-group">
+              <input type="text" placeholder="{{'signUp.placeholder.Username' | translate}}" class="form-control"
+                formControlName="user_name" (keydown.space)="$event.preventDefault();" />
+              <div *ngIf="submitted2 && signUpForm2.controls?.user_name?.errors?.required" class="text-danger">
+                {{'signUp.errors.userName' | translate}}
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="text" placeholder="{{'signUp.placeholder.Phone_Number' | translate}}" class="form-control"
+                formControlName="phone_no" numbersOnly />
+              <div *ngIf="submitted2 && signUpForm2.controls?.phone_no?.errors?.required" class="text-danger">
+                {{'signUp.errors.number' | translate}}
+              </div>
+              <div
+                *ngIf="submitted2 && signUpForm2.controls?.phone_no?.value &&  signUpForm2.controls?.phone_no?.errors?.pattern"
+                class="text-danger">
+                {{'signUp.errors.validNumber' | translate}}
+              </div>
+            </div>
+            <div class="form-group">
+              <select class="form-select" formControlName="country" (change)="GetStates($event)">
+                <option *ngFor="let country of countriesList" [value]="country.name">{{country.emoji}}
+                  {{country.name}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <select class="form-select" formControlName="state">
+                <option value="" disabled>Select</option>
+                <option *ngFor="let state of statesList" [value]="state">{{state}}</option>
+              </select>
+              <div *ngIf="submitted2 && signUpForm2.controls?.state?.errors?.required" class="text-danger">
+                {{'signUp.errors.state_Required' | translate}}
+              </div>
+            </div>
+            <div class="form-group text-center mb-0 mt-5 d-flex flex-wrap justify-content-between">
+              <button type="button" class="btn btn-outline-secondary large me-2" (click)="personalDetails = false">
+                {{'signUp.buttons.back' | translate}}
+              </button>
+
+            </div>
+          </form>
+        </div> -->
+      </div>
+      <div class="col-md-4 px-md-0">
+        <div class="buy-information">
+          <div class="info">
+            <h2 class="fw-bold mb-md-4 mb-2">{{'signUp.Why_NFTwist' | translate }}</h2>
+            <p>
+              <b>{{'signUp.Why_NFTwist_Ans1' | translate}}</b>
+              {{'signUp.Why_NFTwist_Ans2' | translate}}
+            </p>
+            <p class="signup-steps">Step 1 of 2</p>
+          </div>
+          <!-- <div class="info">
+              <h4>{{'signUp.What_is_our_membership_fee' | translate }}</h4>
+              <p>
+                <b>{{'signUp.What_is_our_membership_fee_Ans1' | translate}}</b>
+                {{'signUp.What_is_our_membership_fee_Ans2' | translate}}
+              </p>
+            </div>
+            <div class="info">
+              <h4>{{'signUp.Are_you_a_buyer' | translate}}</h4>
+              <p>
+                <b>{{'signUp.Are_you_a_buyer_Ans' | translate}}</b>
+              </p>
+            </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <auth-footer></auth-footer> -->

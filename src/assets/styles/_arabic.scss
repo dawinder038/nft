@@ -1,0 +1,257 @@
+
+.direction {
+  direction: rtl;
+  /*-----margin--------*/
+  .me-1{
+    margin-left: .25rem!important;
+    margin-right: initial!important;
+  }
+  .me-2{
+    margin-left: .5rem!important;
+    margin-right: initial!important;
+  }
+  .me-3{
+    margin-left: 1rem!important;
+    margin-right: initial!important;
+  }
+  .me-4{
+    margin-left: 1.5rem!important;
+    margin-right: initial!important;
+  }
+  .me-5{
+    margin-left: 3rem!important;
+    margin-right: initial!important;
+  } 
+  .ms-1{
+    margin-right: .25rem!important;
+    margin-left: initial!important;
+  }
+  .ms-2{
+    margin-right: .5rem!important;
+    margin-left: initial!important;
+  }
+  .ms-3{
+    margin-right: 1rem!important;
+    margin-left: initial!important;
+  }
+  .ms-4{
+    margin-right: 1.5rem!important;
+    margin-left: initial!important;
+  }
+  .ms-5{
+    margin-right: 3rem!important;
+    margin-left: initial!important;
+  } 
+  
+  /*----padding------*/
+  .pe-1{
+    padding-left: .25rem!important;
+    padding-right: initial!important;
+  }
+  .pe-2{
+    padding-left: .5rem!important;
+    padding-right: initial!important;
+  }
+  .pe-3{
+    padding-left: 1rem!important;
+    padding-right: initial!important;
+  }
+  .pe-4{
+    padding-left: 1.5rem!important;
+    padding-right: initial!important;
+  }
+  .pe-5{
+    padding-left: 3rem!important;
+    padding-right: initial!important;
+  } 
+  .ps-1{
+    padding-right: .25rem!important;
+    padding-left: initial!important;
+  }
+  .ps-2{
+    padding-right: .5rem!important;
+    padding-left: initial!important;
+  }
+  .ps-3{
+    padding-right: 1rem!important;
+    padding-left: initial!important;
+  }
+  .ps-4{
+    padding-right: 1.5rem!important;
+    padding-left: initial!important;
+  }
+  .ps-5{
+    padding-right: 3rem!important;
+    padding-left: initial!important;
+  } 
+
+  /*-------justify-content------*/
+  // .justify-content-start {
+  //   justify-content: flex-end!important;
+  // }
+  // .justify-content-end {
+  //   justify-content: flex-start!important;
+  // }
+
+    /*-------text-align - -----------*/
+    .text-end{
+      text-align: left!important;
+    }
+    .text-start{
+      text-align: right!important;
+    }
+
+  /*---------------custom-css ------------*/
+
+  .visible-password{
+    left: 25px!important;
+    right: initial !important;
+  }
+  .text-danger{
+    padding-right: 18px!important;
+    padding-left: initial!important;
+  }
+  .iti--allow-dropdown .iti__flag-container{
+    left: initial!important;
+    right: 0!important;
+  }
+  .iti--allow-dropdown input, .iti--allow-dropdown input{
+    padding-right: 52px!important;
+    padding-left: 6px!important;
+    text-align: right!important;
+  }
+  .setup-box .binance-dropdown .b-img {
+    transform: translateX(83px) !important;
+  }
+  .dropdown-item{
+    text-align: right!important;
+  }
+  .profile-detail .col:not(:last-child) .pd-col{
+    border-left: 1px solid #e2e2e2 !important;
+    border-right: 0 !important;
+  }
+  .search-input input{
+    padding-left: 10px;
+    padding-right: 52px;
+  }
+  .search-input .search{
+    right: 16px;
+    left: initial;
+  }
+  .wallet-dropdown .dropdown-menu{
+    left: 0;
+    right: initial;
+  }
+  .time-wrapper{
+    margin-right: 43px;
+    margin-left: initial;
+  }
+  .membership-count img:not(:first-child){
+    margin-right: -10px;
+    margin-left: initial!important;
+  }
+  .nft-activity-wrapper .nft-activity-content{
+    padding-left: 30px!important;
+  }
+  .nft-activity-wrapper.first-view .nft-activity-content{
+    margin-left: initial!important;
+    margin-right: -30px;
+  }
+  .nft-activity-wrapper.second-view .nft-activity-content{
+    margin-left: initial!important;
+    margin-right: -30px;
+  }
+  .nft-activity-wrapper.first-view .nft-image img, .nft-activity-wrapper.second-view .nft-image img{
+    border-radius: 0 20px 20px 0;
+  }
+  .friends-results .act-content{
+    margin-left: 0!important;
+    margin-right: -30px!important;
+  }
+  .activities .act-content{
+    margin-right: -30px!important;
+    margin-left: 12px!important;
+  }
+  .friends-results .activity-img{
+    border-radius: 0px 70px 70px 0!important;
+  }
+  .common-modal .close-btn{
+    right:initial!important;
+    left: 28px;
+  }
+  .position-right{
+    left: 12px;
+    right: initial!important;
+  }
+  .marketplace-artwork{
+    right: initial!important;
+    left: 0;
+  }
+  .radio-container{
+    padding-right: 35px;
+    padding-left: initial;
+  }
+  .checkmark{
+    right: 0;
+    left: initial !important;;
+  }
+  .nf-content-wrapper{
+    padding-left: initial!important;
+    padding-right: 35px;
+  }
+  .bnb-account-btn img{
+    left: initial!important;
+    right: 22px;
+  }
+  .deposit-report p{
+    margin-left: initial!important;
+    margin-right: 115px;
+  }
+  .deposit-col:not(:last-child):after{
+    right: initial!important;
+    left: 0;
+  }
+  .center-icon{
+    left: 20px;
+    right: initial!important;
+  }
+  .address-input{
+    padding-left: 90px;
+    padding-right: 30px!important;
+  }
+  // .crypto-row .symbol{
+  //   right: 20px;
+  //   left: initial!important;
+  // }
+  .our-vision-image{
+    left: 0!important;
+    right: initial!important;
+    border-radius: 0 20px 20px 0!important;
+  }
+  .our-mission-image{
+    right: 0!important;
+    left: initial!important;
+    border-radius: 20px 0 0 20px!important;
+  }
+  .nftabout-image{
+    border-radius: 20px 0 0 20px!important;
+  }
+  .part-nft-text{
+    right: 35px;
+    left: initial;
+    text-align: right;
+  }
+  .marketplace-box{
+    direction: rtl;
+  }
+  .owl-carousel{
+    direction: ltr;
+  }
+  .owl-carousel .pe-4{
+    padding-right: 1.5rem!important;
+    padding-left: calc(var(--bs-gutter-x) * .5)!important;
+  }
+  .activities .activity-img{
+    border-radius: 0 20px 20px 0;
+  }
+}

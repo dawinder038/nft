@@ -1,0 +1,21 @@
+.setup-box {
+    padding: 40px;
+}
+
+.setup-box.s-box {
+    border-radius: 20px;
+    textarea {
+        min-height: 300px;
+        // min-height: 80px;
+    }
+}
+.form-control {
+    border-width: 1px !important;
+}
+.help-center-number-input {
+    ::ng-deep {
+        .iti.iti--allow-dropdown {
+            width: 100%;
+        }
+    }
+}

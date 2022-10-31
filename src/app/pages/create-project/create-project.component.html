@@ -1,0 +1,186 @@
+<div class="user-profile-wrapper">
+  <div class="profile-banner">
+    <img src="../../../assets/images/pages/neovichx_bg.png" class="w-100 image" />
+    <div class="container h-100 d-flex align-items-end justify-content-end z-index-2">
+      <button class="btn btn-outline-white small z-index-2 mb-4">
+        <img src="../../../assets/images/pages/edit_cover.svg" class="me-3" />Edit Cover
+      </button>
+    </div>
+  </div>
+
+  <div class="profile-content text-center">
+    <div class="container">
+      <div class="user-profile">
+        <img src="../../../assets/images/pages/profile_placeholder.png" />
+      </div>
+      <h3 class="fw-bold mb-lg-4 mb-3">
+        Neovichx
+        <span class="ms-2"><img src="../../../assets/images/pages/check_tick.svg" /></span>
+      </h3>
+      <div class="d-flex align-items-center justify-content-center mb-3">
+        <h6 class="mb-0 fw-bold">@neovichx</h6>
+        <div class="d-flex align-items-center ms-4">
+          <p class="mb-0">Acc. ID</p>
+          <h6 class="mb-0 fw-bold mx-2">1x1cs...6sa1</h6>
+          <button class="btn-icon">
+            <img src="../../../assets/images/pages/copy.svg" />
+          </button>
+        </div>
+      </div>
+      <p class="fw-semi-bold mb-sm-4 mb-3">
+        We just got here! No Bio to see here... yet! <br />Stick around and
+        watch us figure out something.
+      </p>
+      <div class="row profile-detail mx-0">
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">Follows</p>
+            <h6 class="mb-0 fw-bold">3M+</h6>
+          </div>
+        </div>
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">Following</p>
+            <h6 class="mb-0 fw-bold">1,523</h6>
+          </div>
+        </div>
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">NFTs</p>
+            <h6 class="mb-0 fw-bold">20K+</h6>
+          </div>
+        </div>
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">Collections</p>
+            <h6 class="mb-0 fw-bold">5</h6>
+          </div>
+        </div>
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">Owners</p>
+            <h6 class="mb-0 fw-bold">6,245</h6>
+          </div>
+        </div>
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">Memberships</p>
+            <h6 class="mb-0 fw-bold">10</h6>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex flex-wrap justify-content-center pb-5">
+        <button class="btn btn-outline-secondary m-2 px-4 fs-14 pxe-4">
+          <img src="../../../assets/images/pages/launch.png" class="me-3" />Edit Profile
+        </button>
+
+        <div class="btn-group dropup share-dropdown">
+          <button class="btn m-2 fs-14 pxe-4 share-btn" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="../../../assets/images/pages/share.svg" class="me-3" />Share
+          </button>
+
+          <ul class="dropdown-menu">
+            <li>
+              <button class="dropdown-item">
+                <img src="../../../assets/images/pages/copy_black.png" class="me-2" />Copy URL
+              </button>
+            </li>
+            <li><a class="dropdown-item" href="#">Facebook</a></li>
+            <li><a class="dropdown-item" href="#">Instagram</a></li>
+            <li><a class="dropdown-item" href="#">E-mail</a></li>
+          </ul>
+        </div>
+        <button class="btn btn-outline-black m-2 px-sm-5 fw-normal position-relative fs-14">
+          <img src="../../../assets/images/pages/web_link.svg" class="web-link" />
+          <span class="ps-sm-3">www.facebook.com/neovichx</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <section class="profile-page-view">
+    <div class="container">
+      <ul class="nav nav-pills mb-5 common-tabs  justify-content-center" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="pills-items-tab" data-bs-toggle="pill" data-bs-target="#pills-items"
+            type="button" role="tab" aria-controls="pills-items" aria-selected="true">
+            <span>Items</span>
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="pills-activity-tab" data-bs-toggle="pill" data-bs-target="#pills-activity"
+            type="button" role="tab" aria-controls="pills-activity" aria-selected="false">
+            <span>Activity</span>
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="pills-stats-tab" data-bs-toggle="pill" data-bs-target="#pills-stats"
+            type="button" role="tab" aria-controls="pills-stats" aria-selected="false">
+            <span>Stats</span>
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="pills-customer-tab" data-bs-toggle="pill" data-bs-target="#pills-customer"
+            type="button" role="tab" aria-controls="pills-customer" aria-selected="false" (click)="GiftCustomers()">
+            <span>Gift Your Customers</span>
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="pills-free-nft-tab" data-bs-toggle="pill" data-bs-target="#pills-free-nft"
+            type="button" role="tab" aria-controls="pills-free-nft" aria-selected="false">
+            <span>Your Free NFTs</span>
+          </button>
+        </li>
+      </ul>
+      <div class="tab-content common-tabs-content pt-2" id="pills-tabContent">
+        <div class="tab-pane fade show" id="pills-items" role="tabpanel" aria-labelledby="pills-items-tab">
+          item
+        </div>
+        <div class="tab-pane fade" id="pills-activity" role="tabpanel" aria-labelledby="pills-activity-tab">
+          Activity
+        </div>
+        <div class="tab-pane fade" id="pills-stats" role="tabpanel" aria-labelledby="pills-stats-tab">
+          stats
+        </div>
+        <div class="tab-pane fade" id="pills-customer" role="tabpanel" aria-labelledby="pills-customer-tab">
+          customer
+        </div>
+        <div class="tab-pane fade" id="pills-free-nft" role="tabpanel" aria-labelledby="pills-free-nft-tab">
+          Free Nft
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <h2 class="title mb-5 pb-lg-2">Create New Project</h2>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-sm-3">
+          <p class="fw-bold text-center">Upload Project Image</p>
+          <label class="upload-file mb-4" for="uploadProjectImg">
+            <div>
+              <input type="file" (change)="uploadImg($event)" #uploadProjectImg id="uploadProjectImg" class="d-none" />
+              <p class="text-gray">Drag and drop your image in this box</p>
+              <!-- <button class="btn btn-outline-black large fs-14">
+                Choose File
+              </button> -->
+              <button (click)="uploadProjectImg.click()" class="btn btn-outline-black small fs-14">
+                Choose File
+              </button>
+            </div>
+          </label>
+          <div class="form-group auth-wrapper p-0">
+            <input type="text" [(ngModel)]="projectName" class="form-control" placeholder="Project Name" />
+          </div>
+          <div class="mt-5 py-3">
+            <button class="btn btn-black w-100 fw-semi-bold" (click)="createProject()">Create Project</button>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="col-md-12 mt-5 pt-5">
+          <button class="btn btn-black w-100">Create Project</button>
+        </div>
+      </div> -->
+    </div>
+  </section>
+</div>

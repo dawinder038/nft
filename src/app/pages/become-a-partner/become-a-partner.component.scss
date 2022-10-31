@@ -1,0 +1,21 @@
+.partner-sub-text {
+    max-width: 813px;
+    margin: 10px auto 170px;
+    font-size: 40px;
+    @media (max-width: 991px) {
+        margin-bottom: 40px;
+        font-size: 28px;
+    }
+    @media (max-width: 767px) {
+        margin-bottom: 30px;
+        font-size: 22px;
+    }
+    @media (max-width: 575px) {
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+}
+.become-a-partner-form {
+    max-width: 509px;
+    width: 100%;
+}

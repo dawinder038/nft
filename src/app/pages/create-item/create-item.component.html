@@ -1,0 +1,72 @@
+<div class="create-item-wrapper text-center">
+  <div class="container">
+    <div class="row create-items-row">
+      <div class="col-md-12">
+        <h2>Choose Type</h2>
+        <p class="sub-text">
+          Choose “Single” for one of a kind or “Multiple” <br />if you want to sell
+          one collectible multiple times
+        </p>
+      </div>
+
+     
+      
+      <div class="col-sm-4 mb-3 mb-sm-0">
+        <div class="create-item-box">
+          <div class="gradient-item d-flex flex-column justify-content-between">
+            <div>
+              <img src="../../../assets/images/nft/single-new.png" class="mb-4 pb-lg-2 create-icon" />
+              <h4 class="fw-bold mb-lg-3 mb-2">Single</h4>
+              <p class="text-gray pb-5">
+                If you want to highlight the uniqueness and individuality of your
+                item
+              </p>
+            </div>
+            <a (click)="navigate('/create-single-item')" [ngClass]="userType!=1?'disabled':''"
+              class="btn btn-outline-secondary px-5 select-btn large fs-14 ">
+              Select
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 mb-3 mb-sm-0">
+        <div class="create-item-box">
+          <div class="gradient-item d-flex flex-column justify-content-between">
+            <div>
+              <img src="../../../assets/images/nft/multiple-new.png" class="mb-4 pb-lg-2 create-icon" />
+              <h4 class="fw-bold mb-lg-3 mb-2">Multiple</h4>
+              <p class="pb-5">
+                If you want to share your item with a large number of community
+                members
+              </p>
+            </div>
+            <a routerLink="/choose-blockchain" class="btn btn-outline-secondary px-5 select-btn large fs-14">
+              Select
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 mb-3 mb-sm-0">
+        <div class="create-item-box">
+          <div class="gradient-item d-flex flex-column justify-content-between">
+            <div>
+              <img src="../../../assets/images/nft/collectible-new.png" class="mb-4 pb-lg-2 create-icon " />
+              <h4 class="fw-bold mb-lg-3 mb-2">Collectible</h4>
+              <p class="pb-5">
+                If you want to share multiple unique but similar items under the same project
+              </p>
+            </div>
+            <a routerLink="/create-collectible-item" class="btn btn-outline-secondary px-5 select-btn large fs-14">
+              Select
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="mb-0 text-center">
+      Step 1: Select Blockchain
+      <span class="text-gray"><span class="mx-2">•••••••••</span> <b class="text-dark"> Step 2: Select Type</b></span>
+      <span class="text-gray"><span class="mx-2">•••••••••</span> Step 3: Upload NFT</span>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="auth-wrapper justify-content-center">
+  <div class="signup-card card verify-email">
+    <!-- <div class="signup-card-logo text-center">
+            <img src="../../../assets/images/LoginSignup/logo_white_large.svg" class="img-fluid" />
+        </div> -->
+    <div class="card-body">
+
+      <h4 class="fw-bold text-center mb-2">OTP Verification</h4>
+      <!-- <p class="text-center mb-4">
+        Please enter the OTP that has been sent on your number
+        +{{phoneVerification?.country_code}}{{phoneVerification?.phone_no}}
+      </p> -->
+      <p class="text-center mb-4">
+        verify mobile no.
+      </p>
+      <!-- <div class="form-group d-flex justify-content-center align-items-center mb-4 otp-field">
+    
+        <input type="text" autocomplete="null" class="form-control" [(ngModel)]="one" (keydown)="onKeyDown($event)"
+          (keyup)="goToNextInput($event)" maxlength="1" size="1" />
+        <input type="text" autocomplete="null" class="form-control" [(ngModel)]="two" (keydown)="onKeyDown($event)"
+          (keyup)="goToNextInput($event)" maxlength="1" size="1" />
+        <input type="text" autocomplete="null" class="form-control" [(ngModel)]="three" (keydown)="onKeyDown($event)"
+          (keyup)="goToNextInput($event)" maxlength="1" size="1" />
+        <input type="text" autocomplete="null" class="form-control" [(ngModel)]="four" (keydown)="onKeyDown($event)"
+          (keyup)="goToNextInput($event)" maxlength="1" size="1" />
+      </div> -->
+      <div class="form-group d-flex justify-content-center align-items-center mb-4 otp-field">
+
+        <ngx-otp-input [config]="otpInputConfig" #ngxotp (otpChange)="handeOtpChange($event)" (keydown)="handleKeyboardEvent($event)"  (fill)="handleFillEvent($event)">
+        </ngx-otp-input>
+      </div>
+
+      <div class="text-center" *ngIf="timer==0">
+        <button [disabled]="isButtondisable" (click)="resenOtp()" class="btn-icon"><span class="gradient-text">Resend OTP</span></button>
+      </div>
+      <div class="text-center mb-1">
+        <span *ngIf="timer!=0"><span class="fs-14 me-1">Resend OTP in: </span><span
+            class="gradient-text">{{timer}}s</span></span>
+      </div>
+
+      <div class="form-group text-center mb-0 mt-5 text-center">
+        <a (click)="LogOut()" class="btn btn-outline-secondary large m-sm-2 m-1 px-5">
+          Log Out
+        </a>
+        <!-- <button [disabled]="!one || !two ||!three||!four" (click)="verifyOtp()"
+          class="btn btn-outline-primary large m-sm-2 m-1">
+          <span class="gradient-text">Verify OTP</span>
+        </button> -->
+        <button [disabled]="otp.length<4 ||isButtondisable" (click)="verifyOtp()" class="btn btn-outline-primary large m-sm-2 m-1">
+          <span class="gradient-text">Verify OTP</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

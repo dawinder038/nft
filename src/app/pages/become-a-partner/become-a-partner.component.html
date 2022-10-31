@@ -1,0 +1,171 @@
+<div class="auth-page two-way-factor">
+    <div class="create-items-wrapper text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="become-title">Let’s Make You<br />An NFTwist Partner!</h2>
+                    <p class="fw-bold pb-lg-4">Forging a partnership with us is one of the best decisions you can ever
+                        make
+                        for
+                        your business!</p>
+                    <h4 class="partner-sub-text mt-5 fw-bold">
+                        Get empowered by NFTwist! We help your business enhance its brand, as well drive sales and
+                        marketing further. The next big thing is here and we believe you are on track to make history!
+                    </h4>
+                    <!-- <div class="position-relative video-wrapper become-video">
+                        <img src="../../../assets/images/pages/become-banner.png" class="img-fluid w-100" />
+                        <button class="play-btn btn-icon">
+                            <img src="../../../assets/images/HomePage/play.svg" />
+                        </button>
+                        <img src="../../../assets/images/HomePage/logo_white.svg" class="v-logo" />
+                    </div> -->
+                    <p class="mt-md-5 mt-4 pt-xl-4 mb-0">To get started, please fill the form below:</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="create-item-content mt-lg-5 mt-4">
+                        <h3 class="fw-bold become-title mb-lg-5 mb-4 pt-lg-2">Become A Partner</h3>
+                        <div class="setup-box p-0">
+                            <form [formGroup]="contactInfoForm" (submit)="submitPartner()">
+
+                                <div class="auth-wrapper">
+                                    <p class="fw-bold pt-lg-5">Enter Your Contact Information</p>
+                                    <div class="become-a-partner-form">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" formControlName="first_name"
+                                                placeholder="First Name" />
+                                            <div *ngIf="submitted && contactInfoForm.controls?.['first_name']?.errors?.['required']"
+                                                class="text-danger">
+                                                <span>First Name is required</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" formControlName="last_name"
+                                                placeholder="Last Name" />
+                                            <div *ngIf="submitted && contactInfoForm.controls?.['last_name']?.errors?.['required']"
+                                                class="text-danger">
+                                                <span>Last Name is required</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" formControlName="email"
+                                                placeholder="E-mail Address" />
+                                            <div *ngIf="submitted && contactInfoForm.controls?.['email']?.errors?.['required']"
+                                                class="text-danger">
+                                                <span>Email is required</span>
+                                            </div>
+                                            <div *ngIf="submitted && contactInfoForm.controls?.['email']?.errors?.['email']"
+                                                class="text-danger">
+                                                <span>Please enter valid email address</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" formControlName="phone_no"
+                                                placeholder="Phone Number" />
+                                            <div *ngIf="submitted && contactInfoForm.controls?.['phone_no']?.errors?.['required']"
+                                                class="text-danger">
+                                                <span>Phone Number is required</span>
+                                            </div>
+                                            <div *ngIf="submitted && contactInfoForm.controls?.['phone_no']?.errors?.['pattern']"
+                                                class="text-danger">
+                                                <span>Please enter valid Phone Number</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" formControlName="company_name"
+                                                placeholder="Company Name" />
+                                            <div *ngIf="submitted && contactInfoForm.controls?.['company_name']?.errors?.['required']"
+                                                class="text-danger">
+                                                <span>Company Name is required</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-select" formControlName="line_of_business">
+                                                <option value="" disabled>Line Of Business</option>
+                                                <option *ngFor="let business of lineOfBusinessList" [value]="business">
+                                                    {{business}}</option>
+                                            </select>
+                                            <div *ngIf="submitted && contactInfoForm.controls?.['line_of_business']?.errors?.['required']"
+                                                class="text-danger">
+                                                <span>Line Of Business is required</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-select" formControlName="country"
+                                                (change)="setCountry('',$event)">
+                                                <option value="" disabled>Country</option>
+                                                <!-- <option *ngFor="let state of statesList" [value]="state">{{state}}</option> -->
+                                                <option class="cursor-pointer my-0 py-2" [value]="country.name"
+                                                    (click)="setCountry(country,$event)"
+                                                    *ngFor="let country of countriesList">
+                                                    {{country.emoji}}
+                                                    {{country.name}}
+                                                </option>
+                                            </select>
+                                            <div *ngIf="submitted && contactInfoForm.controls?.['country']?.errors?.['required']"
+                                                class="text-danger">
+                                                <span>Country is required</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-select" formControlName="state"
+                                                (change)="getCities($event)">
+                                                <option value="" disabled>State</option>
+                                                <option *ngFor="let state of statesList" [value]="state.name">
+                                                    {{state.name}}</option>
+                                            </select>
+                                            <div *ngIf="submitted && contactInfoForm.controls?.['state']?.errors?.['required']"
+                                                class="text-danger">
+                                                <span>State is required</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-select" formControlName="city">
+                                                <option value="">City</option>
+                                                <!-- <option value="India">Chandigarh</option>
+                                                <option value="US">Mohali</option> -->
+                                                <option *ngFor="let city of cityList" [value]="city.name">{{city.name}}
+                                                </option>
+
+                                            </select>
+                                            <div *ngIf="submitted && contactInfoForm.controls?.['city']?.errors?.['required']"
+                                                class="text-danger">
+                                                <span>City is required</span>
+                                            </div>
+                                        </div>
+                                        <div class="mt-4 pt-lg-3">
+                                            <p>Number of Customers you expect to give NFTs?</p>
+                                            <!-- <div class="form-group pb-lg-4 pb-2">
+                                                <select class="form-select" formControlName="expected_limit">
+                                                    <option value="No. Of Customers">No. Of Customers</option>
+                                                    <option value="India">22</option>
+                                                    <option value="US">55</option>
+                                                </select>
+                                            </div> -->
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" formControlName="expected_limit"
+                                                    placeholder="expected limit" />
+                                                <div *ngIf="submitted && contactInfoForm.controls?.['expected_limit']?.errors?.['required']"
+                                                    class="text-danger">
+                                                    <span>Number of Customers you expect to give NFTs is required</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-md-5 mb-3  mt-lg-4 py-lg-3">
+                                            <button type="submit" class="btn btn-primary fw-normal">Send
+                                                Request</button>
+                                        </div>
+                                        <p>You can also send us a request to: <a href="#"
+                                                class="text-theme fw-bold">partners@nftwist.io</a></p>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

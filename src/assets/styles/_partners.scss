@@ -1,0 +1,135 @@
+.partner {
+  .header-content .nav-item .nav-link.active span {
+    color: #000 !important;
+    font-weight: 600 !important;
+    -webkit-text-fill-color: initial !important;
+    background-image: initial !important;
+  }
+  .wallet-dropdown {
+    .btn.btn-icon {
+      -webkit-text-fill-color: initial !important;
+      background-image: initial !important;
+    }
+  }
+  .border-gradient {
+    -webkit-text-fill-color: initial !important;
+    background-image: initial !important;
+    border: 1px solid #c4c4c4 !important;
+  }
+  .e-search-wrapper .comment-wrapper-n .nav-tabs .nav-link.active {
+    color: #000;
+    border-bottom: 2px solid #000 !important;
+  }
+  .profile-banner:after {
+    background: #fff !important;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
+  }
+  .gradient-profile {
+    background: #fff !important;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3);
+  }
+  .btn-outline-primary {
+    -webkit-text-fill-color: initial !important;
+    background-image: initial !important;
+    border: 2px solid #000 !important;
+  }
+  .profile-content .share-btn.show {
+    -webkit-text-fill-color: initial !important;
+    background-image: initial !important;
+    border: 2px solid #000 !important;
+  }
+  .profile-content .share-dropdown .dropdown-menu:after {
+    background: #000 !important;
+  }
+  .common-tabs .nav-item .nav-link.active span {
+    -webkit-text-fill-color: initial !important;
+    background-image: initial !important;
+  }
+  .common-tabs .nav-item .nav-link.active:after {
+    -webkit-text-fill-color: initial !important;
+    background: #000 !important;
+  }
+  .commig-soon span {
+    -webkit-text-fill-color: initial !important;
+    background-image: initial !important;
+    color: #000;
+  }
+  .gradient-text {
+    // -webkit-text-fill-color: initial !important;
+    // background-image: initial !important;
+    // color: #000; 
+    font-weight: bold;
+background-image: linear-gradient(to right, #00ffdd, #2bcae4, #6383ee, #904bf5, #b123fa, #c50afe, #cc01ff);
+background-size: 100%;
+-webkit-background-clip: text;
+// -moz-background-clip: text;
+-webkit-text-fill-color: transparent;
+  }
+  .form-control:focus {
+    -webkit-text-fill-color: initial !important;
+    background-image: initial !important;
+    border: 2px solid #0f0f0f !important;
+  }
+  .form-control {
+    &::-webkit-input-placeholder {
+      color: #0f0f0f;
+      -webkit-text-fill-color: initial !important;
+      background-image: initial !important;
+    }
+
+    &:-ms-input-placeholder {
+      color: #0f0f0f;
+      -webkit-text-fill-color: initial !important;
+      background-image: initial !important;
+    }
+
+    &::placeholder {
+      color: #0f0f0f;
+      -webkit-text-fill-color: initial !important;
+      background-image: initial !important;
+    }
+  }
+  .gradient-input-box {
+    -webkit-text-fill-color: initial !important;
+    background-image: initial !important;
+    border: 2px solid #0f0f0f !important;
+  }
+  .visible-gradient {
+    -webkit-text-fill-color: initial !important;
+    background-image: initial !important;
+    border: 2px solid #0f0f0f !important;
+  }
+  input:checked + .slider {
+    background: #000;
+  }
+  .radio-container .checkmark:after {
+    background: #000;
+  }
+  .btn-black {
+    .gradient-text {
+      -webkit-text-fill-color: initial !important;
+      background-image: initial !important;
+      color: #fff;
+    }
+  }
+  .logo-black {
+    display: block;
+  }
+  .logo {
+    display: none;
+  }
+  .open-wallet img {
+    filter: brightness(0.1);
+  }
+  footer:before {
+    background: #000;
+  }
+  .social-icon {
+    -webkit-text-fill-color: initial !important;
+    background-image: initial !important;
+    border: 1px solid #0f0f0f !important;
+    &:hover {
+      background: #0f0f0f !important;
+    }
+  }
+}

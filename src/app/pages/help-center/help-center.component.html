@@ -1,0 +1,113 @@
+<div class="auth-page two-way-factor inner-pages">
+  <div class="container">
+    <div class="row text-center mt-lg-5 mt-4 pt-lg-5">
+      <div class="col-md-12">
+        <h1 class="fw-bold main-title mb-5 pb-lg-1">Help Center</h1>
+      </div>
+    </div>
+    <div class="wallet-content">
+      <div class="row">
+        <div class="col-md-4">
+          <h3 class="fw-bold ">FAQ</h3>
+          <div class="mt-5 ">
+            <ul class="fs-14 fw-bold ps-4">
+              <li class="mb-3">Question Goes Here?</li>
+              <li class="mb-3">Question Goes Here?</li>
+              <li class="mb-3">Question Goes Here?</li>
+              <li class="mb-3">Question Goes Here?</li>
+
+              <li class="mb-3">Question Goes Here?</li>
+              <li class="mb-3">Question Goes Here?</li>
+            </ul>
+
+          </div>
+          <div class="ps-3 py-md-4 pt-2 pb-4">
+            <button class="btn btn-outline-secondary" routerLink="/faq">Go To FAQ</button>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <h3 class="fw-bold text-center mb-4 pb-lg-3 pt-lg-2">Support Ticket</h3>
+          <form (ngSubmit)="submitForm()" [formGroup]="suportTicketForm">
+            <div class="setup-box">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris nisi ut aliquip ex.</p>
+              <h6 class="fw-bold mt-lg-5 mt-4 mb-4 text-center pt-lg-3">Enter Your Contact Information</h6>
+              <div class="auth-wrapper p-0 d-block">
+                <div class="form-group">
+                  <input formControlName="first_name" (keypress)="keyPressAlphaNumeric($event)" type="text"
+                    class="form-control" placeholder="First Name" />
+                  <ng-container *ngIf="isFormSubmited &&f?.['first_name']?.errors?.['required']">
+                    <div class="col-sm-12 pb-3">
+                      <span class="text-danger ">Please Enter First Name</span>
+                    </div>
+                  </ng-container>
+                </div>
+                <div class="form-group">
+                  <input formControlName="last_name" (keypress)="keyPressAlphaNumeric($event)" type="text"
+                    class="form-control" placeholder="Last Name" />
+                  <ng-container *ngIf="isFormSubmited &&f?.['last_name']?.errors?.['required']">
+                    <div class="col-sm-12 pb-3">
+                      <span class="text-danger ">Please Enter Last Name</span>
+                    </div>
+                  </ng-container>
+                </div>
+                <div class="form-group">
+                  <input formControlName="email" type="text" class="form-control" placeholder="E-mail Address" />
+                  <ng-container *ngIf="isFormSubmited &&f?.['email']?.errors?.['required']">
+                    <div class="col-sm-12 pb-3">
+                      <span class="text-danger ">Please Enter email Address</span>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="isFormSubmited &&f?.['email']?.errors?.['email']">
+                    <div class="col-sm-12 pb-3">
+                      <span class="text-danger ">Please Enter valid email Address</span>
+                    </div>
+                  </ng-container>
+                </div>
+                <div class="form-group">
+                  <!-- <input formControlName="phone_no" type="text" class="form-control" placeholder="Phone Number" /> -->
+                  <div class="help-center-number-input">
+                    <input autocomplete="off" type="text" appNumber
+                      class="form-control w-100 shadow-none iti__country-list" placeholder="phone_no" appNumber
+                      maxlength="10" ng2TelInput (ng2TelOutput)="getNumber($event)" formControlName="phone_no"
+                      (ng2TelOutput)="getNumber($event)" (intlTelInputObject)="telInputObject($event)"
+                      (countryChange)="onCountryChange($event)" />
+                    <ng-container *ngIf="isFormSubmited &&f?.['phone_no']?.errors?.['required']">
+                      <div class="col-sm-12 pb-3">
+                        <span class="text-danger ">Please Enter Phone number</span>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="isFormSubmited &&isNaN(f?.['phone_no']?.value)">
+                      <div class="col-sm-12 pb-3">
+                        <span class="text-danger ">Please Enter valid Phone number</span>
+                      </div>
+                    </ng-container>
+                  </div>
+
+                </div>
+              </div>
+              <h6 class="fw-bold mt-lg-5 mt-4 mb-0 text-center pt-lg-3">Describe Your Problem</h6>
+              <div class="auth-wrapper p-0 d-block">
+                <div class="setup-box s-box">
+                  <textarea formControlName="message"
+                    placeholder="Start typing, and remember to be thorough and clear..."></textarea>
+
+                </div>
+                <ng-container *ngIf="isFormSubmited &&f?.['message']?.errors?.['required']">
+                  <div class="col-sm-12 pb-3">
+                    <span class="text-danger ">Please Describe Your Problem</span>
+                  </div>
+                </ng-container>
+
+              </div>
+              <div class="text-center mt-lg-5 mt-3 mb-3 pt-lg-2">
+                <button class="btn btn-primary fw-medium">Submit Ticket</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

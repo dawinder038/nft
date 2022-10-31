@@ -1,0 +1,71 @@
+<div class="auth-wrapper">
+  <div class="auth-card card">
+    <div class="card-body">
+      <h3 class="fw-bold text-center mb-4">{{'login.title' | translate}}</h3>
+      <p class="text-center text-gray mb-md-4 mb-sm-3 mb-2">
+        {{'login.sub_title' | translate}}
+      </p>
+      <form autocomplete="off" [formGroup]="loginform">
+        <div class="form-group">
+          <div class=" position-relative">
+            <input type="email" placeholder="{{'login.placeholder.email_Address' | translate}}" formControlName="email"
+              style="z-index: 2; box-shadow: inset 0 50px 0 #fff !important" class="form-control position-relative"
+              name="email" id="email" autocomplete="off" />
+            <div class="form-control position-absolute w-100 h-100" style="z-index: 1; top: 0; left: 0">
+            </div>
+          </div>
+
+          <div *ngIf="submitted && loginform.controls?.email?.errors?.required" class="text-danger">
+            {{'login.errors.email' | translate}}
+          </div>
+          <div *ngIf="submitted && loginform.controls?.email?.errors?.pattern" class="text-danger">
+            {{'login.errors.validEmail' | translate}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="position-relative">
+            <input [type]="pwdType" placeholder="{{'login.placeholder.password' | translate}}" class="form-control"
+              formControlName="password" id="password" autocomplete="off" />
+            <button type="button" class="btn-icon visible-password" (click)="ToggleType()">
+              <i class="fas fa-eye-slash" *ngIf="pwdType == 'password'"></i>
+              <i class="fas fa-eye" *ngIf="pwdType == 'text'"></i>
+            </button>
+          </div>
+          <div *ngIf="submitted && loginform.controls?.password?.errors?.required" class="text-danger">
+            {{'login.errors.password' | translate}}
+          </div>
+          <div *ngIf="loginform.controls['password'].hasError('pattern')" class="text-danger">
+           {{'At least one lowercase, At least one uppercase, At least one numeric, and Minimum 8 characters' | translate}}
+          </div>
+        </div>
+        <div class="form-group text-center">
+          <label class="radio-container">
+            <input type="checkbox" name="check" formControlName="keep_signed_in" />
+            <span class="checkmark"></span>
+            {{'login.Keep_me_signed_in' | translate}}
+          </label>
+        </div>
+        <div class="form-group text-center mb-md-4">
+          <button class="btn btn-primary large" (click)="Login()" id="submit">{{'login.buttons.Sign_in' |
+            translate}}</button>
+        </div>
+        <div class="text-center">
+          <a [routerLink]="['/forgot-password']" class="forgot-text">{{'login.buttons.Forgot_Password' |
+            translate}}</a>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="auth-card card mt-4">
+    <div class="card-body py-4 px-lg-5">
+      <div class="d-flex justify-content-between align-items-center">
+        <p class="mb-0 fw-semi-bold font-16">{{'login.Don’t_have_an_account' | translate}}</p>
+        <a [routerLink]="['/creater-signup']" class="btn btn-outline-primary me-lg-2 large signup">
+          <span class="gradient-text">{{'login.buttons.Sign_Up' | translate}}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <auth-footer></auth-footer> -->

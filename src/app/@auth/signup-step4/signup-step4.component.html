@@ -1,0 +1,37 @@
+<div class="auth-wrapper justify-content-center">
+  <div class="signup-card card signup-4">
+    <!-- <div class="signup-card-logo text-center">
+            <img src="../../../assets/images/LoginSignup/logo_white_large.svg" class="img-fluid" />
+        </div> -->
+    <div class="card-body">
+
+      <h4 class="fw-bold text-center mb-sm-4 mb-3">We're glad you made it</h4>
+      <p class="text-center mb-lg-4">
+        For added security, please set up your 2-way factor!
+      </p>
+
+
+
+
+      <div
+        class="form-group text-center mb-0 pt-sm-3 pt-2 d-flex flex-wrap justify-content-center flex-column flex-md-row align-items-center">
+        <button (click)="skipTwoWayAuth()" class="btn btn-outline-secondary large mx-sm-2  px-5">
+          Browse Marketplace
+        </button>
+        <a class="btn btn-outline-primary large mx-sm-2 my-1 " (click)="setTwoWayAuth()">
+          <span class="gradient-text">Set Up 2-Way Factor Auth</span>
+        </a>
+
+        <a class="btn btn-icon ms-5" (click)="skipTwoWayAuth()">
+          <span class="fw-normal fs-14">Skip For Now</span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- <auth-footer></auth-footer> -->
+
+
+
+</div>

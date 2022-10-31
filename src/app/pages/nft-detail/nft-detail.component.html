@@ -1,0 +1,875 @@
+<div class="user-profile-wrapper position-relative">
+  <div class="profile-banner">
+    <img
+      [src]="nftDetail.current_owner?.cover_image?baseImgUrl+nftDetail.current_owner?.cover_image:'../../../assets/images/pages/neovichx_bg.png'"
+      class="w-100 image" />
+  </div>
+  <div class="profile-content text-center">
+    <div class="container">
+      <div class="user-profile">
+        <img
+          [src]="nftDetail.current_owner?.profile_pic ? baseImgUrl + nftDetail.current_owner?.profile_pic:'../../../assets/images/pages/profile_placeholder.png'" />
+      </div>
+      <h3 class="fw-bold  mb-lg-4 mb-3"> {{nftDetail.current_owner?.first_name + " " + nftDetail.current_owner?.last_name}}
+        <span class="ms-2"><img src="../../../assets/images/pages/check_tick.svg" /></span>
+      </h3>
+      <div class="d-flex align-items-center justify-content-center mb-3">
+        <h6 class="mb-0"><span class="gradient-text">@{{nftDetail.current_owner?.user_name}}</span></h6>
+        <div class="d-flex align-items-center ms-4">
+          <p class="mb-0">Acc. ID</p>
+          <h6 class="mb-0 fw-bold mx-2">{{nftDetail.current_owner?.wallet_address.slice(0,7)+'...'
+            +nftDetail.current_owner?.wallet_address.slice(-4)}}</h6>
+          <button class="btn-icon" (click)="copy(nftDetail.current_owner?.wallet_address)">
+            <img src="../../../assets/images/pages/copy.svg" />
+          </button>
+        </div>
+      </div>
+
+      <ng-container *ngIf="!nftDetail.current_owner?.bio">
+        <p class="fw-semi-bold mb-sm-4 mb-3">
+          We just got here! No Bio to see here... yet! <br />Stick around and
+          watch us figure out something.
+        </p>
+      </ng-container>
+      <ng-container *ngIf="nftDetail.current_owner?.bio">
+        <p class="fw-semi-bold mb-sm-4 mb-3">
+          {{nftDetail.current_owner?.bio}}
+        </p>
+      </ng-container>
+      <div class="row profile-detail mx-0">
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">Following</p>
+            <h6 class="mb-0 fw-bold">{{nftDetail.current_owner?.following_count}}+</h6>
+          </div>
+        </div>
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2"> Followers</p>
+            <h6 class="mb-0 fw-bold">{{nftDetail.current_owner?.follower_count}}</h6>
+          </div>
+        </div>
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">NFTs</p>
+            <h6 class="mb-0 fw-bold">{{nftDetail.current_owner?.nft_count}}+</h6>
+          </div>
+        </div>
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">Collections</p>
+            <h6 class="mb-0 fw-bold">{{nftDetail.current_owner?.collection_count}}</h6>
+          </div>
+        </div>
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">Owners</p>
+            <h6 class="mb-0 fw-bold">{{nftDetail.current_owner?.owner_count}}</h6>
+          </div>
+        </div>
+        <div class="col px-0">
+          <div class="pd-col">
+            <p class="mb-2">Memberships</p>
+            <h6 class="mb-0 fw-bold">{{nftDetail.current_owner?.membership_count}}</h6>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex flex-wrap justify-content-center pb-sm-5 pb-4 profile-btns">
+        <button (click)="SendNFT()" class="btn btn-outline-secondary m-sm-2 m-1 fs-14 pxe-4" data-bs-toggle="modal"
+          data-bs-target="#sendNftModal">
+          <img src="../../../assets/images/pages/card_giftcard.png" class="me-3" />Send NFT
+        </button>
+
+        <div class="btn-group dropup share-dropdown">
+          <button class="btn m-sm-2 m-1 fs-14 pxe-4 share-btn" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="../../../assets/images/pages/share.svg" class="me-3" />Share
+          </button>
+
+          <ul class="dropdown-menu">
+            <li>
+              <button class="dropdown-item" (click)="shareBYCopy(nftDetail?._id)">
+                <img src="../../../assets/images/pages/copy_black.png" class="me-2" />Copy URL
+              </button>
+            </li>
+            <li><a class="dropdown-item" (click)="sharefacebookUrl(nftDetail?._id)">Facebook</a></li>
+            <li><a class="dropdown-item" (click)="shareinstaUrl(nftDetail?._id)">Instagram</a></li>
+            <li><a class="dropdown-item" (click)="sharemailUrl(nftDetail?._id)">E-mail</a></li>
+          </ul>
+        </div>
+        <button class="btn btn-outline-secondary m-sm-2 m-1 fs-14 pxe-4" data-bs-toggle="modal"
+          data-bs-target="#claimModal">
+          <img src="../../../assets/images/pages/three_dots_horizontal.svg" class="me-3" />Claim / Report
+        </button>
+        <!-- <button class="btn btn-outline-primary m-sm-2 m-1 px-4 fs-14 pxe-4">
+          <span class="gradient-text">
+            <img src="../../../assets/images/pages/check_following.svg" class="me-3" />Following
+          </span>
+        </button> -->
+        <button class="btn btn-outline-primary m-sm-2 m-1 px-4 fs-14 pxe-4"
+          (click)="nftDetail.current_owner.is_follow=!nftDetail.current_owner?.is_follow; changeFollow(nftDetail.current_owner?._id)">
+          <span class="gradient-text" *ngIf="nftDetail.current_owner?.is_follow">
+            <img src="../../../assets/images/pages/check_following.svg" class="me-3" />Following
+          </span>
+          <span class="gradient-text" *ngIf="!nftDetail.current_owner?.is_follow">
+            Follow
+          </span>
+        </button>
+        <button class="btn btn-outline-primary m-sm-2 m-1 px-sm-5 fw-normal position-relative fs-14">
+          <img src="../../../assets/images/pages/web_link.svg" class="web-link" />
+          <span class="ps-sm-3">www.facebook.com/neovichx</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <section class="profile-page-view pb-5">
+    <div class="container">
+      <div class="nft-details-content visible-gradient">
+        <div class="row">
+          <div class="col-md-5">
+            <ng-container *ngIf="!nftDetail.media_type">
+              <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+            </ng-container>
+            <ng-container *ngIf="nftDetail.media_type">
+
+              <ng-container *ngIf="nftDetail.media_type=='image'">
+                <img class="img-fluid nft-detail-img" [src]="nftDetail.file?nftDetail.file:''" alt="">
+              </ng-container>
+              <ng-container *ngIf="nftDetail.media_type=='vedio'">
+                <video width="320" height="240" controls class="img-fluid nft-detail-img">
+                  <source [src]="nftDetail.file?nftDetail.file:''" type="video/mp4">
+                </video>
+              </ng-container>
+              <ng-container *ngIf="nftDetail.media_type=='audio'">
+                <audio controls class="img-fluid nft-detail-img">
+                  <source [src]="nftDetail.file?nftDetail.file:''" type="audio/ogg">
+                </audio>
+              </ng-container>
+            </ng-container>
+          </div>
+          <div class="col-md-7">
+            <div class="nft-content">
+              <h3 class="mb-xl-4 mb-2 fw-bold">
+                {{nftDetail.name}}
+              </h3>
+              <p>
+                {{nftDetail.description}}
+              </p>
+              <div class="mt-xl-5 mt-4">
+                <div class="d-flex align-items-center mb-3">
+                  <div>
+                    <img style="height: 55px; border-radius: 50%;" [src]="nftDetail.user_id?.profile_pic ? baseImgUrl + nftDetail.user_id?.profile_pic : '../../../assets/images/pages/creater.png'" class="nft-content-img" />
+                  </div>
+                  <div class="ms-3" [routerLink]="['/creator/' + nftDetail._id]" routerLinkActive="router-link-active" > 
+                    <p class="mb-0">Creator:</p>
+                    <h6 class="mb-0 fw-bold">
+                      {{nftDetail.user_id?.first_name +" " +nftDetail.user_id?.last_name}}
+                    </h6>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center mb-3" [routerLink]="['/collection-details/' + nftDetail?.collection_id?._id ]" routerLinkActive="router-link-active" >
+                  <div>
+                    <img
+                      [src]="nftDetail.collection_id?.image?nftDetail.collection_id.image:'../../../assets/images/pages/collection.png'"
+                      class="nft-content-img collection_Img_size" />
+                  </div>
+                  <div class="ms-3">
+                    <p class="mb-0">Collection:</p>
+                    <h6 class="mb-0 fw-bold">{{nftDetail.collection_id?.name}}</h6>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center mb-0">
+                  <div>
+                    <img src="../../../assets/images/pages/collection.png" class="nft-content-img" />
+                  </div>
+                  <div class="ms-3">
+                    <p class="mb-0">Blockchain:</p>
+                    <h6 class="mb-0 fw-bold">{{nftDetail.blockchain}}</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="nftDetail.properties?.length">
+        <div class="visible-gradient mt-4">
+          <div class="d-flex py-lg-4 py-3 px-lg-5 px-sm-4 px-3 align-items-center">
+            <h6 class="mb-0 fw-bold me-5">Properties:</h6>
+            <div>
+              <ng-container *ngFor="let property of nftDetail.properties">
+                <button class="btn btn-outline-secondary me-3 fs-14 my-1">
+                  {{property.key}} : {{property.value}}
+                </button>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+      </ng-container>
+
+      <div class="visible-gradient mt-4">
+        <div
+          class="d-flex py-lg-4 py-3 px-lg-5 px-sm-4 px-3 align-items-center justify-content-between availble-copies flex-wrap">
+          <div class="d-flex align-items-center flex-wrap mb-sm-0 mb-2" *ngIf="nftDetail.type == 2">
+            <h6 class="mb-0 fw-bold me-3">Available Copies:</h6>
+            <h2 class="mb-0 fw-bold">{{nftDetail.available}}/{{nftDetail.no_of_copy}}</h2>
+          </div>
+
+          <div class="d-flex align-items-center flex-wrap mb-sm-0 mb-2">
+            <h6 class="mb-0 fw-bold me-3">Selling for:</h6>
+            <h2 class="mb-0 fw-normal">
+              <img src="../../../assets/images/nft/polygon_matic_large.png" class="me-3" /><b>{{nftDetail.price}}
+                MATIC</b>
+              / {{((+nftDetail.dollar_value)*nftDetail.price).toFixed(4)}} USD
+            </h2>
+          </div>
+          <button [disabled]="(!isLogedIn) || nftDetail?.current_owner?.is_logged_user_owner == 0 ? false : true" (click)="buyNftFromMain()"
+            class="btn btn-primary my-1 " data-bs-toggle="modal" data-bs-target="#buyModal">
+            Buy Now
+          </button>
+        </div>
+        <ng-container *ngIf="nftDetail.type == 2 && nftDetail?.resellers.length > 1">
+          <div class="px-lg-5 px-sm-4 px-3">
+            <div>
+              <h4 class="fw-bold mb-4 mb-sm-0">Other Sellers:</h4>
+            </div>
+            <div class="ps-lg-5">
+              <ng-container *ngFor="let reseller of nftDetail?.resellers">
+                <div class="d-flex aign-items-center flex-sm-row flex-column">
+                  <div class="d-flex align-items-center mb-0">
+                    <div>
+                      {{reseller.reseller_id?.profile_pic}}
+                      <img
+                        [src]="reseller.reseller_id?.profile_pic ? baseImgUrl + reseller.reseller_id?.profile_pic:'../../../assets/images/pages/collection.png'"
+                        class="nft-content-img" />
+                    </div>
+                    <div class="ms-3">
+                      <p class="mb-0">{{reseller.reseller_id?.user_name}}</p>
+                    </div>
+                  </div>
+
+                  <div
+                    class="d-flex flex-wrap py-lg-4 py-3 ps-lg-5 ps-sm-3 align-items-center justify-content-between availble-copies flex-grow-1 ">
+                    <div class="d-flex align-items-center flex-wrap mb-sm-0 mb-2">
+                      <p class="mb-0 fw-bold me-3">Available Copies:</p>
+                      <h6 class="mb-0 fw-bold">{{reseller.available}}/{{reseller.no_of_copy}}</h6>
+                    </div>
+
+                    <div class="d-flex align-items-center flex-wrap mb-sm-0 mb-2">
+                      <p class="mb-0 fw-bold me-3">Selling for:</p>
+                      <h6 class="mb-0 fw-normal">
+                        <img src="../../../assets/images/nft/polygon_matic_large.png"
+                          class="me-3" /><b>{{reseller.price}}
+                          MATIC</b>
+                        / {{((+nftDetail.dollar_value)*reseller.price).toFixed(4)}} USD
+                      </h6>
+                    </div>
+
+                    <button [disabled]="!isLogedIn || reseller.is_logged_user_owner == 0 ? false : true" (click)="buyResaledNft(reseller)"
+                      class="btn btn-primary my-1 btn-sm ms-sm-2 small" data-bs-toggle="modal"
+                      data-bs-target="#buyModal">
+                      Buy Now
+                    </button>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
+
+      </div>
+      <div class="my-lg-5 my-sm-4 my-3 text-center">
+        <button class="btn btn-outline-secondary fs-14 mx-3 my-1" (click)="likeUnlikeNft(nftDetail._id);nftDetail.nft_like_count=nftDetail.is_liked?nftDetail.nft_like_count-1:nftDetail.nft_like_count+1;nftDetail.is_liked=!nftDetail.is_liked">
+          <img [src]="nftDetail.is_liked?'../../../assets/images/pages/favorite_fill_dark.svg':'../../../assets/images/pages/favorite_border_dark.svg'" class="me-2" />{{nftDetail.is_liked?nftDetail.nft_like_count-1==0?' You Liked This': ('You and '+(nftDetail.nft_like_count-1))+(nftDetail.nft_like_count>1?" others": "other")+'likethis':(nftDetail.nft_like_count>1?nftDetail.nft_like_count +" users":"No user")+' like this'}}
+        </button>
+        <button class="btn btn-outline-secondary fs-14 mx-3 my-1">
+          <img src="../../../assets/images/pages/chat_bubble.png" class="me-2" />
+          {{nftDetail.is_commented?(nftDetail?.nft_comment_count > 1 ? ("You and "+nftDetail?.nft_comment_count + " others commented on this"):"Only you commented on this") : (nftDetail?.nft_comment_count>0?(nftDetail?.nft_comment_count + (nftDetail?.nft_comment_count>1?" others":" other")+" commented on this"):nftDetail.is_commented?"":"0 comment on this")}}
+        </button>
+        <button class="btn btn-outline-secondary fs-14 mx-3 my-1">
+          <img src="../../../assets/images/pages/share.svg" class="me-2" />24
+          Shares
+        </button>
+      </div>
+
+      <div class="post-comment-area mb-4" [formGroup]="commentForm">
+        <div class="comment-area">
+          <textarea maxlength="1000" formControlName="comment" placeholder="Start typing your comment here..."></textarea>
+        </div>
+        <div
+          class="comment-footer-area d-flex justify-content-sm-between justify-content-center align-items-center flex-wrap ">
+          <p class="text-gray mb-0">{{1000 - commentForm.controls['comment'].value?.length}} / 1,000 Characters Available</p>
+          <button (click)="isEdit == false ? makeComment() : editComment()" [disabled]="!commentForm.valid || !isLogedIn"
+            class="btn btn-primary my-1 mx-3">{{isEdit == false ? 'Post Comment' : 'Edit Comment'}}</button>
+        </div>
+      </div>
+      <div class="comment-wrapper">
+        <h5 class="fw-bold">Comments</h5>
+        <ng-container *ngFor="let comment of nftDetail.comments">
+          <div class="comments-content">
+            <div class="d-flex">
+              <div>
+                <img
+                  [src]="comment.profile_pic ? baseImgUrl+comment.profile_pic:'../../../assets/images/pages/user.png'"
+                  class="user mb-3" />
+              </div>
+
+              <div class="ms-sm-2 flex-grow-1 pb-2">
+                <div>
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <p class="mb-0 text-gray">
+                        <b class="text-black">{{comment.first_name +''+comment.last_name}}</b> commented on this
+                      </p>
+                      <p class="text-gray mb-2"><span>{{msToHMS(comment.created_at)}} </span> ago</p>
+                    </div>
+                    <ng-container *ngIf="comment.is_my_comment">
+                      <div class="dropdown marketplace-dropdown">
+                        <button class="btn btn-icon" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          <img src="../../../assets/images/HomePage/three_dots.svg" />
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu2">
+                          <li>
+                            <button class="dropdown-item" type="button" (click)="getCommentById(comment._id)">Edit</button>
+                          </li>
+                          <li>
+                            <button (click)="deleteComment(comment._id)" class="dropdown-item"
+                              type="button">Delete</button>
+                          </li>
+                        </ul>
+                      </div>
+                    </ng-container>
+
+                  </div>
+
+                  <p class="comment">
+                    {{comment.comment}}
+                  </p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <p class="mb-0 fw-bold">
+                      <img
+                        (click)="likeComment(comment._id); comment.like_count = comment.is_liked ? comment.like_count - 1 : comment.like_count + 1 ; comment.is_liked =! comment.is_liked"
+                        [src]="comment.is_liked?'../../../assets/images/pages/favorite_fill_dark.svg':'../../../assets/images/pages/favorite_border_dark.svg'"
+                        class="me-2 cursor-pointer" />{{comment.like_count}} {{comment.like_count>1?"Likes":"Like"}}
+                    </p>
+                    <button class="btn-icon fw-bold reply-btn" (click)="isRplyingId=comment._id">Reply</button>
+                  </div>
+                </div>
+                <div class="reply-content">
+                  <ng-container *ngFor="let rplyComment of comment.comment_replies">
+                    <div class="d-flex mt-4 replyyyyyyyyyyyyyyyyyyyyyyyyyyyy">
+                      <div>
+                        <img
+                          [src]="rplyComment.user?.profile_pic ? baseImgUrl + rplyComment.user?.profile_pic:'../../../assets/images/pages/user.png'"
+                          class="user mb-3" />
+                      </div>
+
+                      <div class="ms-sm-2 flex-grow-1">
+
+                        <div>
+                          <div class="d-flex justify-content-between">
+                            <div>
+                              <p class="mb-0 text-gray">
+                                <b class="text-black">{{rplyComment.user?.first_name
+                                  +''+rplyComment.user?.last_name}}</b> Commented on this
+                              </p>
+                              <p class="text-gray mb-2"><span>{{msToHMS(rplyComment.created_at)}} </span> ago</p>
+                            </div>
+                            <ng-container *ngIf="rplyComment.is_my_comment">
+
+                              <div class="dropdown marketplace-dropdown">
+                                <button class="btn btn-icon" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
+                                  aria-expanded="false">
+                                  <img src="../../../assets/images/HomePage/three_dots.svg" />
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu2">
+                                  <li>
+                                    <button class="dropdown-item" type="button" (click)="getCommentById(comment._id)">Edit</button>
+                                  </li>
+                                  <li>
+                                    <button (click)="deleteComment(rplyComment._id)" class="dropdown-item"
+                                      type="button">Delete</button>
+                                  </li>
+                                </ul>
+                              </div>
+                            </ng-container>
+                          </div>
+
+                          <p class="comment">
+                            {{rplyComment.comment}}
+                          </p>
+                          <div class="d-flex justify-content-between align-items-center">
+                            <p class="mb-0 fw-bold">
+                              <img
+                                (click)="likeReplyComment(rplyComment._id) ; rplyComment.like_count = rplyComment.is_liked ? rplyComment.like_count - 1 : rplyComment.like_count + 1; rplyComment.is_liked =! rplyComment.is_liked"
+                                [src]="rplyComment.is_liked?'../../../assets/images/pages/favorite_fill_dark.svg':'../../../assets/images/pages/favorite_border_dark.svg'"
+                                class="me-2 cursor-pointer" />{{rplyComment.like_count}}
+                              {{rplyComment.like_count>1?"Likes":"Like"}}
+                            </p>
+                            <!-- <button class="btn-icon fw-bold reply-btn" (click)="isRplyingId=comment._id">Reply</button> -->
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+
+              </div>
+            </div>
+            <ng-container *ngIf="isRplyingId==comment._id">
+
+              <div class="d-flex reply-text mt-3">
+                <div>
+                  <img src="../../../assets/images/pages/user.png" class="user mb-3" />
+                </div>
+                <div class="ms-sm-2 flex-grow-1 ">
+                  <textarea class="w-100" (keydown.enter)="repyComment(comment._id,$event)" maxlength="1000"
+                    placeholder="Start typing your reply here..."></textarea>
+                </div>
+              </div>
+            </ng-container>
+
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </section>
+
+  <section class="marketplace">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mb-md-5 mb-sm-4 mb-3">
+            <h2 class="title me-3">You might also like</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-lg-4 col-xl-3 mb-4 pb-lg-3" *ngFor="let eachnft of marketPlaceNfts">
+          <div class="marketplace-box">
+            <div class="position-relative">
+              <ng-container *ngIf="eachnft.media_type=='image'">
+                <img class="marketplace-img" (click)="goNftDetailPage(eachnft)" [src]="eachnft?.file ? eachnft?.file : '../../../assets/images/HomePage/nft_placeholder.png'" alt="">
+              </ng-container>
+              <ng-container *ngIf="eachnft.media_type=='vedio'">
+                <video width="320" height="240" controls class="marketplace-img" (click)="goNftDetailPage(eachnft)">
+                  <source [src]="eachnft.file ? eachnft.file:''" type="video/mp4">
+                </video>
+              </ng-container>
+              <ng-container *ngIf="eachnft.media_type=='audio'">
+                <audio controls>
+                  <source [src]="eachnft.file ? eachnft.file:''" type="audio/ogg">
+                </audio>
+              </ng-container>
+
+              <div class="likes-count">
+                <span class="me-2 fw-semi-bold">{{eachnft.likes_count}}</span>
+                <img (click)="likeUnlike(eachnft._id,$event); eachnft.likes_count = eachnft.is_liked ? eachnft.likes_count-1 : eachnft.likes_count + 1; eachnft.is_liked =! eachnft.is_liked" [src]="eachnft.is_liked?'../../../assets/images/HomePage/favorite_fill.svg':'../../../assets/images/HomePage/favorite_outline.svg'" />
+              </div>
+            </div>
+            <div class="marketplace-content pb-2ng sev">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <p class="text-gray mb-0">{{eachnft.collection_name}}</p>
+                <div class="dropdown marketplace-dropdown">
+                  <button class="btn btn-icon" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <img src="../../../assets/images/HomePage/three_dots.svg" />
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu2">
+                    <li>
+                      <button class="dropdown-item" type="button">Report</button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <p class="fw-bold text-nft-name">
+                {{eachnft.name}}
+              </p>
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <p class="mb-0 fw-semi-bold"><img src="../../../assets/images/nft/polygon_matic.png" class="me-2 w-19" />{{eachnft.price}} MATIC</p>
+                <ng-container>
+                  <button class="btn-icon cursor-pointer" [routerLink]="['/nft-details',eachnft._id]">
+                    <span class="gradient-text">View NFT</span>
+                  </button>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+</div>
+<div class="modal fade common-modal" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button class="close-btn btn-icon" #closebuyModal data-bs-toggle="modal" data-bs-target="#buyModal">
+          <img src="../../../assets/images/pages/close.svg" />
+        </button>
+        <ng-container>
+          <div class="loader" *ngIf="isBuying">
+            <div class="spinner-border text-dark" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </ng-container>
+        <div class="row">
+          <div class="col-md-5">
+            <div class="preview-box visible-gradient">
+              <div class="preview">
+                <ng-container *ngIf="!nftDetail.media_type">
+                  <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+                </ng-container>
+                <ng-container *ngIf="nftDetail.media_type">
+                  <ng-container *ngIf="nftDetail.media_type=='image'">
+                    <img class="marketplace-img" [src]="nftDetail.file ? nftDetail.file:''" alt="">
+                  </ng-container>
+                  <ng-container *ngIf="nftDetail.media_type=='vedio'">
+                    <video width="320" height="240" controls>
+                      <source [src]="nftDetail.file?nftDetail.file:''" type="video/mp4">
+                    </video>
+                  </ng-container>
+                  <ng-container *ngIf="nftDetail.media_type=='audio'">
+                    <audio controls>
+                      <source [src]="nftDetail.file?nftDetail.file:''" type="audio/ogg">
+                    </audio>
+                  </ng-container>
+                </ng-container>
+              </div>
+              <div class="text-center preview-info">
+                <p class="mb-0 text-break"><b>{{nftDetail.name}}</b></p>
+                <p class="mb-0 text-gray text-break">
+                  {{selecteedNftOwnerAddress.slice(0,7) +'...'+ selecteedNftOwnerAddress.slice(-4)}}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7">
+            <div class="common-modal-content ps-md-4 mt-md-0 mt-4">
+              <h3 class="fw-bold">Checkout</h3>
+              <p>
+                You are about to purchase a<br /><b>{{nftDetail.name}}</b><br />from
+                <b>{{selecteedNftOwnerAddress.slice(0,7)+'...'+selecteedNftOwnerAddress.slice(-4)}}</b>
+              </p>
+              <div class="d-flex align-items-center justify-content-between mt-4">
+                <p>Balance</p>
+                <p><b>{{walletBallance}} MATIC</b> / {{((+nftDetail.dollar_value)*walletBallance).toFixed(4)}} USD</p>
+              </div>
+              <div class="d-flex align-items-center justify-content-between">
+                <p>Service Fee 2.5%</p>
+                <p><b> {{nftDetail.price *0.25}} MATIC</b> / {{(+((+nftDetail.dollar_value)*nftDetail.price).toFixed(4))
+                  *0.25}} USD</p>
+              </div>
+              <div class="d-flex align-items-center justify-content-between">
+                <p>Item Price</p>
+                <p><b>{{selectedBuyDetail.price}} MATIC</b>/ {{((+nftDetail.dollar_value)*nftDetail.price).toFixed(4)}}
+                  USD</p>
+              </div>
+              <div class="d-flex align-items-center justify-content-between mt-4">
+                <p>Total</p>
+                <h5 *ngIf="nftDetail.type==1">
+                  <img src="../../../assets/images/nft/polygon_matic.png" class="me-3  w-19" /><b>{{(nftDetail.price
+                    *0.25)+ +nftDetail.price}} MATIC</b> /
+                  {{(+((+((+nftDetail.dollar_value)*(+nftDetail.price))) *0.25)
+                  +(+(+nftDetail.dollar_value)*(+nftDetail.price))).toFixed(4)}} USD
+                </h5>
+                <h5 *ngIf="nftDetail.type==2">
+                  <img src="../../../assets/images/nft/polygon_matic.png"
+                    class="me-3  w-19" /><b>{{(selectedBuyDetail.price
+                    *0.25)+ +selectedBuyDetail.price}} MATIC</b> /
+                  {{(+((+((+((+nftDetail.dollar_value)*(+nftDetail.price))) *0.25)
+                  +(+(+nftDetail.dollar_value)*(+nftDetail.price))))*copiesToBuy).toFixed(4)}} USD
+
+                </h5>
+              </div>
+              <div class="" *ngIf="nftDetail.type==2">
+                <p>No of Copies</p>
+                <input type="number" [(ngModel)]="copiesToBuy" min="0" [max]="selectedBuyDetail?.available" class="form-control" (keypress)="numberOnlyLimited($event)">
+              </div>
+              <label class="radio-container fw-normal fs-12">
+                <input type="checkbox" name="radio" [(ngModel)]="isByTemsChecked" checked />
+                <span class="checkmark"></span>
+                By checking this box, you agree to NFTwist's
+                <b class="text-theme">Terms</b>.
+              </label>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <button (click)="is_Resale == 'main' ? BuyNow(closebuyModal) : ResaleNft(closebuyModal)"
+              [disabled]=" !isByTemsChecked || !isLogedIn || isBuying || !copiesToBuy" type="button"
+              class="btn btn-primary fw-normal w-100 pay-now-btn">
+              Pay Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade common-modal" id="claimModal" tabindex="-1" aria-labelledby="claimModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button class="close-btn btn-icon" data-bs-toggle="modal" #claimModal data-bs-target="#claimModal">
+          <img src="../../../assets/images/pages/close.svg" />
+        </button>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="common-modal-content ps-md-4">
+              <h3 class="fw-bold">
+                Claim / Report :
+                <span class="gradient-text ms-2">@neovichx</span>
+              </h3>
+              <p class="mt-4">
+                If you think this account violates our community guidelines,
+                please do not hesitate to let us know.
+              </p>
+              <div class="row mt-4 pt-2">
+                <div class="col-md-6">
+                  <div>
+                    <label class="radio-container fs-14 text-black fw-semi-bold mt-2">
+                      <input type="radio" name="radio" checked />
+                      <span class="checkmark"></span>
+                      I Own This Account
+                    </label>
+                  </div>
+                  <div>
+                    <label class="radio-container fs-14 text-black fw-semi-bold mt-2">
+                      <input type="radio" name="radio" />
+                      <span class="checkmark"></span>
+                      Adult Content
+                    </label>
+                  </div>
+                  <div>
+                    <label class="radio-container fs-14 text-black fw-semi-bold mt-2">
+                      <input type="radio" name="radio" />
+                      <span class="checkmark"></span>
+                      Promotes Violence
+                    </label>
+                  </div>
+                  <div>
+                    <label class="radio-container text-black fw-semi-bold fs-14 mt-2">
+                      <input type="radio" name="radio" />
+                      <span class="checkmark"></span>
+                      Hate Speech and Discrimination
+                    </label>
+                  </div>
+                  <div>
+                    <label class="radio-container text-black fw-semi-bold fs-14 mt-2">
+                      <input type="radio" name="radio" />
+                      <span class="checkmark"></span>
+                      Promotes Extremism and Terrorism
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="claim-warning">
+                    <textarea placeholder="Please elaborate further before submitting your Claim/Report"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <p class="text-gray mt-4">
+                By submitting this Claim/Report, you acknowledge that the above
+                information is correct.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <button type="button" class="btn btn-primary fw-normal w-100 mt-2" (click)="reportNft(claimModal)">
+              Submit Claim/Report
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade common-modal send-nft-modal" id="sendNftModal" tabindex="-1" aria-labelledby="sendNftModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button class="close-btn btn-icon" data-bs-toggle="modal" data-bs-target="#sendNftModal">
+          <img src="../../../assets/images/pages/close.svg" />
+        </button>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="pl-60 pr-60">
+              <div class="d-flex align-items-center justify-content-between flex-wrap">
+                <h3 class="fw-bold">
+                  Send NFT to
+                  <span class="gradient-text ms-2">@neovichx</span>
+                </h3>
+                <div class="d-flex align-items-center flex-wrap">
+                  <p class="mb-0 me-3">Acc. ID</p>
+                  <div class="account-id">
+                    <h6 class="mb-0 fw-bold text-black accId">1x1cs...6sa1</h6>
+                    <button class="btn-icon fs-14 mx-3" (click)="copiesAddress('1x1cs...6sa1')">
+                      <img src="../../../assets/images/pages/copy_black.png" class="me-1" />Copy
+                    </button>
+                    <button class="btn-icon fs-14 mx-2 disable" (click)="pasteAddress('1x1cs...6sa1')">
+                      <img src="../../../assets/images/pages/paste.png" class="me-1" />Paste
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-md-4 mt-3 pt-lg-2 mb-0">
+                Select the NFT(s) you wanted send from your collections to
+                <b>Neovichx</b> as a gift! We’ll let them know you care...
+              </p>
+            </div>
+            <div *ngIf="isLoaded" class="send-nft">
+              <owl-carousel-o [options]="customOptions">
+                <ng-template carouselSlide>
+                  <div class="marketplace-box">
+                    <div class="position-relative">
+                      <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+                      <div class="likes-count">
+                        <span class="me-2 fw-semi-bold">66</span><img
+                          src="../../../assets/images/HomePage/favorite_outline.svg" />
+                      </div>
+                    </div>
+
+                    <div class="marketplace-content">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="text-gray mb-0">Collection Name</p>
+                      </div>
+                      <p class="fw-bold text-nft-name">
+                        NFT Name Goes Here Even If It's Long #0001
+                      </p>
+                      <label class="radio-container fs-12 fw-normal my-0">
+                        <input type="radio" name="radio" checked />
+                        <span class="checkmark"></span>
+                        <span class="select-text">Select</span>
+                      </label>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template carouselSlide>
+                  <div class="marketplace-box">
+                    <div class="position-relative">
+                      <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+                      <div class="likes-count">
+                        <span class="me-2 fw-semi-bold">66</span><img
+                          src="../../../assets/images/HomePage/favorite_outline.svg" />
+                      </div>
+                    </div>
+
+                    <div class="marketplace-content">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="text-gray mb-0">Collection Name</p>
+                      </div>
+                      <p class="fw-bold text-nft-name">
+                        NFT Name Goes Here Even If It's Long #0001
+                      </p>
+                      <label class="radio-container fs-12 fw-normal my-0">
+                        <input type="radio" name="radio" checked />
+                        <span class="checkmark"></span>
+                        <span class="select-text">Select</span>
+                      </label>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template carouselSlide>
+                  <div class="marketplace-box">
+                    <div class="position-relative">
+                      <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+                      <div class="likes-count">
+                        <span class="me-2 fw-semi-bold">66</span><img
+                          src="../../../assets/images/HomePage/favorite_outline.svg" />
+                      </div>
+                    </div>
+
+                    <div class="marketplace-content">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="text-gray mb-0">Collection Name</p>
+                      </div>
+                      <p class="fw-bold text-nft-name">
+                        NFT Name Goes Here Even If It's Long #0001 [routerLink]="['/nft-details', item._id]"
+                      </p>
+                      <label class="radio-container fs-12 fw-normal my-0">
+                        <input type="radio" name="radio" checked />
+                        <span class="checkmark"></span>
+                        <span class="select-text">Select</span>
+                      </label>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template carouselSlide>
+                  <div class="marketplace-box">
+                    <div class="position-relative">
+                      <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+                      <div class="likes-count">
+                        <span class="me-2 fw-semi-bold">66</span><img
+                          src="../../../assets/images/HomePage/favorite_outline.svg" />
+                      </div>
+                    </div>
+
+                    <div class="marketplace-content">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="text-gray mb-0">Collection Name</p>
+                      </div>
+                      <p class="fw-bold text-nft-name">
+                        NFT Name Goes Here Even If It's Long #0001
+                      </p>
+                      <label class="radio-container fs-12 fw-normal my-0">
+                        <input type="radio" name="radio" checked />
+                        <span class="checkmark"></span>
+                        <span class="select-text">Select</span>
+                      </label>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template carouselSlide>
+                  <div class="marketplace-box">
+                    <div class="position-relative">
+                      <img src="../../../assets/images/HomePage/nft_placeholder.png" class="marketplace-img" />
+                      <div class="likes-count">
+                        <span class="me-2 fw-semi-bold">66</span><img
+                          src="../../../assets/images/HomePage/favorite_outline.svg" />
+                      </div>
+                    </div>
+
+                    <div class="marketplace-content">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <p class="text-gray mb-0">Collection Name</p>
+                      </div>
+                      <p class="fw-bold text-nft-name">
+                        NFT Name Goes Here Even If It's Long #0001
+                      </p>
+                      <label class="radio-container fs-12 fw-normal my-0">
+                        <input type="radio" name="radio" checked />
+                        <span class="checkmark"></span>
+                        <span class="select-text">Select</span>
+                      </label>
+                    </div>
+                  </div>
+                </ng-template>
+              </owl-carousel-o>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-center pl-60 pr-60">
+              <label class="radio-container fs-12 fw-normal my-0">
+                <input type="radio" name="radio" checked />
+                <span class="checkmark"></span>
+                By checking this box, you confirm sending <b>@neovichx</b> the
+                selected NFT(s). <b>This action is irreversible.</b>
+              </label>
+              <button type="button" class="btn btn-primary fw-normal ms-5 large">
+                Send
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

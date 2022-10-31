@@ -1,0 +1,165 @@
+<div class="collection-details">
+  <div class="container">
+    <div class="row mx-0">
+      <!-- <div class="col-md-4">
+
+      </div> -->
+      <div class="col-md-12">
+        <div class="row">
+
+          <!-- <div class="ms-4 mt-4"> -->
+          <!-- header content -->
+          
+          <div class="header-cover position-relative">
+            <div class="share-icon position-absolute">
+              <div class="dropdown share-dropdown-buttons">
+                <button class="black-btn mx-1" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                  aria-expanded="false"><i class="fas fa-share-alt"></i></button>
+                <ul class="dropdown-menu share-dropdown dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                  <p class="fw-semi-bold text-center">Share Link</p>
+                  <div>
+                    <button class="btn-icon text-center mx-2 px-0">
+                      <i class="fab fa-twitter d-block s-icon"></i>
+                      <span class="fs-10 text-gray">Twitter</span>
+                    </button>
+                    <button class="btn-icon text-center mx-2 px-0">
+                      <i class="fab fa-facebook-f d-block s-icon"></i>
+                      <span class="fs-10  text-gray">Facebook</span>
+                    </button>
+                    <button class="btn-icon text-center mx-2 px-0">
+                      <a class="text-gray">
+                        <i class="fas fa-envelope d-block s-icon"></i>
+                        <span class="fs-10  text-gray">Email</span>
+                      </a>
+                    </button>
+                    <button class="btn-icon text-center mx-2 px-0">
+                      <i class="fas fa-copy d-block s-icon "></i>
+                      <span class="fs-10  text-gray">Copy</span>
+                    </button>
+                  </div>
+                </ul>
+              </div>
+            </div>
+            <img
+              [src]="collectionDetailResponse?.cover_image ? collectionDetailResponse?.cover_image : '../../../assets/images/collection1.jpg'" />
+            <div class="user-profile-box gradient-profile mt-0">
+              <div class="positon-relative">
+                <img
+                  [src]="collectionDetailResponse?.image ? collectionDetailResponse?.image : '../../../assets/images/collection1.jpg'" />
+              </div>
+            </div>
+          </div>
+          <div class="row"></div>
+          <div class="mt-5 col-md-4 col-lg-3"> 
+            <h3 class="fw-bold pt-5 ps-5">{{collectionDetailResponse.name}}</h3>
+          </div>
+          <div class="col-md-8 col-lg-9">
+          <div class="d-flex flex-wrap align-items-center pt-3">
+            <div class="col-md-12">
+              <div class="d-flex align-items-center justify-content-end mb-lg-4 mb-3 ">               
+              </div>
+              <p class="mb-3">{{collectionDetailResponse.description}}</p>
+              <div class="d-flex justify-content-start">
+              
+                  <!-- dynamic buttons -->
+                  <div class="">
+                    <button class="btn btn-primary mb-1 text-break px-2"><span class="pe-4 ps-2 ps-lg-5">{{collectionDetailResponse?.collection_address}}</span>
+                      <img src="../../../assets/images/pages/copy.svg" (click)="copyCollectionAddress(collectionDetailResponse?.collection_address)" alt="img" class="pe-2"></button>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+          <ul class="nav nav-pills mb-5 common-tabs justify-content-start" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="pills-items-tab" data-bs-toggle="pill" data-bs-target="#pills-items"
+                type="button" role="tab" aria-controls="pills-items" aria-selected="true">
+                <span>NFTs</span>
+              </button>
+            </li>
+          </ul>
+
+          <div class="tab-content common-tabs-content pt-2" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-items" role="tabpanel" aria-labelledby="pills-items-tab">
+              <div class="marketplace  pb-md-3 pb-0">
+
+                <!-- <div class="d-flex justify-content-center mb-3">
+                <div class="spinner-border " role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div> -->
+
+                <div class="row">
+                  <ng-container *ngFor="let item of marketPlaceNfts">
+                    <div class="col-md-6 col-lg-4 col-xl-3 mb-4 pb-lg-3" [routerLink]="['/nft-details', item._id]">
+                      <div class="marketplace-box" [class]="item?.type == 2 ? 'multiple' : '' ">
+                        <div class="position-relative">
+                          <ng-container *ngIf="item?.media_type">
+                            <ng-container *ngIf="item.media_type=='image'">
+                              <img class="marketplace-img"
+                                [src]="item?.file ? item?.file : '../../../assets/images/HomePage/nft_placeholder.png'"
+                                alt="">
+                            </ng-container>
+                            <ng-container *ngIf="item.media_type=='vedio'">
+                              <video width="320" height="240" controls class="marketplace-img">
+                                <source [src]="item.file?item.file:''" type="video/mp4">
+                              </video>
+                            </ng-container>
+                            <ng-container *ngIf="item.media_type=='audio'">
+                              <audio controls>
+                                <source [src]="item.file?item.file:''" type="audio/ogg">
+
+                              </audio>
+                            </ng-container>
+                          </ng-container>
+                          <!-- <div class="likes-count">
+                          <span class="me-2 fw-semi-bold">{{item.likes_count}}</span>
+                          <img
+                            (click)="likeUnlike(item._id,$event); item.likes_count = item.is_liked ? item.likes_count-1 : item.likes_count + 1; item.is_liked =! item.is_liked"
+                            [src]="item.is_liked ? '../../../assets/images/HomePage/favorite_fill.svg' : '../../../assets/images/HomePage/favorite_outline.svg'" />
+                        </div> -->
+                        </div>
+                        <div class="marketplace-content">
+                          <div class="d-flex justify-content-between align-items-center mb-2">
+                            <p class="text-gray mb-0">{{item?.collection_name || 'Collection Name'}}</p>
+                            <div class="dropdown marketplace-dropdown">
+                              <button class="btn btn-icon" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <img src="../../../assets/images/HomePage/three_dots.svg" />
+                              </button>
+                              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu2">
+                                <li>
+                                  <button class="dropdown-item" type="button">Report</button>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="pb-2">
+                            <p class="fw-bold">
+                              {{item?.name}}
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center pt-4">
+                              <p class=" fw-semi-bold">
+                                <img src="../../../assets/images/nft/polygon_matic.png"
+                                  class="me-2 w-19" />{{item?.price}} MATIC
+                              </p>
+                              <p class="fw-bold gradient-text">
+                                View NFT
+                              </p>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

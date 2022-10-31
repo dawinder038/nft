@@ -1,0 +1,126 @@
+{
+  "header": {
+    "placeholder": {
+      "search": "Search items, collections, partners"
+    },
+    "Partners": "Partners",
+    "Marketplace": "Marketplace",
+    "Get_Started": "Get Started",
+    "Login_Sign_Up": "Login/Sign Up"
+  },
+  "login": {
+    "title": "Sign in with NFTwist",
+    "sub_title": "Enter your E-mail Address and Password to log into your account.",
+    "placeholder": {
+      "email_Address": "E-mail Address",
+      "password": "Password"
+    },
+    "Keep_me_signed_in": "Keep me signed in",
+    "Don’t_have_an_account": "Don’t have an account?",
+    "buttons": {
+      "Sign_in": "Sign in",
+      "Forgot_Password": "Forgot Password?",
+      "Sign_Up": "Sign Up"
+    },
+    "errors": {
+      "email": "Please enter email address",
+      "validEmail": "Please enter valid email address",
+      "password": "Please enter password"
+    }
+  },
+  "signUp": {
+    "title1": "Sign Up",
+    "desc1": "Welcome to the fastest growing NFT platform. NFTwist is the easiest way to get started and dive freely into the world of NFTs.",
+    "desc2": "We create for you a secure and unique wallet upon sign up, where you will receive and store your NFTs, and funds once you make successful sales on our marketplace. ",
+    "desc3": "We do not own your private keys and cannot access your funds without your confirmation.",
+    "title2": "Personal Details",
+    "sub_title": "Enter your personal details below",
+    "placeholder": {
+      "email_Address": "E-mail Address",
+      "password": "Password",
+      "retype_password": "Retype Password",
+      "First_Name": "First Name",
+      "Last_Name": "Last Name",
+      "Username": "@Username",
+      "Phone_Number": "Phone Number"
+    },
+    "buttons": {
+      "back": "Back",
+      "next": "Next",
+      "complete_Sign_up": "Complete Sign Up",
+      "logout": "Logout",
+      "cancel":"Cancel"
+    },
+    "Why_NFTwist": "Why NFTwist?",
+    "Why_NFTwist_Ans1": "We are starting a revolution in the world of NFTs",
+    "Why_NFTwist_Ans2": "by allowing creation, buying, selling and transfers to be extremely easy and cheap!",
+    "What_is_our_membership_fee": "What is our membership fee?",
+    "What_is_our_membership_fee_Ans1": "We charge 4.20 USD (approximately 15.75 AED) as a onetime fee upon sign up",
+    "What_is_our_membership_fee_Ans2": "and you receive 2 twist credits to get started right away with your NFTs. Twist credits never expire!",
+    "Are_you_a_buyer": "Are you a buyer?",
+    "Are_you_a_buyer_Ans": "You can signup as a buyer and buy any NFT you like, to signup as a buyer is free. If you would like to create an NFT in the future, you can always purchase twist credits.",
+    "errors": {
+      "email": "Please enter email address",
+      "validEmail": "Please enter valid email address",
+      "password": "Please enter password",
+      "c_password": "Please enter confirm password",
+      "m_password": "Password and Confirm Password must be match.",
+      "name": "Please enter name",
+      "Last_Name": "Please enter last name",
+      "validName": "Please enter valid name",
+      "userName": "Please enter username",
+      "number": "Please enter phone number",
+      "validNumber": "Please enter valid phone number",
+      "state_Required": "Please select state",
+      "emailExist": "Email already exists",
+      "userNameExist": "Username Already Exist",
+      "dob":"Please Enter Date Of Birth",
+      "ngbDate":"Please Enter Valid Date"
+    }
+  },
+  "forgot": {
+    "title": "Forgot Password",
+    "sub_title": "Enter your E-mail Address or Phone Number to reset password",
+    "emailPlaceholder": "E-mail Address ",
+    "phonePlaceholder": "Phone Number",
+    "resetType": {
+      "value": "Select Reset Type",
+      "email": "By Email",
+      "phone": "By Phone Number"
+    },
+    "errors": {
+      "required": {
+        "email": "Please enter email.",
+        "phone": "Please enter phone number."
+      },
+      "valid": {
+        "email": "Please enter valid email.",
+        "phone": "Please enter valid  phone number."
+      }
+    },
+    "buttons": {
+      "Cancel": "Cancel",
+      "Send_Reset_Link": "Send Reset Link"
+    }
+  },
+  "resetPassword": {
+    "title": "Reset Password",
+    "sub_title": "Enter your E-mail Address or Phone Number to reset password",
+    "placeholders": {
+      "newPass": "New Password",
+      "confirmPass": "Retype New Password"
+    },
+    "errors": {
+      "required": {
+        "newPass": "Please enter the password.",
+        "confrmPass": "Please re-enter the password."
+      },
+      "valid": {
+        "newPass": "Password must be 8 characters and alphanumeric.",
+        "confrmPass": "Passwords must match."
+      }
+    },
+    "saveButton": "Save New Password"
+  },
+  "homePage": {}
+}

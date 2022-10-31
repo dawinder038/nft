@@ -1,0 +1,133 @@
+<div class="auth-page two-way-factor">
+  <div class="create-items-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>
+            If you want to create and mint NFT on the platform then you have to verify your identity.
+          </h2>
+          <p class="text-center fw-bold">
+            We require all new users to present a governmental issued document
+            to verify their identity.
+          </p>
+        </div>
+      </div>
+
+      <div class="create-item-content verify-identity">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="mb-lg-5 mb-4">
+              <div class="d-flex align-items-center justify-content-between flex-wrap mb-4 pb-2">
+                <h4 class="mb-lg-0 fw-bold">Upload Offical Document</h4>
+                <!-- <p class="mb-0 ">
+                  Driver's License, Government Issued ID, Passport
+                </p> -->
+                <div class="dropdown document-dropdown">
+                  <!-- <button class="btn btn-outline-secondary dropdown-toggle small  py-2 w-100 fw-normal" type="button"
+                    id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                    Document Type
+                  </button>
+                  <ul class="dropdown-menu  w-100 text-center" aria-labelledby="dropdownMenuButton2">
+                    <li><a class="dropdown-item" >Identity Card</a></li>
+                    <li><a class="dropdown-item" >Passport</a></li>
+                  </ul> -->
+                  <select class="form-control" name="" [(ngModel)]="docType" id="">
+                    <option class="text-center" value="" disabled selected>Document Type</option>
+                    <option class="text-center" value="2"><span>Identity Card</span> </option>
+                    <option class="text-center" value="1"><span>Passport</span></option>
+                  </select>
+                  <span class="text-danger" *ngIf="isSubmited && docType==''"> Please select document type</span>
+                </div>
+              </div>
+              <!-- <label class="upload-file">
+                <p class="upload-text">Document's Front Side</p>
+                <div>
+                  <input type="file" class="d-none" />
+                  <p class="text-gray">Drag and drop or</p>
+                  <button class="btn btn-outline-primary fs-14">
+                    <span class="gradient-text">Choose File</span>
+                  </button>
+                </div>
+              </label> -->
+              <ngx-dropzone style="height:291px ;" (change)="upload($event,1)" class=" position-relative dropzon">
+                <ngx-dropzone-label>
+                  <p class="upload-text text-dark">Document's Front Side</p>
+
+                  <p>Drag and Drop or</p>
+                  <button class="btn btn-outline-primary fs-14">
+                    <span class="gradient-text">Choose File</span>
+                  </button>
+                </ngx-dropzone-label>
+                <ng-container>
+                  <ngx-dropzone-image-preview class="w-100" [file]="f" *ngFor="let f of frontUploadedFiles"
+                    [removable]="true" (removed)="frontUploadedFiles=[];frontFileData=''">
+                  </ngx-dropzone-image-preview>
+                </ng-container>
+              </ngx-dropzone>
+              <span class="text-danger" *ngIf="isSubmited && this.frontFileData==''"> Please Upload Document's Front
+                Side</span>
+
+            </div>
+            <ng-container *ngIf="docType==2">
+              <div class="mb-lg-5 mb-4">
+                <!-- <label class="upload-file">
+                  <p class="upload-text">Document's Back Side</p>
+                  <div>
+                    <input type="file" class="d-none" />
+                    <p class="text-gray">Drag and drop or</p>
+                    <button class="btn btn-outline-primary fs-14">
+                      <span class="gradient-text">Choose File</span>
+                    </button>
+                  </div>
+                </label> -->
+                <ngx-dropzone style="height:291px ;" (change)="upload($event,2)" class="mt-4 position-relative dropzon">
+                  <ngx-dropzone-label>
+                    <p class="upload-text text-dark">Document's Back Side</p>
+
+                    <p>Drag and Drop or</p>
+                    <button class="btn btn-outline-primary fs-14">
+                      <span class="gradient-text">Choose File</span>
+                    </button>
+                  </ngx-dropzone-label>
+                  <ng-container>
+                    <ngx-dropzone-image-preview class="w-100" [file]="f" *ngFor="let f of backUploadedFiles"
+                      [removable]="true" (removed)="backUploadedFiles=[];backFileData=''">
+                      <!-- <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label> -->
+                    </ngx-dropzone-image-preview>
+                  </ng-container>
+                </ngx-dropzone>
+                <span class="text-danger" *ngIf="isSubmited && this.backFileData==''"> Please Upload Document's Back
+                  Side</span>
+
+              </div>
+            </ng-container>
+
+            <div class="text-center">
+              <div class="mb-lg-5 mb-4">
+                <label class="radio-container fw-normal fs-14 m-0">
+                  <input [(ngModel)]="isAcknowledge" type="checkbox" name="radio" />
+                  <span class="checkmark"></span>
+                  I acknowledge that the information uploaded is correct.
+                </label>
+                <div>
+                  <span class="text-danger" *ngIf="isSubmited && !this.isAcknowledge"> Please acknowledge that the
+                    information uploaded is correct</span>
+
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <button (click)="submitDocument()" class="btn btn-primary fs-14">
+                  Start The Verification Processs
+                </button>
+              </div>
+              <p class="text-gray mb-0">
+                The verification process may take up to 48 hours.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

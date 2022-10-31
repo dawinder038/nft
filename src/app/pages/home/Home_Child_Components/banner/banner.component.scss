@@ -1,0 +1,101 @@
+
+.stage {
+    width: auto;
+    margin-top: 15px;
+    height: 100px;
+  }
+  .cubespinner {
+    animation-name: spincube;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: 5s;
+    transform-style: preserve-3d;
+    animation-fill-mode: forwards;
+    transform-origin: 40px 40px 0;
+  }
+  .cubespinner div {
+    position: absolute;
+    width: 100%;
+    height: 80px;
+    text-align: center;
+    color: #109393;
+    font-family: "Raleway", sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    text-shadow: 1px 1px 1px #0000003b;
+    @media (max-width: 991px) {
+      font-size: 42px;
+    }
+    @media (max-width: 767px) {
+      font-size: 34px;
+    }
+    @media (max-width: 575px) {
+      font-size: 20px;
+    }
+  }
+  .cubespinner .face1 {
+    color: #fff;
+    transform: rotateX(90deg) translateZ(40px);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  .cubespinner .face2 {
+    color: #fff;
+    transform: rotateX(180deg) translateZ(40px);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  .cubespinner .face3 {
+    color: #fff;
+    transform: rotateX(270deg) translateZ(40px);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  
+  /*Cubical Flipping or rotation*/
+  @keyframes spincube {
+    from,
+    to {
+      transform: rotateX(0deg);
+    }
+    15% {
+      transform: rotateX(90deg);
+    }
+    25% {
+      transform: rotateX(90deg);
+    }
+    40% {
+      transform: rotateX(180deg);
+    }
+    55% {
+      transform: rotateX(180deg);
+    }
+    75% {
+      transform: rotateX(270deg);
+    }
+    90% {
+      transform: rotateX(270deg);
+    }
+    // 90% {
+    //   transform: rotateX(360deg);
+    // }
+    100% {
+      transform: rotateX(360deg);
+    }
+  }
+  
+  .loggedin-banner {
+    width: 100%;
+    height: 630px;
+    object-fit: cover;
+    @media (max-width: 991px) {
+      height: 480px;
+    }
+    @media (max-width: 767px) {
+      height: 350px;
+    }
+    @media (max-width: 575px) {
+      height: 200px;
+    }
+  
+  }

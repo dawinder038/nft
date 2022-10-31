@@ -1,0 +1,86 @@
+<div class="auth-wrapper">
+  <ng-container *ngIf="loading">
+    <div class="loader">
+      <div class="spinner-border text-dark" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </ng-container>
+  <div class="card signup-card" (click)="showCountries=false">
+    <div class="row">
+      <div class="col-md-8 pe-md-0">
+        <div class="signup-content">
+          <h3 class="fw-bold mb-4">{{'signUp.title2' | translate}}</h3>
+
+          <p class="text-gray mb-4">{{'signUp.sub_title' | translate}}</p>
+          <form autocomplete="off" [formGroup]="signUpDetailForm">
+            <div class="form-group">
+              <input type="text" autocomplete="off" (keypress)="keyPressAlphaNumeric($event)" placeholder="{{'signUp.placeholder.First_Name' | translate}}" class="form-control " formControlName="first_name" />
+              <div *ngIf="submitted && signUpDetailForm.controls.first_name?.errors?.required" class="text-danger">{{'signUp.errors.name' | translate}}</div>
+              <div *ngIf="submitted && signUpDetailForm.controls?.first_name?.value && signUpDetailForm.controls?.first_name?.errors?.whitespace" class="text-danger"> {{'signUp.errors.validName' | translate}}</div>
+            </div>
+
+            <div class="form-group">
+              <input type="text" autocomplete="off" (keypress)="keyPressAlphaNumeric($event)" placeholder="{{'signUp.placeholder.Last_Name' | translate}}" class="form-control" formControlName="last_name" /> 
+              <div *ngIf="submitted && signUpDetailForm.controls?.last_name?.errors?.required" class="text-danger"> {{'signUp.errors.Last_Name' | translate}}</div>
+              <div *ngIf="submitted && signUpDetailForm.controls?.last_name?.value && signUpDetailForm.controls?.last_name?.errors?.whitespace" class="text-danger"> {{'signUp.errors.validName' | translate}}</div>
+            </div>
+
+            <div class="form-group">
+              <input type="text" autocomplete="off" placeholder="{{'signUp.placeholder.Username' | translate}}" class="form-control" formControlName="user_name" (keydown.space)="$event.preventDefault();" />
+              <div *ngIf="submitted && signUpDetailForm.controls?.user_name?.errors?.required" class="text-danger"> {{'signUp.errors.userName' | translate}} </div>
+              <div *ngIf="!isUsernameAvailable" class="text-danger"> {{'signUp.errors.userNameExist' | translate}} </div>
+            </div>
+
+            <div class="form-group">
+              <input type="text" autocomplete="off" placeholder="{{'signUp.placeholder.Phone_Number' | translate}}" class="form-control" formControlName="phone_no" (keypress)="onlyNumericValuesAllowed($event)" maxlength="10"/>
+              <div *ngIf="submitted && signUpDetailForm.controls?.phone_no?.errors?.required" class="text-danger"> {{'signUp.errors.number' | translate}}</div>
+            </div>
+
+            <div class="form-group position-relative">
+              <input autocomplete="off" class="form-control" placeholder="Date of Birth (yyyy-mm-dd)"  formControlName="dob" ngbDatepicker [dayTemplate]="customDay" [minDate]="{day:01,month:01,year:1920}" [maxDate]="{day:maxDate - 1,month:maxMonth,year:maxYear}" #d="ngbDatepicker">
+              <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+              <div *ngIf="submitted && signUpDetailForm.controls?.dob?.errors?.required" class="text-danger"> {{'signUp.errors.dob' | translate}}</div>
+            </div>
+
+            <ng-template #customDay let-date let-currentMonth="currentMonth" let-selected="selected" let-disabled="disabled" let-focused="focused">
+              <span class="custom-day" [class.focused]="focused" [class.bg-primary]="selected" [class.hidden]="date.month !== currentMonth" [class.text-muted]="disabled"> {{ date.day }} </span>
+            </ng-template>
+
+            <div class="form-group position-relative">
+              <input class="form-control mb-2 ps-5" autocomplete="off" (input)="filterCountries()" [(ngModel)]="countriesFilter" formControlName="country" type="text" (focus)="showCountries=true" (click)="showCountries=true;$event.stopPropagation()">
+              <span class="position-absolute country-flag">{{selectedCountryFlag}}</span>
+              <ng-container *ngIf="showCountries">
+                <div class="" *ngIf="countriesList.length">
+                  <div class="position-absolute bg-white dropdown-list px-4 shadow">
+                    <p class="cursor-pointer my-0 py-2" (click)="setCountry(country,$event);$event.stopPropagation()" *ngFor="let country of countriesList"> {{country.emoji}} {{country.name}}</p>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+
+            <div class="form-group">
+              <select class="form-select" formControlName="state">
+                <option value="" disabled>Select</option>
+                <option *ngFor="let state of statesList" [value]="state">{{state}}</option>
+              </select>
+              <div *ngIf="submitted && signUpDetailForm.controls?.state?.errors?.required" class="text-danger"> {{'signUp.errors.state_Required' | translate}}</div>
+            </div>
+            <div class="form-group text-center mb-0 mt-5 d-flex flex-wrap justify-content-between">
+              <button type="button" (click)="logout()" class="btn btn-outline-secondary large me-2">{{'signUp.buttons.cancel' | translate}}</button>
+              <a class="btn btn-outline-primary large px-2" (click)="SignUp()"><span class="gradient-text">{{'signUp.buttons.complete_Sign_up' | translate}}</span></a>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-4 px-md-0">
+        <div class="buy-information">
+          <div class="info">
+            <h2 class="fw-bold mb-md-4 mb-2">You are almost there, <br />this is the last step!</h2>
+            <p class="signup-steps">Step 2 of 2</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
